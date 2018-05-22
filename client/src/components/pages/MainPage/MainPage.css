@@ -1,0 +1,29 @@
+body {
+    margin: 0;
+}
+
+.main-page-header {
+    display: table;
+    background: blue;
+    width: 100%;
+    height: 80px;
+    margin: 0;
+}
+
+.main-page-title {
+    display: table-cell;
+    vertical-align: middle;
+    text-align: center;
+    margin: 0;
+    color: white;
+}
+
+.main-page-body {
+    width: 600px;
+    height: 600px;
+    margin: auto;
+}
+.main-page-body-picture {
+    height: 100%;
+    width: 100%;
+}
