@@ -1,7 +1,7 @@
 module.exports = {
   // See <http://truffleframework.com/docs/advanced/configuration>
   // to customize your Truffle configuration!
-  contracts_build_directory: "../client/src/smart-contracts-abis",
+  contracts_build_directory: __dirname + "/../client/src/smart-contracts-abis",
   networks: {
     development: {
       host: "127.0.0.1",
