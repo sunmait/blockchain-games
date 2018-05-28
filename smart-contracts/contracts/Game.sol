@@ -28,17 +28,23 @@ contract GuessNumberGame {
         owner = msg.sender;
     }
 
-    function getGames() view internal returns (Game[]) {
-        return games;
+    function getGames() view public returns (uint[]) {
+        uint[] memory ids = new uint[](games.length);
+        for (uint i = 0; i < games.length; i++) {
+            ids[i] = i;
+        }
+        return ids;
     }
 
-    function hostGame(bytes32 move) public returns (uint gameId) {
+    function hostGame(bytes32 move) public returns (bool) {
         games.push(Game(msg.sender, address(0), move, 0, 0, State.Hosted, Result(0)));
-        gameId = gameIdCounter;
+        uint gameId = gameIdCounter;
 
         emit GameHosted(msg.sender, move, gameId);
 
         gameIdCounter++;
+
+        return true;
     }
 
     function joinGame(uint gameId, uint8 move) public returns (bool success) {
@@ -67,7 +73,6 @@ contract GuessNumberGame {
         } else {
             result = Result.Win;
         }
-
 
         thisGame.result = result;
 

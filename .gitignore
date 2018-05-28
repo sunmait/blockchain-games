@@ -2,6 +2,7 @@
 
 # dependencies
 node_modules
+package-lock.json
 
 # testing
 /coverage
@@ -21,3 +22,5 @@ yarn-debug.log*
 yarn-error.log*
 
 /client/src/smart-contracts-abis
+
+.idea

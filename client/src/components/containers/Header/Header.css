@@ -1,0 +1,16 @@
+.navbar-default {
+    width: 100%;
+}
+
+.navbar-header {
+    height: 100%;
+    padding: auto;
+}
+
+.navbar-collapse {
+    float: right;
+}
+
+a {
+    background: unset !important;
+}
