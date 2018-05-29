@@ -1,0 +1,3 @@
+export default {
+  SET_CONTRACT_INSTANCE: 'SET_CONTRACT_INSTANCE',
+};
