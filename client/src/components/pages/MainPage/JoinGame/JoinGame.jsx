@@ -19,10 +19,22 @@ class JoinGame extends React.Component {
     });
   };
 
+  joinGame = () => {
+    const {joinGame} = this.props.contractInstance;
+    joinGame(this.props.currentGameId, this.state.selectedNumber, (err, answer) => {
+      if (err) {
+        console.log('error', err);
+      } else {
+        console.log('answer', answer);
+      }
+    });
+  };
+
   render() {
     return (
       <Row>
         <Col md={4}>
+          Game #{this.props.currentGameId}
           <NumberPicker
             title="Choose your number"
             handleValueChanged={(value) => this.handleValueChanged(value)}
@@ -30,7 +42,7 @@ class JoinGame extends React.Component {
         </Col>
         <Col md={4}>
           <Button
-            onClick={() => this.props.joinGame(this.state.selectedNumber)}
+            onClick={this.joinGame}
             bsStyle="primary"
           >
             Join Game

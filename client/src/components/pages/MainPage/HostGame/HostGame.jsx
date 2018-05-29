@@ -19,6 +19,17 @@ class HostGame extends React.Component {
     });
   };
 
+  hostGame = () => {
+    const {hostGame} = this.props.contractInstance;
+    hostGame(this.state.selectedNumber, (err, answer) => {
+      if (err) {
+        console.log('err', err);
+      } else {
+        console.log('smthg', answer);
+      }
+    });
+  };
+
   render() {
     return (
       <Row>
@@ -30,7 +41,7 @@ class HostGame extends React.Component {
         </Col>
         <Col md={4}>
           <Button
-            onClick={() => this.props.hostGame(this.state.selectedNumber)}
+            onClick={this.hostGame}
             bsStyle="primary"
           >
             Host Game
