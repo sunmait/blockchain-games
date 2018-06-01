@@ -20,10 +20,14 @@ export const handleCurrentGameIdChange = (gameId) => (dispatch, getState) => {
     if (err) {
       console.log('err: ', err);
     } else {
-      const gameStatus = gameStatuses[Number(result[4])];
+      const gamePrice = Number(result[2]);
+      const gameStatus = gameStatuses[Number(result[5])];
       dispatch({
-        type: CONSTANTS.HANDLE_CURRENT_GAME_STATUS_CHANGE,
-        payload: gameStatus,
+        type: CONSTANTS.GET_CURRENT_GAME_FIELDS,
+        payload: {
+          gamePrice,
+          gameStatus,
+        },
       });
     }
   });

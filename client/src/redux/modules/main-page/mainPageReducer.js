@@ -6,6 +6,7 @@ const defaultState = {
   currentGame: {
     id: null,
     status: null,
+    price: undefined,
   },
 };
 
@@ -20,8 +21,8 @@ export default function (state = defaultState, {type, payload}) {
     case CONSTANTS.HANDLE_CURRENT_GAME_ID_CHANGE:
       return handleCurrentGameIdChange(state, payload);
 
-    case CONSTANTS.HANDLE_CURRENT_GAME_STATUS_CHANGE:
-      return handleCurrentGameStatusChange(state, payload);
+    case CONSTANTS.GET_CURRENT_GAME_FIELDS:
+      return handleCurrentGameFieldsChange(state, payload);
 
     default:
       return state;
@@ -52,9 +53,10 @@ function handleCurrentGameIdChange(state, gameId) {
   };
 }
 
-function handleCurrentGameStatusChange(state, status) {
+function handleCurrentGameFieldsChange(state, payload) {
   const currentGame = state.currentGame;
-  currentGame.status = status;
+  currentGame.status = payload.gameStatus;
+  currentGame.price = payload.gamePrice;
 
   return {
     ...state,

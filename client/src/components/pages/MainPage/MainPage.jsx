@@ -70,21 +70,49 @@ class MainPage extends Component {
     }
   }
 
+  getHostedGamesPricesByIds = (gamesIds) => {
+    const {getGameById} = this.props.contractInstance;
+    return gamesIds.map(gameId => {
+      return new Promise((resolve) => {
+        getGameById(
+          gameId,
+          (err, result) => {
+            if (err) {
+              console.log('err: ', err);
+            } else {
+              const gamePrice = Number(result[2]);
+              resolve({
+                id: gameId,
+                price: gamePrice,
+              });
+            }
+          }
+        )
+      });
+    });
+  };
+
   getHostedGamesIds = () => {
     const {getHostedGamesIds} = this.props.contractInstance;
     getHostedGamesIds((err, answer) => {
       if (err) {
         console.log('error', err);
       } else {
-        console.log('answer', answer);
-        this.setState({
-          hostedGamesList: answer.map((elem) => Number(elem)),
-        })
+        const hostedGamesIdsList = answer.map(item => {
+          return Number(item);
+        });
+        Promise.all(this.getHostedGamesPricesByIds(hostedGamesIdsList))
+          .then((response) => {
+            this.setState({
+              hostedGamesList: response,
+            });
+          });
       }
     });
   };
 
   renderGamesList = () => {
+    console.log('l', this.state.hostedGamesList.length);
     if (this.state.hostedGamesList.length === 0) {
       return (
         <div>
@@ -107,12 +135,14 @@ class MainPage extends Component {
       return (
         <Row key={key} className="games-list-element-container">
           <Col md={6}>
-            Game #{item}
+            Game #{item.id}
+            <br />
+            Game price: {item.price} vei
           </Col>
           <Col md={6}>
             <Button
               onClick={() => {
-                this.props.handleCurrentGameIdChange(item);
+                this.props.handleCurrentGameIdChange(item.id);
                 this.props.handleActiveTabChange(3);
               }}
             >

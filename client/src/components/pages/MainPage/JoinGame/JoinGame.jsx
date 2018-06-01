@@ -26,7 +26,7 @@ class JoinGame extends React.Component {
     console.log(playerBet);
     joinGame.sendTransaction(this.props.currentGame.id, playerBet,
       {
-        value: 10**18,
+        value: this.props.currentGame.price,
       },
       (err, answer) => {
       if (err) {

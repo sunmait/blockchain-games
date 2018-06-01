@@ -75,8 +75,8 @@ contract GuessNumberGame {
     return ids;
   }
 
-  function getGameById(uint id) view public returns (address, address, uint8, NumberState, State, Result) {
-      return (games[id].player1, games[id].player2, games[id].player1Number, games[id].player2Answer, games[id].state, games[id].result);
+  function getGameById(uint id) view public returns (address, address, uint, uint8, NumberState, State, Result) {
+      return (games[id].player1, games[id].player2, games[id].value, games[id].player1Number, games[id].player2Answer, games[id].state, games[id].result);
   }
 
   function hostGame(bytes32 player1NumberHidden, uint val) public payable returns (bool) {
