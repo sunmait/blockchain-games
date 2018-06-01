@@ -105,7 +105,7 @@ class MainPage extends Component {
     return this.state.hostedGamesList.map((item, index) => {
       const key = index;
       return (
-        <Row key={key}>
+        <Row key={key} className="games-list-element-container">
           <Col md={6}>
             Game #{item}
           </Col>
@@ -143,7 +143,7 @@ class MainPage extends Component {
         onSelect={(key) => this.props.handleActiveTabChange(key)}
       >
         <Tab eventKey={1} title="Open Games">
-          <Row>
+          <Row className="games-list-container">
             <Col md={10}>
               {this.renderGamesList()}
             </Col>

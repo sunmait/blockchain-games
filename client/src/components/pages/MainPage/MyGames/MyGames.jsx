@@ -23,7 +23,7 @@ class MyGames extends React.Component {
     return this.state.userGamesList.map((item, index) => {
       const key = index;
       return (
-        <Row key={key}>
+        <Row key={key} className="games-list-element-container">
           <Col md={6}>
             Game #{item}
           </Col>
