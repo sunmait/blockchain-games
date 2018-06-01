@@ -37,3 +37,13 @@ export const handleActiveTabChange = (tabId) => ({
   type: CONSTANTS.HANDLE_ACTIVE_TAB_CHANGE,
   payload: tabId,
 });
+
+export const getHostedGames = (hostedGamesList) => ({
+  type: CONSTANTS.GET_HOSTED_GAMES,
+  payload: hostedGamesList,
+});
+
+export const handleGameHostedEvent = (game) => ({
+  type: CONSTANTS.HANDLE_GAME_HOSTED_EVENT,
+  payload: game,
+});

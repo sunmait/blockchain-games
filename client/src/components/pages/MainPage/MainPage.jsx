@@ -4,13 +4,12 @@ import Col from 'react-bootstrap/lib/Col';
 import Tabs from 'react-bootstrap/lib/Tabs';
 import Tab from 'react-bootstrap/lib/Tab';
 import Button from 'react-bootstrap/lib/Button';
-import { contractAddress } from '../../../appSettings';
-import contractABI from '../../../smart-contracts-abis/GuessNumberGame';
 import HostGameContainer from './HostGame/HostGameContainer';
 import CurrentGameContainer from './CurrentGame/CurrentGameContainer';
 import MyGamesContainer from './MyGames/MyGamesContainer';
 import './MainPage.css';
 // import Web3 from 'web3';
+import contractInitialization from '../../../helpers/contractInitialization';
 
 class MainPage extends Component {
   constructor(props) {
@@ -21,7 +20,7 @@ class MainPage extends Component {
     // console.log(window.web3.eth.contract(contractABI.abi).at(contractAddress));
 
     this.state = {
-      hostedGamesList: [],
+      hostedGamesList: this.props.hostedGamesList,
       // contractInstance: window.web3.eth.contract(contractABI.abi).at(contractAddress),
       activeTabId: this.props.activeTabId,
     };
@@ -31,6 +30,7 @@ class MainPage extends Component {
   componentWillReceiveProps(nextProps) {
     this.setState({
       activeTabId: nextProps.activeTabId,
+      hostedGamesList: nextProps.hostedGamesList,
     });
   }
 
@@ -42,35 +42,11 @@ class MainPage extends Component {
     window.removeEventListener('load', this.onLoad.bind(this), false);
   }
 
-  onLoad() {
-    if (typeof web3 !== 'undefined') {
-      // window.web3 = new Web3(web3.currentProvider);
-      // const contractInstance = window.web3.eth.contract(contractABI.abi).at(contractAddress);
-      const contractInstance = window.web3.eth.contract(contractABI.abi).at(contractAddress);
-      this.props.setContractInstance(contractInstance);
+  onLoad = () => {
+    contractInitialization(this);
+  };
 
-      if (window.web3.currentProvider.isMetaMask === true) {
-        window.web3.eth.getAccounts((error, accounts) => {
-          if (accounts.length === 0) {
-            console.log('no account');
-            // there is no active accounts in MetaMask
-          }
-          else {
-            console.log('all is fine');
-            // It's ok
-          }
-        });
-      } else {
-        console.log('different web3 provider');
-        // Another web3 provider
-      }
-    } else {
-      console.log('no web3 provider');
-      // No web 3 provider
-    }
-  }
-
-  getHostedGamesPricesByIds = (gamesIds) => {
+  getHostedGamesFieldsByIds = (gamesIds) => {
     const {getGameById} = this.props.contractInstance;
     return gamesIds.map(gameId => {
       return new Promise((resolve) => {
@@ -92,7 +68,7 @@ class MainPage extends Component {
     });
   };
 
-  getHostedGamesIds = () => {
+  getHostedGames = () => {
     const {getHostedGamesIds} = this.props.contractInstance;
     getHostedGamesIds((err, answer) => {
       if (err) {
@@ -101,18 +77,18 @@ class MainPage extends Component {
         const hostedGamesIdsList = answer.map(item => {
           return Number(item);
         });
-        Promise.all(this.getHostedGamesPricesByIds(hostedGamesIdsList))
+        Promise.all(this.getHostedGamesFieldsByIds(hostedGamesIdsList))
           .then((response) => {
-            this.setState({
-              hostedGamesList: response,
-            });
+            this.props.getHostedGames(response);
+            // this.setState({
+            //   hostedGamesList: response,
+            // });
           });
       }
     });
   };
 
   renderGamesList = () => {
-    console.log('l', this.state.hostedGamesList.length);
     if (this.state.hostedGamesList.length === 0) {
       return (
         <div>
@@ -176,15 +152,6 @@ class MainPage extends Component {
           <Row className="games-list-container">
             <Col md={10}>
               {this.renderGamesList()}
-            </Col>
-            <Col md={2}>
-              <Button
-                onClick={this.getHostedGamesIds}
-              >
-                <span
-                  className="glyphicon glyphicon-refresh"
-                />
-              </Button>
             </Col>
           </Row>
         </Tab>

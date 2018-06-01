@@ -27,7 +27,6 @@ class HostGame extends React.Component {
     const {hostGame} = this.props.contractInstance;
     const secretWord = generateString(16);
     const hiddenNumber = window.web3.sha3(window.web3.toHex(this.state.selectedNumber, secretWord));
-    console.log('hid: ', hiddenNumber);
     hostGame.sendTransaction(hiddenNumber, 10**18,
       {
         value: 10**18,
@@ -36,7 +35,6 @@ class HostGame extends React.Component {
       if (err) {
         console.log('err', err);
       } else {
-        console.log('smthg', answer);
         this.setState({
           secretWord,
           isModal: true,

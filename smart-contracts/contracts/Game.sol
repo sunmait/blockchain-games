@@ -21,7 +21,7 @@ contract GuessNumberGame {
   Game[] public games;
 
   event Deposit(address indexed player, uint amount);
-  event GameHosted(address player1, bytes32 player1NumberHidden, uint indexed gameId);
+  event GameHosted(address player1, bytes32 player1NumberHidden, uint indexed gameId, uint value);
   event GameJoined(address player2, NumberState player2Answer);
   event GameEnded(address player1, address player2, Result result);
 
@@ -87,7 +87,7 @@ contract GuessNumberGame {
     games.push(Game(msg.sender, address(0), val, player1NumberHidden, 0, NumberState(2), State.Hosted, Result(0)));
     uint gameId = gameIdCounter;
 
-    emit GameHosted(msg.sender, player1NumberHidden, gameId);
+    emit GameHosted(msg.sender, player1NumberHidden, gameId, val);
 
     gameIdCounter++;
 

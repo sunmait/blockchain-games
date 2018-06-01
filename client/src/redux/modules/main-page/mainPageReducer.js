@@ -8,6 +8,7 @@ const defaultState = {
     status: null,
     price: undefined,
   },
+  hostedGamesList: [],
 };
 
 export default function (state = defaultState, {type, payload}) {
@@ -23,6 +24,12 @@ export default function (state = defaultState, {type, payload}) {
 
     case CONSTANTS.GET_CURRENT_GAME_FIELDS:
       return handleCurrentGameFieldsChange(state, payload);
+
+    case CONSTANTS.GET_HOSTED_GAMES:
+      return getHostedGames(state, payload);
+
+    case CONSTANTS.HANDLE_GAME_HOSTED_EVENT:
+      return handleGameHostedEvent(state, payload);
 
     default:
       return state;
@@ -61,5 +68,21 @@ function handleCurrentGameFieldsChange(state, payload) {
   return {
     ...state,
     currentGame,
+  };
+}
+
+function getHostedGames(state, hostedGamesList) {
+  return {
+    ...state,
+    hostedGamesList,
+  };
+}
+
+function handleGameHostedEvent(state, game) {
+  const hostedGamesList = state.hostedGamesList;
+  hostedGamesList.push(game);
+  return {
+    ...state,
+    hostedGamesList,
   };
 }

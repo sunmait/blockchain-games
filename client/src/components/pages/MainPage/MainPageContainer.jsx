@@ -7,12 +7,15 @@ const mapStateToProps = (state) => ({
   contractInstance: state.main.contractInstance,
   currentGame: state.main.currentGame,
   activeTabId: state.main.activeTabId,
+  hostedGamesList: state.main.hostedGamesList,
 });
 
 const mapDispatchToProps = (dispatch) => bindActionCreators({
   setContractInstance: mainPageActions.setContractInstance,
   handleCurrentGameIdChange: mainPageActions.handleCurrentGameIdChange,
   handleActiveTabChange: mainPageActions.handleActiveTabChange,
+  getHostedGames: mainPageActions.getHostedGames,
+  handleGameHostedEvent: mainPageActions.handleGameHostedEvent,
 }, dispatch);
 
 export default connect(mapStateToProps, mapDispatchToProps)(MainPage);
