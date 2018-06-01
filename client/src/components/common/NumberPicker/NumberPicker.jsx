@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import SplitButton from 'react-bootstrap/lib/SplitButton';
+import DropdownButton from 'react-bootstrap/lib/DropdownButton';
 import MenuItem from 'react-bootstrap/lib/MenuItem';
 
 class NumberPicker extends React.Component {
@@ -38,7 +38,7 @@ class NumberPicker extends React.Component {
         <MenuItem
           eventKey={elem}
           key={elem}
-          onClick={() => this.toggleDropdownButtonState(elem)}
+          onSelect={() => this.toggleDropdownButtonState(elem)}
         >
           {elem}
         </MenuItem>
@@ -48,12 +48,12 @@ class NumberPicker extends React.Component {
 
   render() {
     return (
-      <SplitButton
+      <DropdownButton
         title={this.state.title}
         id={1}
       >
         {this.renderMenuItems()}
-      </SplitButton>
+      </DropdownButton>
     );
   }
 }
