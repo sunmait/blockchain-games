@@ -33,12 +33,50 @@ contract GuessNumberGame {
     owner = msg.sender;
   }
 
-  function getGames() view public returns (uint[]) {
+  function getGamesIds() view public returns (uint[]) {
     uint[] memory ids = new uint[](games.length);
     for (uint i = 0; i < games.length; i++) {
       ids[i] = i;
     }
     return ids;
+  }
+
+  function getHostedGamesIds() view public returns (uint[]) {
+    uint hostedGamesCounter = 0;
+    for (uint i = 0; i < games.length; i++) {
+      if (games[i].state == State.Hosted) {
+        hostedGamesCounter++;
+      }
+    }
+    uint idIndex = 0;
+    uint[] memory ids = new uint[](hostedGamesCounter);
+    for (uint j = 0; j < games.length; j++) {
+      if (games[j].state == State.Hosted) {
+        ids[idIndex++] = j;
+      }
+    }
+    return ids;
+  }
+
+  function getUserGamesIds() view public returns (uint[]) {
+    uint userGamesCounter = 0;
+    for (uint i = 0; i < games.length; i++) {
+      if (games[i].player1 == msg.sender || games[i].player2 == msg.sender) {
+        userGamesCounter++;
+      }
+    }
+    uint idIndex = 0;
+    uint[] memory ids = new uint[](userGamesCounter);
+    for (uint j = 0; j < games.length; j++) {
+      if (games[j].player1 == msg.sender || games[j].player2 == msg.sender) {
+        ids[idIndex++] = j;
+      }
+    }
+    return ids;
+  }
+
+  function getGameById(uint id) view public returns (address, address, uint8, NumberState, State, Result) {
+      return (games[id].player1, games[id].player2, games[id].player1Number, games[id].player2Answer, games[id].state, games[id].result);
   }
 
   function hostGame(bytes32 player1NumberHidden, uint val) public payable returns (bool) {
@@ -71,7 +109,6 @@ contract GuessNumberGame {
 
   function revealHiddenNumber(uint gameId, uint8 player1Number, string secret) public returns (Result result) {
     Game storage thisGame = games[gameId];
-
     require(thisGame.state == State.Joined);
     require(thisGame.player1 == msg.sender);
     require(player1Number > 0 && player1Number <= 10);
@@ -92,7 +129,6 @@ contract GuessNumberGame {
 
     emit GameEnded(thisGame.player1, thisGame.player2, thisGame.result);
     winner.transfer(thisGame.value*2);
-
   }
 
   function setOwner(address newOwner) public {
@@ -107,9 +143,5 @@ contract GuessNumberGame {
     emit Deposit(msg.sender, msg.value);
 
     return true;
-  }
-
-  function getGameById(uint id) view public returns (address, address, uint8, NumberState, State, Result) {
-    return (games[id].player1, games[id].player2, games[id].player1Number, games[id].player2Answer, games[id].state, games[id].result);
   }
 }

@@ -21,7 +21,11 @@ class JoinGame extends React.Component {
 
   joinGame = () => {
     const {joinGame} = this.props.contractInstance;
-    joinGame(this.props.currentGameId, this.state.selectedNumber, (err, answer) => {
+    joinGame.sendTransaction(this.props.currentGame.id, this.state.selectedNumber,
+      {
+        value: 10**18,
+      },
+      (err, answer) => {
       if (err) {
         console.log('error', err);
       } else {
@@ -34,7 +38,7 @@ class JoinGame extends React.Component {
     return (
       <Row>
         <Col md={4}>
-          Game #{this.props.currentGameId}
+          Game #{this.props.currentGame.id}
           <NumberPicker
             title="Choose your number"
             handleValueChanged={(value) => this.handleValueChanged(value)}

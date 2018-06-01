@@ -4,7 +4,7 @@ import JoinGame from './JoinGame.jsx';
 
 const mapStateToProps = (state) => ({
   contractInstance: state.main.contractInstance,
-  currentGameId: state.main.currentGameId,
+  currentGame: state.main.currentGame,
 });
 
 const mapDispatchToProps = (dispatch) => bindActionCreators({

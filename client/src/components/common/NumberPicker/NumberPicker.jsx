@@ -5,7 +5,10 @@ import MenuItem from 'react-bootstrap/lib/MenuItem';
 
 class NumberPicker extends React.Component {
   static propTypes = {
-    title: PropTypes.string,
+    title: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.number,
+    ]),
     range: PropTypes.array,
   };
 
@@ -15,7 +18,6 @@ class NumberPicker extends React.Component {
     this.state = {
       title: props.title,
       range: props.range || [1, 10],
-      choosed: null,
     }
   }
 
@@ -47,7 +49,7 @@ class NumberPicker extends React.Component {
   render() {
     return (
       <SplitButton
-        title={this.state.choosed || this.state.title}
+        title={this.state.title}
         id={1}
       >
         {this.renderMenuItems()}

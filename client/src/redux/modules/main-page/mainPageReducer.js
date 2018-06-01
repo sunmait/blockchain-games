@@ -3,7 +3,10 @@ import CONSTANTS from './mainPageActionConstants';
 const defaultState = {
   contractInstance: null,
   activeTabId: 1,
-  currentGameId: null,
+  currentGame: {
+    id: null,
+    status: null,
+  },
 };
 
 export default function (state = defaultState, {type, payload}) {
@@ -17,28 +20,44 @@ export default function (state = defaultState, {type, payload}) {
     case CONSTANTS.HANDLE_CURRENT_GAME_ID_CHANGE:
       return handleCurrentGameIdChange(state, payload);
 
+    case CONSTANTS.HANDLE_CURRENT_GAME_STATUS_CHANGE:
+      return handleCurrentGameStatusChange(state, payload);
+
     default:
       return state;
   }
 }
 
 function handleSettingContractInstance(state, instance) {
-  return  {
+  return {
     ...state,
     contractInstance: instance,
   };
 }
 
 function handleActiveTabChange(state, tabId) {
-  return  {
+  return {
     ...state,
     activeTabId: tabId,
   };
 }
 
 function handleCurrentGameIdChange(state, gameId) {
-  return  {
+  const currentGame = state.currentGame;
+  currentGame.id = gameId;
+
+  return {
     ...state,
-    currentGameId: gameId,
+    currentGame,
+  };
+}
+
+function handleCurrentGameStatusChange(state, status) {
+  const currentGame = state.currentGame;
+  currentGame.status = status;
+
+  return {
+    ...state,
+    currentGame,
   };
 }

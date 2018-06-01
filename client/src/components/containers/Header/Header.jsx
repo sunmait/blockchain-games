@@ -25,14 +25,22 @@ class Header extends React.Component {
           <Nav>
             <LinkContainer to="/">
               <NavItem>
-                <Button bsStyle="link">
+                <Button
+                  bsStyle="link"
+                >
                   Help
                 </Button>
               </NavItem>
             </LinkContainer>
             <LinkContainer to="/">
               <NavItem>
-                <Button bsStyle="primary">
+                <Button
+                  bsStyle="primary"
+                  onClick={() => {
+                    this.props.handleCurrentGameIdChange(null);
+                    this.props.handleActiveTabChange(3);
+                  }}
+                >
                   Host Game
                 </Button>
               </NavItem>
