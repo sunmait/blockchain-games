@@ -18,7 +18,9 @@ const contractInitialization = (context) => {
           console.log('all is fine');
           // It's ok
 
-          context.getHostedGames();
+          context.props.getHostedGames();
+          context.props.getUserGames();
+
           const gameHostedEvent = context.props.contractInstance.GameHosted({}, 'pending');
 
           gameHostedEvent.watch((error, result) => {

@@ -46,48 +46,6 @@ class MainPage extends Component {
     contractInitialization(this);
   };
 
-  getHostedGamesFieldsByIds = (gamesIds) => {
-    const {getGameById} = this.props.contractInstance;
-    return gamesIds.map(gameId => {
-      return new Promise((resolve) => {
-        getGameById(
-          gameId,
-          (err, result) => {
-            if (err) {
-              console.log('err: ', err);
-            } else {
-              const gamePrice = Number(result[2]);
-              resolve({
-                id: gameId,
-                price: gamePrice,
-              });
-            }
-          }
-        )
-      });
-    });
-  };
-
-  getHostedGames = () => {
-    const {getHostedGamesIds} = this.props.contractInstance;
-    getHostedGamesIds((err, answer) => {
-      if (err) {
-        console.log('error', err);
-      } else {
-        const hostedGamesIdsList = answer.map(item => {
-          return Number(item);
-        });
-        Promise.all(this.getHostedGamesFieldsByIds(hostedGamesIdsList))
-          .then((response) => {
-            this.props.getHostedGames(response);
-            // this.setState({
-            //   hostedGamesList: response,
-            // });
-          });
-      }
-    });
-  };
-
   renderGamesList = () => {
     if (this.state.hostedGamesList.length === 0) {
       return (
