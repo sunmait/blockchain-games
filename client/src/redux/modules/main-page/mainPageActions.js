@@ -47,3 +47,13 @@ export const handleGameHostedEvent = (game) => ({
   type: CONSTANTS.HANDLE_GAME_HOSTED_EVENT,
   payload: game,
 });
+
+export const handleGameJoinedEvent = (game) => ({
+  type: CONSTANTS.HANDLE_GAME_JOINED_EVENT,
+  payload: game,
+});
+
+export const getUserGames = (userGamesList) => ({
+  type: CONSTANTS.GET_USER_GAMES,
+  payload: userGamesList,
+});

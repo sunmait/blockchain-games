@@ -9,6 +9,7 @@ const defaultState = {
     price: undefined,
   },
   hostedGamesList: [],
+  userGamesList: [],
 };
 
 export default function (state = defaultState, {type, payload}) {
@@ -28,8 +29,14 @@ export default function (state = defaultState, {type, payload}) {
     case CONSTANTS.GET_HOSTED_GAMES:
       return getHostedGames(state, payload);
 
+    case CONSTANTS.GET_USER_GAMES:
+      return getUserGames(state, payload);
+
     case CONSTANTS.HANDLE_GAME_HOSTED_EVENT:
       return handleGameHostedEvent(state, payload);
+
+    case CONSTANTS.HANDLE_GAME_JOINED_EVENT:
+      return handleGameJoinedEvent(state, payload);
 
     default:
       return state;
@@ -84,5 +91,22 @@ function handleGameHostedEvent(state, game) {
   return {
     ...state,
     hostedGamesList,
+  };
+}
+
+function handleGameJoinedEvent(state, payload) {
+  const hostedGamesList = state.hostedGamesList;
+  const gameIndex = hostedGamesList.findIndex(game => game.id === payload.id);
+  hostedGamesList.splice(gameIndex, 1);
+  return {
+    ...state,
+    hostedGamesList,
+  }
+}
+
+function getUserGames(state, userGamesList) {
+  return {
+    ...state,
+    userGamesList,
   };
 }

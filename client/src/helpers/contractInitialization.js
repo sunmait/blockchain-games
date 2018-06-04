@@ -19,17 +19,28 @@ const contractInitialization = (context) => {
           // It's ok
 
           context.getHostedGames();
-          // const gameHostedEvent = context.props.contractInstance.GameHosted({}, 'pending');
+          const gameHostedEvent = context.props.contractInstance.GameHosted({}, 'pending');
 
-          // gameHostedEvent.watch((error, result) => {
-          //   if (result) {
-          //     const hostedGame = {
-          //       id: Number(result.args.gameId),
-          //       price: Number(result.args.value),
-          //     };
-          //     context.props.handleGameHostedEvent(hostedGame); // TODO: it's still triggers when page loading
-          //   }
-          // });
+          gameHostedEvent.watch((error, result) => {
+            if (result) {
+              const hostedGame = {
+                id: Number(result.args.gameId),
+                price: Number(result.args.value),
+              };
+              context.props.handleGameHostedEvent(hostedGame);
+            }
+          });
+
+          const GameJoinedEvent = context.props.contractInstance.GameJoined({}, 'pending');
+
+          GameJoinedEvent.watch((error, result) => {
+            if (result) {
+              const joinedGame = {
+                id: Number(result.args.gameId),
+              };
+              context.props.handleGameJoinedEvent(joinedGame);
+            }
+          });
 
         }
       });

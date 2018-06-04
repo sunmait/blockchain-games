@@ -22,7 +22,7 @@ contract GuessNumberGame {
 
   event Deposit(address indexed player, uint amount);
   event GameHosted(address player1, bytes32 player1NumberHidden, uint indexed gameId, uint value);
-  event GameJoined(address player2, NumberState player2Answer);
+  event GameJoined(address player2, NumberState player2Answer, uint indexed gameId);
   event GameEnded(address player1, address player2, Result result);
 
   mapping(address => uint) public balances;
@@ -102,14 +102,9 @@ contract GuessNumberGame {
     thisGame.player2Answer = NumberState(player2Answer);
     thisGame.state = State.Joined;
 
-    emit GameJoined(msg.sender, NumberState(player2Answer));
+    emit GameJoined(msg.sender, NumberState(player2Answer), gameId);
 
     return true;
-  }
-
-  function revealSmthg(uint gameId) public view returns (bytes32) {
-    Game storage thisGame = games[gameId];
-    return thisGame.player1NumberHidden;
   }
 
   function uint2str(uint i) internal pure returns (string){
@@ -135,7 +130,7 @@ contract GuessNumberGame {
     require(thisGame.player1 == msg.sender);
     require(player1Number > 0 && player1Number <= 10);
     string memory player1NumberBytes = uint2str(player1Number);
-    require(thisGame.player1NumberHidden == keccak256(abi.encodePacked('0x', player1NumberBytes, secret)));
+    require(thisGame.player1NumberHidden == keccak256(abi.encodePacked("0x", player1NumberBytes, secret)));
     address winner;
     thisGame.player1Number = player1Number;
 

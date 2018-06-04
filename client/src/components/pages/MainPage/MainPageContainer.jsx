@@ -16,6 +16,7 @@ const mapDispatchToProps = (dispatch) => bindActionCreators({
   handleActiveTabChange: mainPageActions.handleActiveTabChange,
   getHostedGames: mainPageActions.getHostedGames,
   handleGameHostedEvent: mainPageActions.handleGameHostedEvent,
+  handleGameJoinedEvent: mainPageActions.handleGameJoinedEvent,
 }, dispatch);
 
 export default connect(mapStateToProps, mapDispatchToProps)(MainPage);

@@ -5,11 +5,13 @@ import * as mainPageActions from "../../../../redux/modules/main-page/mainPageAc
 
 const mapStateToProps = (state) => ({
   contractInstance: state.main.contractInstance,
+  userGamesList: state.main.userGamesList,
 });
 
 const mapDispatchToProps = (dispatch) => bindActionCreators({
   handleCurrentGameIdChange: mainPageActions.handleCurrentGameIdChange,
   handleActiveTabChange: mainPageActions.handleActiveTabChange,
+  getUserGames: mainPageActions.getUserGames,
 }, dispatch);
 
 export default connect(mapStateToProps, mapDispatchToProps)(MyGames);

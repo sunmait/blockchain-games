@@ -2,14 +2,21 @@ import React from 'react';
 import Row from 'react-bootstrap/lib/Row';
 import Col from 'react-bootstrap/lib/Col';
 import Button from 'react-bootstrap/lib/Button';
+import gameStatuses from '../../../../helpers/gameStatuses';
 
 class MyGames extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      userGamesList: [],
+      userGamesList: props.userGamesList,
     }
+  }
+
+  componentWillReceiveProps(nextProps) {
+    this.setState({
+      userGamesList: nextProps.userGamesList,
+    });
   }
 
   renderGamesList = () => {
@@ -44,7 +51,7 @@ class MyGames extends React.Component {
     });
   };
 
-  getUserGamesPricesByIds = (gamesIds) => {
+  getUserGamesFieldsByIds = (gamesIds) => {
     const {getGameById} = this.props.contractInstance;
     return gamesIds.map(gameId => {
       return new Promise((resolve) => {
@@ -55,9 +62,11 @@ class MyGames extends React.Component {
               console.log('err: ', err);
             } else {
               const gamePrice = Number(result[2]);
+              const statusId = Number[result[5]];
               resolve({
                 id: gameId,
                 price: gamePrice,
+                status: gameStatuses[statusId],
               });
             }
           }
@@ -75,11 +84,9 @@ class MyGames extends React.Component {
         const userGamesList = answer.map(item => {
           return Number(item);
         });
-        Promise.all(this.getUserGamesPricesByIds(userGamesList))
+        Promise.all(this.getUserGamesFieldsByIds(userGamesList))
           .then((response) => {
-            this.setState({
-              userGamesList: response,
-            });
+            this.props.getUserGames(response);
           });
       }
     });
