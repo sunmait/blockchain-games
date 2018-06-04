@@ -76,7 +76,7 @@ contract GuessNumberGame {
   }
 
   function getGameById(uint id) view public returns (address, address, uint, uint, NumberState, State, Result) {
-      return (games[id].player1, games[id].player2, games[id].value, games[id].player1Number, games[id].player2Answer, games[id].state, games[id].result);
+    return (games[id].player1, games[id].player2, games[id].value, games[id].player1Number, games[id].player2Answer, games[id].state, games[id].result);
   }
 
   function hostGame(bytes32 player1NumberHidden, uint val) public payable returns (bool) {
@@ -149,8 +149,7 @@ contract GuessNumberGame {
     winner.transfer(thisGame.value*2);
   }
 
-  function setOwner(address newOwner) public {
-    require(msg.sender == owner);
+  function changeOwner(address newOwner) public onlyOwner {
     owner = newOwner;
   }
 
