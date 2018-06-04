@@ -10,7 +10,7 @@ contract GuessNumberGame {
     address player2;
     uint value;
     bytes32 player1NumberHidden;
-    uint8 player1Number;
+    uint player1Number;
     NumberState player2Answer;
     State state;
     Result result;
@@ -75,7 +75,7 @@ contract GuessNumberGame {
     return ids;
   }
 
-  function getGameById(uint id) view public returns (address, address, uint, uint8, NumberState, State, Result) {
+  function getGameById(uint id) view public returns (address, address, uint, uint, NumberState, State, Result) {
       return (games[id].player1, games[id].player2, games[id].value, games[id].player1Number, games[id].player2Answer, games[id].state, games[id].result);
   }
 
@@ -107,12 +107,35 @@ contract GuessNumberGame {
     return true;
   }
 
-  function revealHiddenNumber(uint gameId, uint8 player1Number, string secret) public returns (Result result) {
+  function revealSmthg(uint gameId) public view returns (bytes32) {
+    Game storage thisGame = games[gameId];
+    return thisGame.player1NumberHidden;
+  }
+
+  function uint2str(uint i) internal pure returns (string){
+    if (i == 0) return "0";
+    uint j = i;
+    uint length;
+    while (j != 0){
+      length++;
+      j /= 10;
+    }
+    bytes memory bstr = new bytes(length);
+    uint k = length - 1;
+    while (i != 0){
+      bstr[k--] = byte(48 + i % 10);
+      i /= 10;
+    }
+    return string(bstr);
+  }
+
+  function revealHiddenNumber(uint gameId, uint player1Number, string secret) public returns (Result result) {
     Game storage thisGame = games[gameId];
     require(thisGame.state == State.Joined);
     require(thisGame.player1 == msg.sender);
     require(player1Number > 0 && player1Number <= 10);
-    require(thisGame.player1NumberHidden == keccak256(abi.encodePacked(player1Number, secret)));
+    string memory player1NumberBytes = uint2str(player1Number);
+    require(thisGame.player1NumberHidden == keccak256(abi.encodePacked('0x', player1NumberBytes, secret)));
     address winner;
     thisGame.player1Number = player1Number;
 
