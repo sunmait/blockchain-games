@@ -2,6 +2,7 @@ import CONSTANTS from './mainPageActionConstants';
 
 const defaultState = {
   contractInstance: null,
+  currentAccount: null,
   activeTabId: 1,
   currentGame: {
     id: null,
@@ -15,7 +16,10 @@ const defaultState = {
 export default function (state = defaultState, {type, payload}) {
   switch (type) {
     case CONSTANTS.SET_CONTRACT_INSTANCE:
-      return handleSettingContractInstance(state, payload);
+      return setContractInstance(state, payload);
+
+    case CONSTANTS.SET_CURRENT_METAMASK_ACCOUNT:
+      return setCurrentMetamaskAccount(state, payload);
 
     case CONSTANTS.HANDLE_ACTIVE_TAB_CHANGE:
       return handleActiveTabChange(state, payload);
@@ -38,15 +42,25 @@ export default function (state = defaultState, {type, payload}) {
     case CONSTANTS.HANDLE_GAME_JOINED_EVENT:
       return handleGameJoinedEvent(state, payload);
 
+    case CONSTANTS.HANDLE_ADD_TO_USER_GAMES:
+      return handleAddToUserGames(state, payload);
+
     default:
       return state;
   }
 }
 
-function handleSettingContractInstance(state, instance) {
+function setContractInstance(state, instance) {
   return {
     ...state,
     contractInstance: instance,
+  };
+}
+
+function setCurrentMetamaskAccount(state, account) {
+  return {
+    ...state,
+    currentAccount: account,
   };
 }
 
@@ -86,7 +100,7 @@ function getHostedGames(state, hostedGamesList) {
 }
 
 function handleGameHostedEvent(state, game) {
-  const hostedGamesList = state.hostedGamesList;
+  const hostedGamesList = state.hostedGamesList.slice();
   hostedGamesList.push(game);
   return {
     ...state,
@@ -95,12 +109,24 @@ function handleGameHostedEvent(state, game) {
 }
 
 function handleGameJoinedEvent(state, payload) {
-  const hostedGamesList = state.hostedGamesList;
+  const hostedGamesList = state.hostedGamesList.slice();
   const gameIndex = hostedGamesList.findIndex(game => game.id === payload.id);
   hostedGamesList.splice(gameIndex, 1);
   return {
     ...state,
     hostedGamesList,
+  }
+}
+
+function handleAddToUserGames(state, payload) {
+  const userGamesList = state.userGamesList.slice();
+  const gameIndex = userGamesList.findIndex(game => game.id === payload.id);
+  if (gameIndex === -1) {
+    userGamesList.push(payload);
+  }
+  return {
+    ...state,
+    userGamesList,
   }
 }
 

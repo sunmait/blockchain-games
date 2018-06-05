@@ -6,6 +6,11 @@ export const setContractInstance = (contractInstance) => ({
   payload: contractInstance,
 });
 
+export const setCurrentMetamaskAccount = (account) => ({
+  type: CONSTANTS.SET_CURRENT_METAMASK_ACCOUNT,
+  payload: account,
+});
+
 export const handleCurrentGameIdChange = (gameId) => (dispatch, getState) => {
   dispatch({
       type: CONSTANTS.HANDLE_CURRENT_GAME_ID_CHANGE,
@@ -38,16 +43,33 @@ export const handleActiveTabChange = (tabId) => ({
   payload: tabId,
 });
 
-export const handleGameHostedEvent = (game) => ({
-  type: CONSTANTS.HANDLE_GAME_HOSTED_EVENT,
-  payload: game,
-});
+export const handleGameHostedEvent = (game) => (dispatch, getState) => {
+  dispatch({
+    type: CONSTANTS.HANDLE_GAME_HOSTED_EVENT,
+    payload: game,
+  });
+  const currentAccount = getState().main.currentAccount;
+  if (game.player1 === currentAccount) {
+    dispatch({
+      type: CONSTANTS.HANDLE_ADD_TO_USER_GAMES,
+      payload: game,
+    });
+  }
+};
 
-export const handleGameJoinedEvent = (game) => ({
-  type: CONSTANTS.HANDLE_GAME_JOINED_EVENT,
-  payload: game,
-});
-
+export const handleGameJoinedEvent = (game) => (dispatch, getState) => {
+  dispatch({
+    type: CONSTANTS.HANDLE_GAME_JOINED_EVENT,
+    payload: game,
+  });
+  const currentAccount = getState().main.currentAccount;
+  if (game.player2 === currentAccount) {
+    dispatch({
+      type: CONSTANTS.HANDLE_ADD_TO_USER_GAMES,
+      payload: game,
+    });
+  }
+};
 export const getHostedGames = () => async (dispatch, getState) => {
   const contractInstance = getState().main.contractInstance;
   const hostedGamesList = await getHostedGamesList(contractInstance);
@@ -100,9 +122,6 @@ function getHostedGamesList(contractInstance) {
         });
         resolve (
           Promise.all(getHostedGamesFieldsByIds(hostedGamesIdsList, contractInstance))
-            .then((response) => {
-              return response;
-            })
         );
       }
     });
@@ -145,9 +164,6 @@ function getUserGamesList(contractInstance) {
         });
         resolve(
           Promise.all(getUserGamesFieldsByIds(userGamesList, contractInstance))
-          .then((response) => {
-            return response;
-          })
         );
       }
     });

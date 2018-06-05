@@ -12,27 +12,6 @@ import './MainPage.css';
 import contractInitialization from '../../../helpers/contractInitialization';
 
 class MainPage extends Component {
-  constructor(props) {
-    super(props);
-
-    // const web3 = new Web3(window.web3.currentProvider);
-    // console.log(web3.eth.contract(contractABI.abi).at(contractAddress));
-    // console.log(window.web3.eth.contract(contractABI.abi).at(contractAddress));
-
-    this.state = {
-      hostedGamesList: this.props.hostedGamesList,
-      // contractInstance: window.web3.eth.contract(contractABI.abi).at(contractAddress),
-      activeTabId: this.props.activeTabId,
-    };
-
-  }
-
-  componentWillReceiveProps(nextProps) {
-    this.setState({
-      activeTabId: nextProps.activeTabId,
-      hostedGamesList: nextProps.hostedGamesList,
-    });
-  }
 
   componentDidMount() {
     window.addEventListener('load', this.onLoad.bind(this), false);
@@ -47,7 +26,7 @@ class MainPage extends Component {
   };
 
   renderGamesList = () => {
-    if (this.state.hostedGamesList.length === 0) {
+    if (this.props.hostedGamesList.length === 0) {
       return (
         <div>
           There are no currently open games
@@ -64,7 +43,7 @@ class MainPage extends Component {
         </div>
       )
     }
-    return this.state.hostedGamesList.map((item, index) => {
+    return this.props.hostedGamesList.map((item, index) => {
       const key = index;
       return (
         <Row key={key} className="games-list-element-container">
@@ -103,7 +82,7 @@ class MainPage extends Component {
     return (
       <Tabs
         id="main-page-tabs-container"
-        activeKey={this.state.activeTabId}
+        activeKey={this.props.activeTabId}
         onSelect={(key) => this.props.handleActiveTabChange(key)}
       >
         <Tab eventKey={1} title="Open Games">

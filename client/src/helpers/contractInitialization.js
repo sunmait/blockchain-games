@@ -18,27 +18,34 @@ const contractInitialization = (context) => {
           console.log('all is fine');
           // It's ok
 
+          context.props.setCurrentMetamaskAccount(window.web3.eth.accounts[0]);
+
           context.props.getHostedGames();
           context.props.getUserGames();
 
-          const gameHostedEvent = context.props.contractInstance.GameHosted({}, 'pending');
+          const gameHostedEvent = context.props.contractInstance.GameHosted({});
 
           gameHostedEvent.watch((error, result) => {
             if (result) {
+              console.log('hosted: ', result);
               const hostedGame = {
                 id: Number(result.args.gameId),
                 price: Number(result.args.value),
+                player1: result.args.player1,
               };
               context.props.handleGameHostedEvent(hostedGame);
             }
           });
 
-          const GameJoinedEvent = context.props.contractInstance.GameJoined({}, 'pending');
+          const GameJoinedEvent = context.props.contractInstance.GameJoined({});
 
           GameJoinedEvent.watch((error, result) => {
+            console.log('joined: ', result);
             if (result) {
               const joinedGame = {
                 id: Number(result.args.gameId),
+                price: Number(result.args.value),
+                player2: result.args.player2,
               };
               context.props.handleGameJoinedEvent(joinedGame);
             }

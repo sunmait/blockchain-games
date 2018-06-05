@@ -4,29 +4,16 @@ import Col from 'react-bootstrap/lib/Col';
 import Button from 'react-bootstrap/lib/Button';
 
 class MyGames extends React.Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      userGamesList: props.userGamesList,
-    }
-  }
-
-  componentWillReceiveProps(nextProps) {
-    this.setState({
-      userGamesList: nextProps.userGamesList,
-    });
-  }
 
   renderGamesList = () => {
-    if (this.state.userGamesList.length === 0) {
+    if (this.props.userGamesList.length === 0) {
       return (
         <Row>
           There are no games
         </Row>
       );
     }
-    return this.state.userGamesList.map((item, index) => {
+    return this.props.userGamesList.map((item, index) => {
       const key = index;
       return (
         <Row key={key} className="games-list-element-container">
