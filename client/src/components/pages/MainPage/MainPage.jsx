@@ -54,6 +54,7 @@ class MainPage extends Component {
           </Col>
           <Col md={6}>
             <Button
+              className="pull-right"
               onClick={() => {
                 this.props.handleCurrentGameChange(item.id);
                 this.props.handleActiveTabChange(3);

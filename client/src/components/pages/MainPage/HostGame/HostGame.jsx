@@ -26,6 +26,9 @@ class HostGame extends React.Component {
   };
 
   hostGame = () => {
+    if (this.state.selectedNumber < 1 || this.state.selectedNumber > 10) {
+      return;
+    }
     const {hostGame} = this.props.contractInstance;
     const secretWord = generateString(16);
     const hiddenNumber = window.web3.sha3(window.web3.toHex(this.state.selectedNumber) + secretWord);

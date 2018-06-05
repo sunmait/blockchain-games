@@ -8,6 +8,7 @@ class MyGames extends React.Component {
     if (item.status === 'Joined') {
       return (
         <Button
+          className="pull-right"
           onClick={() => {
             this.props.handleCurrentGameChange(item.id);
             this.props.handleActiveTabChange(3);
@@ -20,6 +21,7 @@ class MyGames extends React.Component {
     if (item.status === 'Ended') {
       return (
         <Button
+          className="pull-right"
           onClick={() => {
             this.props.handleCurrentGameChange(item.id);
             this.props.handleActiveTabChange(3);
