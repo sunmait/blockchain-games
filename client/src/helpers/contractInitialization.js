@@ -43,6 +43,7 @@ const contractInitialization = (context) => {
               const joinedGame = {
                 id: Number(result.args.gameId),
                 price: Number(result.args.value),
+                player1: result.args.player1,
                 player2: result.args.player2,
               };
               context.props.handleGameJoinedEvent(joinedGame);

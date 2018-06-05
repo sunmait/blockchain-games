@@ -11,14 +11,26 @@ export const setCurrentMetamaskAccount = (account) => ({
   payload: account,
 });
 
-export const handleCurrentGameIdChange = (gameId) => (dispatch, getState) => {
-  dispatch({
-      type: CONSTANTS.HANDLE_CURRENT_GAME_ID_CHANGE,
-      payload: gameId,
-  });
+export const handleCurrentGameChange = (gameId) => async (dispatch, getState) => {
+  let game = {
+    id: gameId,
+    price: undefined,
+    status: null,
+  };
 
   if (Number.isInteger(gameId)) {
     const contractInstance = getState().main.contractInstance;
+    game = await getCurrentGameFieldsById(gameId, contractInstance);
+  }
+
+  dispatch({
+    type: CONSTANTS.HANDLE_CURRENT_GAME_CHANGE,
+    payload: game,
+  });
+};
+
+function getCurrentGameFieldsById(gameId, contractInstance) {
+  return new Promise((resolve) => {
     const {getGameById} = contractInstance;
     getGameById(
       gameId,
@@ -28,17 +40,15 @@ export const handleCurrentGameIdChange = (gameId) => (dispatch, getState) => {
         } else {
           const gamePrice = Number(result[2]);
           const gameStatus = gameStatuses[Number(result[5])];
-          dispatch({
-            type: CONSTANTS.GET_CURRENT_GAME_FIELDS,
-            payload: {
-              gamePrice,
-              gameStatus,
-            },
+          resolve({
+            id: gameId,
+            price: gamePrice,
+            status: gameStatus,
           });
         }
       });
-  }
-};
+  });
+}
 
 export const handleActiveTabChange = (tabId) => ({
   type: CONSTANTS.HANDLE_ACTIVE_TAB_CHANGE,
@@ -54,7 +64,11 @@ export const handleGameHostedEvent = (game) => (dispatch, getState) => {
   if (game.player1 === currentAccount) {
     dispatch({
       type: CONSTANTS.HANDLE_ADD_TO_USER_GAMES,
-      payload: game,
+      payload: {
+        id: game.id,
+        price: game.price,
+        status: gameStatuses[1],
+      },
     });
   }
 };
@@ -68,7 +82,19 @@ export const handleGameJoinedEvent = (game) => (dispatch, getState) => {
   if (game.player2 === currentAccount) {
     dispatch({
       type: CONSTANTS.HANDLE_ADD_TO_USER_GAMES,
-      payload: game,
+      payload: {
+        id: game.id,
+        price: game.price,
+        status: gameStatuses[2],
+      },
+    });
+  }
+  if(game.player1 === currentAccount) {
+    dispatch({
+      type: CONSTANTS.HANDLE_CHANGE_USER_GAME_STATUS,
+      payload: {
+        id: game.id,
+      },
     });
   }
 };
@@ -147,7 +173,7 @@ function getUserGamesFieldsByIds(gamesIds, contractInstance) {
             console.log('err: ', err);
           } else {
             const gamePrice = Number(result[2]);
-            const statusId = Number[result[5]];
+            const statusId = Number(result[5]);
             resolve({
               id: gameId,
               price: gamePrice,

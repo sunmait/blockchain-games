@@ -7,7 +7,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => bindActionCreators({
-  handleCurrentGameIdChange: mainPageActions.handleCurrentGameIdChange,
+  handleCurrentGameChange: mainPageActions.handleCurrentGameChange,
   handleActiveTabChange: mainPageActions.handleActiveTabChange,
 }, dispatch);
 

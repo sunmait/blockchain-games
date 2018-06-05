@@ -33,7 +33,7 @@ class MainPage extends Component {
           <br />
           <Button
             onClick={() => {
-              this.props.handleCurrentGameIdChange(null);
+              this.props.handleCurrentGameChange(null);
               this.props.handleActiveTabChange(3);
             }}
             bsStyle="primary"
@@ -55,7 +55,7 @@ class MainPage extends Component {
           <Col md={6}>
             <Button
               onClick={() => {
-                this.props.handleCurrentGameIdChange(item.id);
+                this.props.handleCurrentGameChange(item.id);
                 this.props.handleActiveTabChange(3);
               }}
             >

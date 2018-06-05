@@ -37,7 +37,7 @@ class Header extends React.Component {
                 <Button
                   bsStyle="primary"
                   onClick={() => {
-                    this.props.handleCurrentGameIdChange(null);
+                    this.props.handleCurrentGameChange(null);
                     this.props.handleActiveTabChange(3);
                   }}
                 >

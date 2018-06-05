@@ -25,11 +25,8 @@ export default function (state = defaultState, {type, payload}) {
     case CONSTANTS.HANDLE_ACTIVE_TAB_CHANGE:
       return handleActiveTabChange(state, payload);
 
-    case CONSTANTS.HANDLE_CURRENT_GAME_ID_CHANGE:
-      return handleCurrentGameIdChange(state, payload);
-
-    case CONSTANTS.GET_CURRENT_GAME_FIELDS:
-      return handleCurrentGameFieldsChange(state, payload);
+    case CONSTANTS.HANDLE_CURRENT_GAME_CHANGE:
+      return handleCurrentGameChange(state, payload);
 
     case CONSTANTS.GET_HOSTED_GAMES:
       return getHostedGames(state, payload);
@@ -48,6 +45,9 @@ export default function (state = defaultState, {type, payload}) {
 
     case CONSTANTS.HANDLE_ADD_TO_USER_GAMES:
       return handleAddToUserGames(state, payload);
+
+    case CONSTANTS.HANDLE_CHANGE_USER_GAME_STATUS:
+      return handleChangeUserGameStatus(state, payload);
 
     default:
       return state;
@@ -75,21 +75,7 @@ function handleActiveTabChange(state, tabId) {
   };
 }
 
-function handleCurrentGameIdChange(state, gameId) {
-  const currentGame = state.currentGame;
-  currentGame.id = gameId;
-
-  return {
-    ...state,
-    currentGame,
-  };
-}
-
-function handleCurrentGameFieldsChange(state, payload) {
-  const currentGame = state.currentGame;
-  currentGame.status = payload.gameStatus;
-  currentGame.price = payload.gamePrice;
-
+function handleCurrentGameChange(state, currentGame) {
   return {
     ...state,
     currentGame,
@@ -144,6 +130,18 @@ function handleAddToUserGames(state, payload) {
   const gameIndex = userGamesList.findIndex(game => game.id === payload.id);
   if (gameIndex === -1) {
     userGamesList.push(payload);
+  }
+  return {
+    ...state,
+    userGamesList,
+  };
+}
+
+function handleChangeUserGameStatus(state, payload) {
+  const userGamesList = state.userGamesList.slice();
+  const gameIndex = userGamesList.findIndex(game => game.id === payload.id);
+  if (gameIndex !== -1) {
+    userGamesList[gameIndex].status = gameStatuses[2];
   }
   return {
     ...state,

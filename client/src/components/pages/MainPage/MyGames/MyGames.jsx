@@ -4,6 +4,33 @@ import Col from 'react-bootstrap/lib/Col';
 import Button from 'react-bootstrap/lib/Button';
 
 class MyGames extends React.Component {
+  renderRevealButton = (item) => {
+    if (item.status === 'Joined') {
+      return (
+        <Button
+          onClick={() => {
+            this.props.handleCurrentGameChange(item.id);
+            this.props.handleActiveTabChange(3);
+          }}
+        >
+          Reveal
+        </Button>
+      );
+    }
+    if (item.status === 'Ended') {
+      return (
+        <Button
+          onClick={() => {
+            this.props.handleCurrentGameChange(item.id);
+            this.props.handleActiveTabChange(3);
+          }}
+        >
+          Check result
+        </Button>
+      )
+    }
+    return null;
+  };
 
   renderGamesList = () => {
     if (this.props.userGamesList.length === 0) {
@@ -23,14 +50,8 @@ class MyGames extends React.Component {
             Game price: {item.price} vei
           </Col>
           <Col md={6}>
-            <Button
-              onClick={() => {
-                this.props.handleCurrentGameIdChange(item.id);
-                this.props.handleActiveTabChange(3);
-              }}
-            >
-              Check
-            </Button>
+            Game status: {item.status}
+            {this.renderRevealButton(item)}
           </Col>
         </Row>
       );

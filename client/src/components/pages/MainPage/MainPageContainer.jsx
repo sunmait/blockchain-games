@@ -12,7 +12,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => bindActionCreators({
   setContractInstance: mainPageActions.setContractInstance,
-  handleCurrentGameIdChange: mainPageActions.handleCurrentGameIdChange,
+  handleCurrentGameChange: mainPageActions.handleCurrentGameChange,
   handleActiveTabChange: mainPageActions.handleActiveTabChange,
   getHostedGames: mainPageActions.getHostedGames,
   getUserGames: mainPageActions.getUserGames,
