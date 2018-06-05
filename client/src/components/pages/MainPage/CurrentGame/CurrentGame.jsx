@@ -24,10 +24,6 @@ class CurrentGame extends React.Component {
   revealWinner = () => {
     const {revealHiddenNumber} = this.props.contractInstance;
     revealHiddenNumber(this.props.currentGame.id, this.state.hostNumber, this.state.hostSecret,
-      {
-        gas: 999000,
-        gasPrice: 20,
-      },
       (err, answer) => {
         if (err) {
           console.log('err: ', err);
@@ -49,10 +45,15 @@ class CurrentGame extends React.Component {
         <JoinGameContainer />
       );
     } else if (this.props.currentGame.status === 'Ended') {
-      console.log(this.props.currentGame);
+      let result = '';
+      if (this.props.currentGame.result === 'Win') {
+        result = 'Hosted game player Win';
+      } else if (this.props.currentGame.result === 'Loss') {
+        result = 'Joined game player Win';
+      }
       return (
         <Row>
-          Game ended.
+          Game ended with result: {result}.
         </Row>
       );
     } else if (this.props.currentGame.status === 'Joined') {

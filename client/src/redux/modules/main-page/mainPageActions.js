@@ -1,5 +1,6 @@
 import CONSTANTS from './mainPageActionConstants';
 import gameStatuses from '../../../helpers/gameStatuses';
+import gameResults from '../../../helpers/gameResults';
 
 export const setContractInstance = (contractInstance) => ({
   type: CONSTANTS.SET_CONTRACT_INSTANCE,
@@ -16,6 +17,7 @@ export const handleCurrentGameChange = (gameId) => async (dispatch, getState) =>
     id: gameId,
     price: undefined,
     status: null,
+    result: gameResults[0],
   };
 
   if (Number.isInteger(gameId)) {
@@ -40,10 +42,12 @@ function getCurrentGameFieldsById(gameId, contractInstance) {
         } else {
           const gamePrice = Number(result[2]);
           const gameStatus = gameStatuses[Number(result[5])];
+          const gameResult = gameResults[Number(result[6])];
           resolve({
             id: gameId,
             price: gamePrice,
             status: gameStatus,
+            result: gameResult,
           });
         }
       });
