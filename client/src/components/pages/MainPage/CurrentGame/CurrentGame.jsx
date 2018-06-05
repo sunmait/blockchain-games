@@ -1,6 +1,8 @@
 import React from 'react';
 import Row from 'react-bootstrap/lib/Row';
+import Col from 'react-bootstrap/lib/Col';
 import Button from 'react-bootstrap/lib/Button';
+import FormControl from 'react-bootstrap/lib/FormControl';
 import JoinGameContainer from '../JoinGame/JoinGameContainer';
 
 class CurrentGame extends React.Component {
@@ -8,17 +10,9 @@ class CurrentGame extends React.Component {
     super(props);
 
     this.state = {
-      status: this.props.gameStatus,
       hostNumber: '',
       hostSecret: '',
     }
-  }
-
-  componentWillReceiveProps(nextProps) {
-    console.log(nextProps);
-    this.setState({
-      status: nextProps.gameStatus,
-    });
   }
 
   handleValueChanged = (value) => {
@@ -50,35 +44,38 @@ class CurrentGame extends React.Component {
   };
 
   renderGame = () => {
-    console.log(this.state.status);
-    if (this.state.status === 'Hosted') {
+    if (this.props.gameStatus === 'Hosted') {
       return (
         <JoinGameContainer />
       );
-    } else if (this.state.status === 'Ended') {
+    } else if (this.props.gameStatus === 'Ended') {
       return (
         <Row>
           Game ended.
         </Row>
       );
-    } else if (this.state.status === 'Joined') {
+    } else if (this.props.gameStatus === 'Joined') {
       return (
         <Row>
           <Row>
-            Insert your number:
-            <input
-              type="text"
-              value={this.state.hostNumber}
-              onChange={(event) => this.handleFieldChange('hostNumber', event.target.value)}
-            />
+            <Col md={3}>
+              Insert your number:
+              <FormControl
+                type="text"
+                value={this.state.hostNumber}
+                onChange={(event) => this.handleFieldChange('hostNumber', event.target.value)}
+              />
+            </Col>
           </Row>
           <Row>
-            Insert your secret:
-            <input
-              type="text"
-              value={this.state.hostSecret}
-              onChange={(event) => this.handleFieldChange('hostSecret', event.target.value)}
-            />
+            <Col md={3}>
+              Insert your secret:
+              <FormControl
+                type="text"
+                value={this.state.hostSecret}
+                onChange={(event) => this.handleFieldChange('hostSecret', event.target.value)}
+              />
+            </Col>
           </Row>
 
           <Button

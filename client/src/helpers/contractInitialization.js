@@ -27,7 +27,6 @@ const contractInitialization = (context) => {
 
           gameHostedEvent.watch((error, result) => {
             if (result) {
-              console.log('hosted: ', result);
               const hostedGame = {
                 id: Number(result.args.gameId),
                 price: Number(result.args.value),
@@ -40,7 +39,6 @@ const contractInitialization = (context) => {
           const GameJoinedEvent = context.props.contractInstance.GameJoined({});
 
           GameJoinedEvent.watch((error, result) => {
-            console.log('joined: ', result);
             if (result) {
               const joinedGame = {
                 id: Number(result.args.gameId),

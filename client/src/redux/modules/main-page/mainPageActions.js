@@ -17,25 +17,27 @@ export const handleCurrentGameIdChange = (gameId) => (dispatch, getState) => {
       payload: gameId,
   });
 
-  const contractInstance = getState().main.contractInstance;
-  const {getGameById} = contractInstance;
-  getGameById(
-    gameId,
-    (err, result) => {
-    if (err) {
-      console.log('err: ', err);
-    } else {
-      const gamePrice = Number(result[2]);
-      const gameStatus = gameStatuses[Number(result[5])];
-      dispatch({
-        type: CONSTANTS.GET_CURRENT_GAME_FIELDS,
-        payload: {
-          gamePrice,
-          gameStatus,
-        },
+  if (Number.isInteger(gameId)) {
+    const contractInstance = getState().main.contractInstance;
+    const {getGameById} = contractInstance;
+    getGameById(
+      gameId,
+      (err, result) => {
+        if (err) {
+          console.log('err: ', err);
+        } else {
+          const gamePrice = Number(result[2]);
+          const gameStatus = gameStatuses[Number(result[5])];
+          dispatch({
+            type: CONSTANTS.GET_CURRENT_GAME_FIELDS,
+            payload: {
+              gamePrice,
+              gameStatus,
+            },
+          });
+        }
       });
-    }
-  });
+  }
 };
 
 export const handleActiveTabChange = (tabId) => ({

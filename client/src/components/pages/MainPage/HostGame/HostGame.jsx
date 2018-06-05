@@ -4,6 +4,7 @@ import Row from 'react-bootstrap/lib/Row';
 import Col from 'react-bootstrap/lib/Col';
 import Button from 'react-bootstrap/lib/Button';
 import Modal from 'react-bootstrap/lib/Modal';
+import FormControl from 'react-bootstrap/lib/FormControl';
 import generateString from '../../../../helpers/stringGenerator';
 
 class HostGame extends React.Component {
@@ -14,6 +15,7 @@ class HostGame extends React.Component {
       selectedNumber: null,
       isModal: false,
       secretWord: '',
+      gamePrice: 0,
     };
   }
 
@@ -27,9 +29,9 @@ class HostGame extends React.Component {
     const {hostGame} = this.props.contractInstance;
     const secretWord = generateString(16);
     const hiddenNumber = window.web3.sha3(window.web3.toHex(this.state.selectedNumber) + secretWord);
-    hostGame.sendTransaction(hiddenNumber, 10**18,
+    hostGame.sendTransaction(hiddenNumber, this.state.gamePrice,
       {
-        value: 10**18,
+        value: this.state.gamePrice,
       },
       (err, answer) => {
       if (err) {
@@ -73,23 +75,41 @@ class HostGame extends React.Component {
     );
   };
 
+  handleFieldChange = (field, value) => {
+    this.setState({
+      [field]: value,
+    });
+  };
+
   render() {
     return (
       <Row>
-        <Col md={4}>
-          <NumberPicker
-            title={this.state.selectedNumber || 'Select'}
-            handleValueChanged={(value) => this.handleValueChanged(value)}
-          />
-        </Col>
-        <Col md={4}>
-          <Button
-            onClick={this.hostGame}
-            bsStyle="primary"
-          >
-            Host Game
-          </Button>
-        </Col>
+        <Row>
+          <Col md={4}>
+            <NumberPicker
+              title={this.state.selectedNumber || 'Select'}
+              handleValueChanged={(value) => this.handleValueChanged(value)}
+            />
+          </Col>
+          <Col md={4}>
+            <Button
+              onClick={this.hostGame}
+              bsStyle="primary"
+            >
+              Host Game
+            </Button>
+          </Col>
+        </Row>
+        <Row>
+          <Col md={3}>
+            Game price:
+            <FormControl
+              type="text"
+              value={this.state.gamePrice}
+              onChange={(event) => this.handleFieldChange('gamePrice', event.target.value)}
+            />
+          </Col>
+        </Row>
         {this.message()}
       </Row>
     );

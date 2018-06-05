@@ -23,7 +23,6 @@ class JoinGame extends React.Component {
   joinGame = () => {
     const {joinGame} = this.props.contractInstance;
     const playerBet = this.state.evenOddSelectorTitle === 'Even' ? 0 : 1;
-    console.log(playerBet, this.props.currentGame.id);
     joinGame.sendTransaction(this.props.currentGame.id, playerBet,
       {
         value: this.props.currentGame.price,
