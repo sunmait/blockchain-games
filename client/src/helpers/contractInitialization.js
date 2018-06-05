@@ -49,6 +49,18 @@ const contractInitialization = (context) => {
             }
           });
 
+          const GameEndedEvent = context.props.contractInstance.GameEnded({});
+
+          GameEndedEvent.watch((error, result) => {
+            if (result) {
+              const endedGame = {
+                id: Number(result.args.gameId),
+                gameResult: Number(result.args.result)
+              };
+              context.props.handleGameEndedEvent(endedGame);
+            }
+          });
+
         }
       });
     } else {

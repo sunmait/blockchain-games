@@ -1,4 +1,5 @@
 import CONSTANTS from './mainPageActionConstants';
+import gameStatuses from '../../../helpers/gameStatuses';
 
 const defaultState = {
   contractInstance: null,
@@ -41,6 +42,9 @@ export default function (state = defaultState, {type, payload}) {
 
     case CONSTANTS.HANDLE_GAME_JOINED_EVENT:
       return handleGameJoinedEvent(state, payload);
+
+    case CONSTANTS.HANDLE_GAME_ENDED_EVENT:
+      return handleGameEndedEvent(state, payload);
 
     case CONSTANTS.HANDLE_ADD_TO_USER_GAMES:
       return handleAddToUserGames(state, payload);
@@ -115,7 +119,24 @@ function handleGameJoinedEvent(state, payload) {
   return {
     ...state,
     hostedGamesList,
+  };
+}
+
+function handleGameEndedEvent(state, payload) {
+  const currentGame = state.currentGame;
+  if (currentGame.id === payload.id) {
+    currentGame.status = gameStatuses[3];
   }
+  const userGamesList = state.userGamesList.slice();
+  const gameIndex = userGamesList.findIndex(game => game.id === payload.id);
+  if (gameIndex !== -1) {
+    userGamesList[gameIndex].status = gameStatuses[3];
+  }
+  return {
+    ...state,
+    currentGame,
+    userGamesList,
+  };
 }
 
 function handleAddToUserGames(state, payload) {
@@ -127,7 +148,7 @@ function handleAddToUserGames(state, payload) {
   return {
     ...state,
     userGamesList,
-  }
+  };
 }
 
 function getUserGames(state, userGamesList) {

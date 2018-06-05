@@ -23,7 +23,7 @@ contract GuessNumberGame {
   event Deposit(address indexed player, uint amount);
   event GameHosted(address player1, bytes32 player1NumberHidden, uint indexed gameId, uint value);
   event GameJoined(address player2, NumberState player2Answer, uint indexed gameId, uint value);
-  event GameEnded(address player1, address player2, Result result);
+  event GameEnded(address player1, address player2, Result result, uint indexed gameId);
 
   mapping(address => uint) public balances;
 
@@ -145,7 +145,7 @@ contract GuessNumberGame {
     thisGame.result = result;
     thisGame.state = State.Ended;
 
-    emit GameEnded(thisGame.player1, thisGame.player2, thisGame.result);
+    emit GameEnded(thisGame.player1, thisGame.player2, thisGame.result, gameId);
     winner.transfer(thisGame.value*2);
   }
 

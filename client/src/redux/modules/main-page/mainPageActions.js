@@ -72,6 +72,12 @@ export const handleGameJoinedEvent = (game) => (dispatch, getState) => {
     });
   }
 };
+
+export const handleGameEndedEvent = (game) => ({
+  type: CONSTANTS.HANDLE_GAME_ENDED_EVENT,
+  payload: game,
+});
+
 export const getHostedGames = () => async (dispatch, getState) => {
   const contractInstance = getState().main.contractInstance;
   const hostedGamesList = await getHostedGamesList(contractInstance);

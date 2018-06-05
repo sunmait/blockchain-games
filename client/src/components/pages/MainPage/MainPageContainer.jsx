@@ -19,6 +19,7 @@ const mapDispatchToProps = (dispatch) => bindActionCreators({
   handleGameHostedEvent: mainPageActions.handleGameHostedEvent,
   handleGameJoinedEvent: mainPageActions.handleGameJoinedEvent,
   setCurrentMetamaskAccount: mainPageActions.setCurrentMetamaskAccount,
+  handleGameEndedEvent: mainPageActions.handleGameEndedEvent,
 }, dispatch);
 
 export default connect(mapStateToProps, mapDispatchToProps)(MainPage);

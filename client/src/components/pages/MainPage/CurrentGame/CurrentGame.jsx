@@ -23,7 +23,7 @@ class CurrentGame extends React.Component {
 
   revealWinner = () => {
     const {revealHiddenNumber} = this.props.contractInstance;
-    revealHiddenNumber.call(this.props.gameId, this.state.hostNumber, this.state.hostSecret,
+    revealHiddenNumber(this.props.gameId, this.state.hostNumber, this.state.hostSecret,
       {
         gas: 999000,
         gasPrice: 20,
