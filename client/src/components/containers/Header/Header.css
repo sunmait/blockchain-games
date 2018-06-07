@@ -7,6 +7,10 @@
     padding: auto;
 }
 
+.navbar-header>li {
+    display: block;
+}
+
 .navbar-collapse {
     float: right;
 }
