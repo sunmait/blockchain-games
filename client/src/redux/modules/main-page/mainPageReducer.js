@@ -7,7 +7,7 @@ const defaultState = {
   activeTabId: 1,
   currentGame: {
     id: null,
-    status: null,
+    status: undefined,
     price: undefined,
   },
   hostedGamesList: [],

@@ -56,16 +56,40 @@ class HostGame extends React.Component {
     });
   };
 
+  copyToClipboard = () => {
+    const copyText = document.getElementById("secret-word-container");
+    const modalBox = document.getElementById("game-hosted-payload-container");
+    const textArea = document.createElement("textArea");
+    textArea.value = copyText.textContent;
+    modalBox.appendChild(textArea);
+    textArea.select();
+    document.execCommand("copy");
+    textArea.remove();
+  };
+
   message = () => {
     return (
-      <Modal show={this.state.isModal}>
+      <Modal id="game-hosted-payload-container" show={this.state.isModal}>
         <Modal.Header>
           <p>You should hold secret and the value that you chose.</p>
           <p>You will need these values to finish the game.</p>
         </Modal.Header>
         <Modal.Body>
           <p>Your number: {this.state.selectedNumber}</p>
-          <p>Your secret: {this.state.secretWord}</p>
+          <Row>
+            <Col md={12}>
+              Your secret: <span id="secret-word-container">{this.state.secretWord}</span>
+              <Button
+                className="btn-sm"
+                onClick={this.copyToClipboard}
+                style={{marginLeft: 5}}
+              >
+                <span
+                  className="glyphicon glyphicon-copy"
+                />
+              </Button>
+            </Col>
+          </Row>
         </Modal.Body>
         <Modal.Footer>
           <Button

@@ -16,7 +16,7 @@ export const handleCurrentGameChange = (gameId) => async (dispatch, getState) =>
   let game = {
     id: gameId,
     price: undefined,
-    status: null,
+    status: undefined,
     result: gameResults[0],
   };
 
