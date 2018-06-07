@@ -75,6 +75,22 @@ contract GuessNumberGame {
     return ids;
   }
 
+  function getUserLastBets(uint gameId) view public returns (uint[]) {
+    uint userGamesCounter = 0;
+    for (uint i = games.length; i > 0 && userGamesCounter <= 5; i--) {
+      if (games[i-1].player1 == games[gameId].player1 && games[i-1].state == State.Ended) {
+        userGamesCounter++;
+      }
+    }
+    uint[] memory lastBets = new uint[](userGamesCounter);
+    for (uint j = games.length; j > 0 && userGamesCounter > 0; j--) {
+      if (games[j-1].player1 == games[gameId].player1 && games[j-1].state == State.Ended) {
+        lastBets[--userGamesCounter] = games[j-1].player1Number;
+      }
+    }
+    return lastBets;
+  }
+
   function getGameById(uint id) view public returns (address, address, uint, uint, NumberState, State, Result) {
     return (games[id].player1, games[id].player2, games[id].value, games[id].player1Number, games[id].player2Answer, games[id].state, games[id].result);
   }

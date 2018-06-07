@@ -8,7 +8,6 @@ import HostGameContainer from './HostGame/HostGameContainer';
 import CurrentGameContainer from './CurrentGame/CurrentGameContainer';
 import MyGamesContainer from './MyGames/MyGamesContainer';
 import './MainPage.css';
-// import Web3 from 'web3';
 import contractInitialization from '../../../helpers/contractInitialization';
 
 class MainPage extends Component {

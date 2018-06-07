@@ -9,6 +9,7 @@ const defaultState = {
     id: null,
     status: undefined,
     price: undefined,
+    hostLastBets: [],
   },
   hostedGamesList: [],
   userGamesList: [],

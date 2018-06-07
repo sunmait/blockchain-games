@@ -36,19 +36,36 @@ function getCurrentGameFieldsById(gameId, contractInstance) {
     const {getGameById} = contractInstance;
     getGameById(
       gameId,
-      (err, result) => {
+      async (err, result) => {
         if (err) {
           console.log('err: ', err);
         } else {
           const gamePrice = Number(result[2]);
           const gameStatus = gameStatuses[Number(result[5])];
           const gameResult = gameResults[Number(result[6])];
+          const hostLastBets = await getCurrentGameHostLastBets(gameId, contractInstance);
           resolve({
             id: gameId,
             price: gamePrice,
             status: gameStatus,
             result: gameResult,
+            hostLastBets,
           });
+        }
+      });
+  });
+}
+
+function getCurrentGameHostLastBets(gameId, contractInstance) {
+  return new Promise((resolve) => {
+    const {getUserLastBets} = contractInstance;
+    getUserLastBets(
+      gameId,
+      (err, result) => {
+        if (err) {
+          console.log('err: ', err);
+        } else {
+          resolve(result.map(bet => Number(bet)));
         }
       });
   });

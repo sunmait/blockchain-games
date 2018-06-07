@@ -4,6 +4,7 @@ import Col from 'react-bootstrap/lib/Col';
 import Button from 'react-bootstrap/lib/Button';
 import DropdownButton from 'react-bootstrap/lib/DropdownButton';
 import MenuItem from 'react-bootstrap/lib/MenuItem';
+import './JoinGame.css';
 
 class JoinGame extends React.Component {
   constructor(props) {
@@ -70,20 +71,48 @@ class JoinGame extends React.Component {
     );
   };
 
+  renderHostLastBets = () => {
+    if (this.props.currentGame.hostLastBets.length === 0) {
+      return (
+        <Row>
+          This user don't have ended games.
+        </Row>
+      )
+    }
+    return this.props.currentGame.hostLastBets.map((item, index) => {
+      const key = index;
+      return (
+        <Col md={1} key={key} className="last-bets-item-container">
+          {item}
+        </Col>
+      );
+    });
+  };
+
   render() {
     return (
       <Row>
-        <Col md={4}>
-          Game #{this.props.currentGame.id}
-          {this.renderEvenOddSelector()}
+        <Col md={12}>
+          <Col md={4}>
+            Game #{this.props.currentGame.id}
+            {this.renderEvenOddSelector()}
+          </Col>
+          <Col md={4}>
+            <Button
+              onClick={this.joinGame}
+              bsStyle="primary"
+            >
+              Join Game
+            </Button>
+          </Col>
         </Col>
-        <Col md={4}>
-          <Button
-            onClick={this.joinGame}
-            bsStyle="primary"
-          >
-            Join Game
-          </Button>
+        <Col md={12}>
+          <Col md={2}>
+            This user last bets:
+          </Col>
+          <Col>
+            {this.renderHostLastBets()}
+          </Col>
         </Col>
       </Row>
     );
