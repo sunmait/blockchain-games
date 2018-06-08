@@ -9,6 +9,7 @@ import CurrentGameContainer from './CurrentGame/CurrentGameContainer';
 import MyGamesContainer from './MyGames/MyGamesContainer';
 import './MainPage.css';
 import contractInitialization from '../../../helpers/contractInitialization';
+import Spinner from '../../common/Spinner/Spinner';
 
 class MainPage extends Component {
 
@@ -32,15 +33,15 @@ class MainPage extends Component {
           <br />
           <Button
             onClick={() => {
-              this.props.handleCurrentGameChange(null);
               this.props.handleActiveTabChange(3);
+              this.props.handleCurrentGameChange(null);
             }}
             bsStyle="primary"
           >
             Host game
           </Button>
         </div>
-      )
+      );
     }
     return this.props.hostedGamesList.map((item, index) => {
       const key = index;
@@ -55,8 +56,8 @@ class MainPage extends Component {
             <Button
               className="pull-right"
               onClick={() => {
-                this.props.handleCurrentGameChange(item.id);
                 this.props.handleActiveTabChange(3);
+                this.props.handleCurrentGameChange(item.id);
               }}
             >
               Join Game
@@ -88,15 +89,15 @@ class MainPage extends Component {
         <Tab eventKey={1} title="Open Games">
           <Row className="games-list-container">
             <Col md={10}>
-              {this.renderGamesList()}
+              {this.props.isHostedGamesLoaded ? this.renderGamesList() : <Spinner/>}
             </Col>
           </Row>
         </Tab>
         <Tab eventKey={2} title="My Games">
-          <MyGamesContainer />
+          {this.props.isUserGamesLoaded ? <MyGamesContainer /> : <Spinner/>}
         </Tab>
         <Tab eventKey={3} title="Game">
-          {this.renderGameTabContent()}
+          {this.props.isCurrentGameLoaded ? this.renderGameTabContent() : <Spinner/>}
         </Tab>
       </Tabs>
     );

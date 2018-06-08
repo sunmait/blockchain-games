@@ -13,6 +13,9 @@ export const setCurrentMetamaskAccount = (account) => ({
 });
 
 export const handleCurrentGameChange = (gameId) => async (dispatch, getState) => {
+  dispatch({
+    type: CONSTANTS.TRIGGER_CURRENT_GAME_TAB_SPINNER,
+  });
   let game = {
     id: gameId,
     price: undefined,

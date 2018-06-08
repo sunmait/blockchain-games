@@ -11,8 +11,11 @@ const defaultState = {
     price: undefined,
     hostLastBets: [],
   },
+  isCurrentGameLoaded: true,
   hostedGamesList: [],
+  isHostedGamesLoaded: false,
   userGamesList: [],
+  isUserGamesLoaded: false,
 };
 
 export default function (state = defaultState, {type, payload}) {
@@ -28,6 +31,9 @@ export default function (state = defaultState, {type, payload}) {
 
     case CONSTANTS.HANDLE_CURRENT_GAME_CHANGE:
       return handleCurrentGameChange(state, payload);
+
+    case CONSTANTS.TRIGGER_CURRENT_GAME_TAB_SPINNER:
+      return triggerCurrentGameTabSpinner(state);
 
     case CONSTANTS.GET_HOSTED_GAMES:
       return getHostedGames(state, payload);
@@ -80,6 +86,14 @@ function handleCurrentGameChange(state, currentGame) {
   return {
     ...state,
     currentGame,
+    isCurrentGameLoaded: true,
+  };
+}
+
+function triggerCurrentGameTabSpinner(state) {
+  return {
+    ...state,
+    isCurrentGameLoaded: false,
   };
 }
 
@@ -87,6 +101,7 @@ function getHostedGames(state, hostedGamesList) {
   return {
     ...state,
     hostedGamesList,
+    isHostedGamesLoaded: true,
   };
 }
 
@@ -154,5 +169,6 @@ function getUserGames(state, userGamesList) {
   return {
     ...state,
     userGamesList,
+    isUserGamesLoaded: true,
   };
 }

@@ -8,6 +8,9 @@ const mapStateToProps = (state) => ({
   currentGame: state.main.currentGame,
   activeTabId: state.main.activeTabId,
   hostedGamesList: state.main.hostedGamesList,
+  isHostedGamesLoaded: state.main.isHostedGamesLoaded,
+  isUserGamesLoaded: state.main.isUserGamesLoaded,
+  isCurrentGameLoaded: state.main.isCurrentGameLoaded,
 });
 
 const mapDispatchToProps = (dispatch) => bindActionCreators({
