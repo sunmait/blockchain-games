@@ -129,7 +129,7 @@ class HostGame extends React.Component {
         </Row>
         <Row>
           <Col md={3}>
-            Game price:
+            Bet amount:
             <FormControl
               type="text"
               value={this.state.gamePrice}

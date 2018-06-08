@@ -12,6 +12,11 @@ export const setCurrentMetamaskAccount = (account) => ({
   payload: account,
 });
 
+export const setEthPrice = (ethPrice) => ({
+  type: CONSTANTS.SET_ETH_PRICE,
+  payload: ethPrice,
+});
+
 export const handleCurrentGameChange = (gameId) => async (dispatch, getState) => {
   dispatch({
     type: CONSTANTS.TRIGGER_CURRENT_GAME_TAB_SPINNER,

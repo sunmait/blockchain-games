@@ -11,10 +11,12 @@ const mapStateToProps = (state) => ({
   isHostedGamesLoaded: state.main.isHostedGamesLoaded,
   isUserGamesLoaded: state.main.isUserGamesLoaded,
   isCurrentGameLoaded: state.main.isCurrentGameLoaded,
+  ethPrice: state.main.ethPrice,
 });
 
 const mapDispatchToProps = (dispatch) => bindActionCreators({
   setContractInstance: mainPageActions.setContractInstance,
+  setEthPrice: mainPageActions.setEthPrice,
   handleCurrentGameChange: mainPageActions.handleCurrentGameChange,
   handleActiveTabChange: mainPageActions.handleActiveTabChange,
   getHostedGames: mainPageActions.getHostedGames,

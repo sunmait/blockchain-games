@@ -44,12 +44,17 @@ class MyGames extends React.Component {
     }
     return this.props.userGamesList.map((item, index) => {
       const key = index;
+      const risk = (
+        <React.Fragment>
+          ({(this.props.ethPrice/(10 ** 18) * item.price).toFixed(3)}USD)
+        </React.Fragment>
+      );
       return (
         <Row key={key} className="games-list-element-container">
           <Col md={6}>
             Game #{item.id}
             <br />
-            Game price: {item.price} vei
+            Game price: {item.price} vei {this.props.ethPrice ? risk : null}
           </Col>
           <Col md={6}>
             Game status: {item.status}

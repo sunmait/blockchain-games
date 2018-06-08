@@ -9,6 +9,7 @@ import CurrentGameContainer from './CurrentGame/CurrentGameContainer';
 import MyGamesContainer from './MyGames/MyGamesContainer';
 import './MainPage.css';
 import contractInitialization from '../../../helpers/contractInitialization';
+import getEthPrice from '../../../helpers/getEthPrice';
 import Spinner from '../../common/Spinner/Spinner';
 
 class MainPage extends Component {
@@ -23,6 +24,10 @@ class MainPage extends Component {
 
   onLoad = () => {
     contractInitialization(this);
+    getEthPrice()
+      .then(response => {
+        this.props.setEthPrice(response);
+      });
   };
 
   renderGamesList = () => {
@@ -45,12 +50,17 @@ class MainPage extends Component {
     }
     return this.props.hostedGamesList.map((item, index) => {
       const key = index;
+      const risk = (
+        <React.Fragment>
+          ({(this.props.ethPrice/(10 ** 18) * item.price).toFixed(3)}USD)
+        </React.Fragment>
+      );
       return (
         <Row key={key} className="games-list-element-container">
           <Col md={6}>
             Game #{item.id}
             <br />
-            Game price: {item.price} vei
+            Bet amount: {item.price} vei {this.props.ethPrice ? risk : null}
           </Col>
           <Col md={6}>
             <Button

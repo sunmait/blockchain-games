@@ -6,6 +6,7 @@ import * as mainPageActions from "../../../../redux/modules/main-page/mainPageAc
 const mapStateToProps = (state) => ({
   contractInstance: state.main.contractInstance,
   userGamesList: state.main.userGamesList,
+  ethPrice: state.main.ethPrice,
 });
 
 const mapDispatchToProps = (dispatch) => bindActionCreators({

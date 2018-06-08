@@ -4,6 +4,7 @@ import gameStatuses from '../../../helpers/gameStatuses';
 const defaultState = {
   contractInstance: null,
   currentAccount: null,
+  ethPrice: undefined,
   activeTabId: 1,
   currentGame: {
     id: null,
@@ -25,6 +26,9 @@ export default function (state = defaultState, {type, payload}) {
 
     case CONSTANTS.SET_CURRENT_METAMASK_ACCOUNT:
       return setCurrentMetamaskAccount(state, payload);
+
+    case CONSTANTS.SET_ETH_PRICE:
+      return setEthPrice(state, payload);
 
     case CONSTANTS.HANDLE_ACTIVE_TAB_CHANGE:
       return handleActiveTabChange(state, payload);
@@ -73,6 +77,13 @@ function setCurrentMetamaskAccount(state, account) {
     ...state,
     currentAccount: account,
   };
+}
+
+function setEthPrice(state, ethPrice) {
+  return {
+    ...state,
+    ethPrice,
+  }
 }
 
 function handleActiveTabChange(state, tabId) {
