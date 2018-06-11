@@ -1,6 +1,7 @@
 const Game = artifacts.require('GuessNumberGame');
 
 const expectRevert = require('./helpers/expectRevert');
+const increaseTime = require('./helpers/increaseTime');
 
 contract('Game test', async accounts => {
   let instance;
@@ -36,7 +37,7 @@ contract('Game test', async accounts => {
       const expectedOwnerAddress = accounts[0];
       const actualOwnerAddress = await instance.owner.call();
 
-      assert.strictEqual(actualOwnerAddress, expectedOwnerAddress, 'Incorret contract owner');
+      assert.strictEqual(actualOwnerAddress, expectedOwnerAddress, 'Incorrect contract owner');
     });
   });
 
@@ -68,10 +69,10 @@ contract('Game test', async accounts => {
       assert.strictEqual(actualPlayer1Address, player1, 'Incorreсt player1 address');
       assert.strictEqual(actualPlayer2Address, expectedPlayer2Addess, 'Incorreсt player2 address');
       assert.strictEqual(actualBetAmount, betAmount, 'Incorreсt game bet amount');
-      assert.strictEqual(actualPlayer1Number, 0, 'Incorret player1 number');
-      assert.strictEqual(actualPlayer2Answer, NumberState.Undefined, 'Incorret player2 answer');
-      assert.strictEqual(actualGameState, State.Hosted, 'Incorret game state');
-      assert.strictEqual(actualGameResult, Result.Unfinished, 'Incorret game result');
+      assert.strictEqual(actualPlayer1Number, 0, 'Incorrect player1 number');
+      assert.strictEqual(actualPlayer2Answer, NumberState.Undefined, 'Incorrect player2 answer');
+      assert.strictEqual(actualGameState, State.Hosted, 'Incorrect game state');
+      assert.strictEqual(actualGameResult, Result.Unfinished, 'Incorrect game result');
     });
   });
 
@@ -150,9 +151,11 @@ contract('Game test', async accounts => {
     it('should add correct Game instance to games array', async () => {
       const betAmount = Number.parseInt(web3.toWei(1), 10);
       const expectedPlayer2Addess = '0x0000000000000000000000000000000000000000';
+      const expectedGameJoinTime = 0;
       const player1Number = 3;
       const player1Secret = 'secret-key';
       const player1NumberHidden = web3.sha3('0x' + player1Number + player1Secret);
+
 
       await instance.hostGame(player1NumberHidden, betAmount, {
         from: player1,
@@ -167,17 +170,21 @@ contract('Game test', async accounts => {
       const actualPlayer1NumberHidden = game[3];
       const actualPlayer1Number = game[4].toNumber();
       const actualPlayer2Answer = game[5].toNumber();
-      const actualGameState = game[6].toNumber();
-      const actualGameResult = game[7].toNumber();
+      const actualGameJoinTime = game[6].toNumber();
+      const actualGameState = game[7].toNumber();
+      const actualGameResult = game[8].toNumber();
+
+
 
       assert.strictEqual(actualPlayer1Address, player1, 'Incorreсt player1 address');
       assert.strictEqual(actualPlayer2Address, expectedPlayer2Addess, 'Incorreсt player2 address');
       assert.strictEqual(actualBetAmount, betAmount, 'Incorreсt game bet amount');
       assert.strictEqual(actualPlayer1NumberHidden, player1NumberHidden, 'Incorreсt hidden number of player1');
-      assert.strictEqual(actualPlayer1Number, 0, 'Incorret player1 number');
-      assert.strictEqual(actualPlayer2Answer, NumberState.Undefined, 'Incorret player2 answer');
-      assert.strictEqual(actualGameState, State.Hosted, 'Incorret game state');
-      assert.strictEqual(actualGameResult, Result.Unfinished, 'Incorret game result');
+      assert.strictEqual(actualPlayer1Number, 0, 'Incorrect player1 number');
+      assert.strictEqual(actualPlayer2Answer, NumberState.Undefined, 'Incorrect player2 answer');
+      assert.strictEqual(actualGameJoinTime, expectedGameJoinTime, 'Incorrect time of join to game');
+      assert.strictEqual(actualGameState, State.Hosted, 'Incorrect game state');
+      assert.strictEqual(actualGameResult, Result.Unfinished, 'Incorrect game result');
     });
 
     it('call should be permitted only if player1 has bet amount on the balance', async () => {
@@ -212,7 +219,7 @@ contract('Game test', async accounts => {
       const balanceAfterHost = (await instance.balances.call(player1)).toNumber();
       const expectedBalanceAfterHost = balanceBeforeHost + betAmount / 2 - betAmount;
 
-      assert.strictEqual(balanceAfterHost, expectedBalanceAfterHost, 'Incorret player balance');
+      assert.strictEqual(balanceAfterHost, expectedBalanceAfterHost, 'Incorrect player balance');
     });
   });
 
@@ -240,8 +247,8 @@ contract('Game test', async accounts => {
       const actualGameState = game[6].toNumber();
 
       assert.strictEqual(actualPlayer2Address, player2, 'Incorreсt player2 address');
-      assert.strictEqual(actualPlayer2Answer, player2Answer, 'Incorret player2 answer');
-      assert.strictEqual(actualGameState, State.Joined, 'Incorret game state');
+      assert.strictEqual(actualPlayer2Answer, player2Answer, 'Incorrect player2 answer');
+      assert.strictEqual(actualGameState, State.Joined, 'Incorrect game state');
     });
 
     it('call should be permitted only if game state is hosted', async () => {
@@ -256,7 +263,7 @@ contract('Game test', async accounts => {
         value: betAmount,
       });
 
-      const gameId = 0;
+      const gameId = 0;- 
 
       await instance.joinGame(gameId, player2Answer, { from: player2, value: betAmount });
 
@@ -287,10 +294,7 @@ contract('Game test', async accounts => {
         value: betAmount - 100,
       });
 
-      await expectRevert(
-        promise,
-        'joinGame call is permitted when player2 bet amount is not equal to game bet amount'
-      );
+      await expectRevert(promise, 'joinGame call is permitted when player2 bet amount is not equal to game bet amount');
     });
   });
 
@@ -324,9 +328,9 @@ contract('Game test', async accounts => {
       const actualGameState = game[6].toNumber();
       const actualGameResult = game[7].toNumber();
 
-      assert.strictEqual(actualPlayer1Number, player1Number, 'Incorret player1 number');
-      assert.strictEqual(actualGameState, State.Ended, 'Incorret game state');
-      assert.strictEqual(actualGameResult, Result.Win, 'Incorret game result');
+      assert.strictEqual(actualPlayer1Number, player1Number, 'Incorrect player1 number');
+      assert.strictEqual(actualGameState, State.Ended, 'Incorrect game state');
+      assert.strictEqual(actualGameResult, Result.Win, 'Incorrect game result');
       //TODO: check player balance after game
     });
 
@@ -359,9 +363,9 @@ contract('Game test', async accounts => {
       const actualGameState = game[6].toNumber();
       const actualGameResult = game[7].toNumber();
 
-      assert.strictEqual(actualPlayer1Number, player1Number, 'Incorret player1 number');
-      assert.strictEqual(actualGameState, State.Ended, 'Incorret game state');
-      assert.strictEqual(actualGameResult, Result.Loss, 'Incorret game result');
+      assert.strictEqual(actualPlayer1Number, player1Number, 'Incorrect player1 number');
+      assert.strictEqual(actualGameState, State.Ended, 'Incorrect game state');
+      assert.strictEqual(actualGameResult, Result.Loss, 'Incorrect game result');
     });
 
     it('call should be permitted only if game state is joined', async () => {
@@ -483,7 +487,7 @@ contract('Game test', async accounts => {
       const balanceAfterDeposit = (await instance.balances.call(player1)).toNumber();
       const expectedBalanceAfterDeposit = balanceBeforeDeposit + depositValue;
 
-      assert.strictEqual(balanceAfterDeposit, expectedBalanceAfterDeposit, 'Incorret player balance');
+      assert.strictEqual(balanceAfterDeposit, expectedBalanceAfterDeposit, 'Incorrect player balance');
     });
 
     it('call should be permitted only if deposit value is not equal 0', async () => {
@@ -495,6 +499,33 @@ contract('Game test', async accounts => {
       });
 
       await expectRevert(promise, 'Call deposit permitted even if deposit value is equal 0');
+    });
+  });
+
+  describe('withdrawal', () => {
+    it('should withdrawal correct value on the player balance', async () => {
+      const betAmount = Number.parseInt(web3.toWei(1), 10);
+      const player2Answer = NumberState.Odd;
+      const correctPlayer1Number = 3;
+      const incorrectPlayer1Number = 8;
+      const player1Secret = 'secret-key';
+      const player1NumberHidden = web3.sha3('0x' + correctPlayer1Number + player1Secret);
+
+      await instance.hostGame(player1NumberHidden, betAmount, {
+        from: player1,
+        value: betAmount,
+      });
+    before + gas*gasPrice === after
+
+      const gameId = 0;
+
+      await instance.joinGame(gameId, player2Answer, {
+        from: player2,
+        value: betAmount,
+      });
+
+      const revertTime = await instance.revertTime.call();
+      await increaseTime(revertTime.toNumber() + (8 * 24 * 60 * 60));
     });
   });
 
@@ -511,7 +542,7 @@ contract('Game test', async accounts => {
       const ownerAfter = await instance.owner.call();
 
       assert.notEqual(ownerBefore, ownerAfter, 'Contract owner has not changed');
-      assert.strictEqual(ownerAfter, newOwner, 'Incorret contract owner');
+      assert.strictEqual(ownerAfter, newOwner, 'Incorrect contract owner');
     });
 
     it('call should be permitted only for contract owner', async () => {
