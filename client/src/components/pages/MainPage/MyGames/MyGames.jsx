@@ -2,6 +2,7 @@ import React from 'react';
 import Row from 'react-bootstrap/lib/Row';
 import Col from 'react-bootstrap/lib/Col';
 import Button from 'react-bootstrap/lib/Button';
+import {mapVeiToEth} from '../../../../helpers/ethConverter';
 
 class MyGames extends React.Component {
   renderRevealButton = (item) => {
@@ -46,7 +47,7 @@ class MyGames extends React.Component {
       const key = index;
       const risk = (
         <React.Fragment>
-          ({(this.props.ethPrice/(10 ** 18) * item.price).toFixed(3)}USD)
+          ({(this.props.ethPrice * mapVeiToEth(item.price)).toFixed(2)}USD)
         </React.Fragment>
       );
       return (
@@ -54,7 +55,7 @@ class MyGames extends React.Component {
           <Col md={6}>
             Game #{item.id}
             <br />
-            Game price: {item.price} vei {this.props.ethPrice ? risk : null}
+            Game price: {mapVeiToEth(item.price)} ETH {this.props.ethPrice ? risk : null}
           </Col>
           <Col md={6}>
             Game status: {item.status}

@@ -4,6 +4,7 @@ import Col from 'react-bootstrap/lib/Col';
 import Button from 'react-bootstrap/lib/Button';
 import DropdownButton from 'react-bootstrap/lib/DropdownButton';
 import MenuItem from 'react-bootstrap/lib/MenuItem';
+import {mapVeiToEth} from '../../../../helpers/ethConverter';
 import './JoinGame.css';
 
 class JoinGame extends React.Component {
@@ -90,6 +91,11 @@ class JoinGame extends React.Component {
   };
 
   render() {
+    const risk = (
+      <React.Fragment>
+        ({(this.props.ethPrice * mapVeiToEth(this.props.currentGame.price)).toFixed(2)}USD)
+      </React.Fragment>
+    );
     return (
       <Row>
         <Col md={12}>
@@ -106,12 +112,17 @@ class JoinGame extends React.Component {
             </Button>
           </Col>
         </Col>
-        <Col md={12}>
+        <Col md={12} className="last-bets-container">
           <Col md={2}>
             This user last bets:
           </Col>
           <Col>
             {this.renderHostLastBets()}
+          </Col>
+        </Col>
+        <Col md={12}>
+          <Col md={12}>
+            Game price: {mapVeiToEth(this.props.currentGame.price)} ETH {this.props.ethPrice ? risk : null}
           </Col>
         </Col>
       </Row>

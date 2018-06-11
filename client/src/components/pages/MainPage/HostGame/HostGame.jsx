@@ -6,6 +6,8 @@ import Button from 'react-bootstrap/lib/Button';
 import Modal from 'react-bootstrap/lib/Modal';
 import FormControl from 'react-bootstrap/lib/FormControl';
 import generateString from '../../../../helpers/stringGenerator';
+import {mapEthToVei} from '../../../../helpers/ethConverter';
+import './HostGame.css';
 
 class HostGame extends React.Component {
   constructor(props) {
@@ -15,7 +17,7 @@ class HostGame extends React.Component {
       selectedNumber: null,
       isModal: false,
       secretWord: '',
-      gamePrice: 0,
+      gamePrice: 0.000045,
     };
   }
 
@@ -29,12 +31,15 @@ class HostGame extends React.Component {
     if (this.state.selectedNumber < 1 || this.state.selectedNumber > 10) {
       return;
     }
+    if (this.state.gamePrice < 0.000045) {
+      return;
+    }
     const {hostGame} = this.props.contractInstance;
     const secretWord = generateString(16);
     const hiddenNumber = window.web3.sha3(window.web3.toHex(this.state.selectedNumber) + secretWord);
-    hostGame.sendTransaction(hiddenNumber, this.state.gamePrice,
+    hostGame.sendTransaction(hiddenNumber, mapEthToVei(this.state.gamePrice),
       {
-        value: this.state.gamePrice,
+        value: mapEthToVei(this.state.gamePrice),
       },
       (err, answer) => {
       if (err) {
@@ -109,6 +114,11 @@ class HostGame extends React.Component {
   };
 
   render() {
+    const risk = (
+      <React.Fragment>
+        ({(this.props.ethPrice * this.state.gamePrice).toFixed(2)}USD)
+      </React.Fragment>
+    );
     return (
       <Row>
         <Row>
@@ -128,13 +138,15 @@ class HostGame extends React.Component {
           </Col>
         </Row>
         <Row>
-          <Col md={3}>
+          <Col md={12}>
             Bet amount:
             <FormControl
+              className="game-price-input"
               type="text"
               value={this.state.gamePrice}
               onChange={(event) => this.handleFieldChange('gamePrice', event.target.value)}
             />
+            ETH {this.props.ethPrice ? risk : null}
           </Col>
         </Row>
         {this.message()}

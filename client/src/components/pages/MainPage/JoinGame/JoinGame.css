@@ -1,3 +1,7 @@
+.last-bets-container {
+    margin: 5px 0;
+}
+
 .last-bets-item-container {
     border-right: 4px double lightslategray;
     text-align: center;

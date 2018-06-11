@@ -11,6 +11,7 @@ import './MainPage.css';
 import contractInitialization from '../../../helpers/contractInitialization';
 import getEthPrice from '../../../helpers/getEthPrice';
 import Spinner from '../../common/Spinner/Spinner';
+import {mapVeiToEth} from '../../../helpers/ethConverter';
 
 class MainPage extends Component {
 
@@ -52,7 +53,7 @@ class MainPage extends Component {
       const key = index;
       const risk = (
         <React.Fragment>
-          ({(this.props.ethPrice/(10 ** 18) * item.price).toFixed(3)}USD)
+          ({(this.props.ethPrice * mapVeiToEth(item.price)).toFixed(2)}USD)
         </React.Fragment>
       );
       return (
@@ -60,7 +61,7 @@ class MainPage extends Component {
           <Col md={6}>
             Game #{item.id}
             <br />
-            Bet amount: {item.price} vei {this.props.ethPrice ? risk : null}
+            Bet amount: {mapVeiToEth(item.price)} ETH {this.props.ethPrice ? risk : null}
           </Col>
           <Col md={6}>
             <Button
