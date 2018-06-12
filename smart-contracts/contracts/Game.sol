@@ -24,7 +24,7 @@ contract GuessNumberGame {
 
   event Deposit(address indexed player, uint amount);
   event GameHosted(address player1, bytes32 player1NumberHidden, uint indexed gameId, uint betAmount);
-  event GameJoined(address player1, address player2, NumberState player2Answer, uint indexed gameId, uint betAmount);
+  event GameJoined(address player1, address player2, NumberState player2Answer, uint indexed gameId, uint betAmount, uint gameJoinTime);
   event GameEnded(address player1, address player2, Result result, uint indexed gameId);
 
   mapping(address => uint) public balances;
@@ -93,8 +93,9 @@ contract GuessNumberGame {
     return lastBets;
   }
 
-  function getGameById(uint id) view public returns (address, address, uint, uint, NumberState, State, Result) {
-    return (games[id].player1, games[id].player2, games[id].betAmount, games[id].player1Number, games[id].player2Answer, games[id].state, games[id].result);
+  function getGameById(uint id) view public returns (address, address, uint, State, Result, uint) {
+    return (games[id].player1, games[id].player2, games[id].betAmount,
+            games[id].state, games[id].result, games[id].gameJoinTime);
   }
 
   function hostGame(bytes32 player1NumberHidden, uint val) public payable returns (bool) {
@@ -121,7 +122,7 @@ contract GuessNumberGame {
     thisGame.state = State.Joined;
     thisGame.gameJoinTime = now;
 
-    emit GameJoined(thisGame.player1, msg.sender, NumberState(player2Answer), gameId, thisGame.betAmount);
+    emit GameJoined(thisGame.player1, msg.sender, NumberState(player2Answer), gameId, thisGame.betAmount, thisGame.gameJoinTime);
 
     return true;
   }
@@ -133,8 +134,10 @@ contract GuessNumberGame {
     require(thisGame.gameJoinTime + revertTime < now);
 
     thisGame.state = State.Ended;
-    msg.sender.transfer(thisGame.betAmount);
-    balances[owner] += thisGame.betAmount;
+
+    emit GameEnded(thisGame.player1, thisGame.player2, thisGame.result, gameId);
+    msg.sender.transfer(thisGame.betAmount*2);
+    //balances[owner] += thisGame.betAmount;
 
     return true;
   }
