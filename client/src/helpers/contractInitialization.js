@@ -33,7 +33,7 @@ const contractInitialization = (context) => {
             if (result) {
               const hostedGame = {
                 id: Number(result.args.gameId),
-                price: Number(result.args.value),
+                price: Number(result.args.betAmount),
                 player1: result.args.player1,
               };
               context.props.handleGameHostedEvent(hostedGame);
@@ -46,7 +46,7 @@ const contractInitialization = (context) => {
             if (result) {
               const joinedGame = {
                 id: Number(result.args.gameId),
-                price: Number(result.args.value),
+                price: Number(result.args.betAmount),
                 player1: result.args.player1,
                 player2: result.args.player2,
               };

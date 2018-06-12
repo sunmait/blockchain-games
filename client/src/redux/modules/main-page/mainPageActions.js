@@ -49,8 +49,8 @@ function getCurrentGameFieldsById(gameId, contractInstance) {
           console.log('err: ', err);
         } else {
           const gamePrice = Number(result[2]);
-          const gameStatus = gameStatuses[Number(result[5])];
-          const gameResult = gameResults[Number(result[6])];
+          const gameStatus = gameStatuses[Number(result[3])];
+          const gameResult = gameResults[Number(result[4])];
           const hostLastBets = await getCurrentGameHostLastBets(gameId, contractInstance);
           resolve({
             id: gameId,
@@ -112,9 +112,12 @@ export const handleGameJoinedEvent = (game) => (dispatch, getState) => {
     dispatch({
       type: CONSTANTS.HANDLE_ADD_TO_USER_GAMES,
       payload: {
+        hostAddress: game.player1,
+        joinedAddress: game.player2,
         id: game.id,
         price: game.price,
         status: gameStatuses[2],
+        gameJoinTime: Number(game.gameJoinTime),
       },
     });
   }
@@ -202,11 +205,14 @@ function getUserGamesFieldsByIds(gamesIds, contractInstance) {
             console.log('err: ', err);
           } else {
             const gamePrice = Number(result[2]);
-            const statusId = Number(result[5]);
+            const statusId = Number(result[3]);
             resolve({
+              hostAddress: result[0],
+              joinedAddress: result[1],
               id: gameId,
               price: gamePrice,
               status: gameStatuses[statusId],
+              gameJoinTime: Number(result[5]),
             });
           }
         }
