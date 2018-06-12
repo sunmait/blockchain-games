@@ -94,8 +94,10 @@ contract GuessNumberGame {
   }
 
   function getGameById(uint id) view public returns (address, address, uint, State, Result, uint) {
-    return (games[id].player1, games[id].player2, games[id].betAmount,
-            games[id].state, games[id].result, games[id].gameJoinTime);
+    return (
+      games[id].player1, games[id].player2, games[id].betAmount,
+      games[id].state, games[id].result, games[id].gameJoinTime
+    );
   }
 
   function hostGame(bytes32 player1NumberHidden, uint val) public payable returns (bool) {
@@ -123,21 +125,6 @@ contract GuessNumberGame {
     thisGame.gameJoinTime = now;
 
     emit GameJoined(thisGame.player1, msg.sender, NumberState(player2Answer), gameId, thisGame.betAmount, thisGame.gameJoinTime);
-
-    return true;
-  }
-
-  function withdrawal(uint gameId) public returns (bool) {
-    Game storage thisGame = games[gameId];
-    require(thisGame.player2 == msg.sender);
-    require(thisGame.state == State.Joined);
-    require(thisGame.gameJoinTime + revertTime < now);
-
-    thisGame.state = State.Ended;
-
-    emit GameEnded(thisGame.player1, thisGame.player2, thisGame.result, gameId);
-    msg.sender.transfer(thisGame.betAmount*2);
-    //balances[owner] += thisGame.betAmount;
 
     return true;
   }
@@ -187,6 +174,20 @@ contract GuessNumberGame {
   function changeOwner(address newOwner) public onlyOwner {
     owner = newOwner;
   }
+
+  function withdrawal(uint gameId) public returns (bool) {
+    Game storage thisGame = games[gameId];
+    require(thisGame.player2 == msg.sender);
+    require(thisGame.state == State.Joined);
+    require(thisGame.gameJoinTime + revertTime < now);
+
+    thisGame.state = State.Ended;
+    msg.sender.transfer(thisGame.betAmount); 
+    balances[owner] += thisGame.betAmount;
+
+    return true;
+  }
+
 
   function deposit() public payable returns (bool success) {
     require(msg.value != 0);
