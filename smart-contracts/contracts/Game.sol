@@ -175,14 +175,14 @@ contract GuessNumberGame {
     owner = newOwner;
   }
 
-  function withdrawal(uint gameId) public returns (bool) {
+  function withdrawal(uint gameId) public returns (bool) { // TODO: set winner
     Game storage thisGame = games[gameId];
     require(thisGame.player2 == msg.sender);
     require(thisGame.state == State.Joined);
     require(thisGame.gameJoinTime + revertTime < now);
 
     thisGame.state = State.Ended;
-    msg.sender.transfer(thisGame.betAmount); 
+    msg.sender.transfer(thisGame.betAmount);
     balances[owner] += thisGame.betAmount;
 
     return true;
