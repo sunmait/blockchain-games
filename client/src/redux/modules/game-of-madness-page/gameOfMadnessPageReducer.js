@@ -22,6 +22,9 @@ export default function (state = defaultState, {type, payload}) {
     case CONSTANTS.GAME_OF_MADNESS_GET_HOSTED_GAMES:
       return getHostedGames(state, payload);
 
+    case CONSTANTS.GAME_OF_MADNESS_GET_USER_GAMES:
+      return getUserGames(state, payload);
+
     default:
       return state;
   }
@@ -52,5 +55,12 @@ function getHostedGames(state, hostedGamesList) {
   return {
     ...state,
     hostedGamesList,
+  };
+}
+
+function getUserGames(state, userGamesList) {
+  return {
+    ...state,
+    userGamesList,
   };
 }

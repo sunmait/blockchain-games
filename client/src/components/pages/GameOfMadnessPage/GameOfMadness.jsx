@@ -1,16 +1,16 @@
 import React  from 'react';
 import Tabs from 'react-bootstrap/lib/Tabs';
 import Tab from 'react-bootstrap/lib/Tab';
-import Row from 'react-bootstrap/lib/Row';
 import Button from 'react-bootstrap/lib/Button';
 import Header from '../../containers/Header/Header';
 import contractInitialization from '../../../helpers/gameOfMadness/contractInitialization';
 import gameSettings from '../../../helpers/gameOfMadness/gameSettings';
 import './GameOfMadness.css';
 import GameOfMadnessItemContainer from './GameOfMadnessItemContainer';
-import HostGameContainer from './HostGame/HostGameContainer';
 import getEthPrice from "../../../helpers/getEthPrice";
 import web3Initialization from "../../../helpers/web3Initialization";
+import HostGameContainer from './HostGame/HostGameContainer';
+import MyGamesContainer from './MyGames/MyGamesContainer';
 
 class GameOfMadness extends React.Component {
 
@@ -85,12 +85,10 @@ class GameOfMadness extends React.Component {
           onSelect={(key) => this.props.handleActiveTabChange(key)}
         >
           <Tab eventKey={1} title="Open Games">
-            <Row className="games-list-container">
-              {this.renderGamesList()}
-            </Row>
+            {this.renderGamesList()}
           </Tab>
           <Tab eventKey={2} title="My Games">
-            asd
+            <MyGamesContainer />
           </Tab>
           <Tab eventKey={3} title="Game">
             <HostGameContainer />

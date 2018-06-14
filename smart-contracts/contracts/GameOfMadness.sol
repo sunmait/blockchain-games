@@ -91,12 +91,6 @@ contract GameOfMadness {
     emit GameEnded();
   }
 
-  function getHostedGameFieldsById(uint id) view public returns (address, uint) {
-    return (
-      games[id].player1, games[id].player1TotalBet
-    );
-  }
-
   function getHostedGamesIds() view public returns (uint[]) {
     uint hostedGamesCounter = 0;
     for (uint i = 0; i < games.length; i++) {
@@ -112,6 +106,36 @@ contract GameOfMadness {
       }
     }
     return ids;
+  }
+
+  function getHostedGameFieldsById(uint id) view public returns (address, uint) {
+    return (
+      games[id].player1, games[id].player1TotalBet
+    );
+  }
+
+  function getUserGamesIds() view public returns (uint[]) {
+    uint userGamesCounter = 0;
+    for (uint i = 0; i < games.length; i++) {
+      if (games[i].player1 == msg.sender || games[i].player2 == msg.sender) {
+        userGamesCounter++;
+      }
+    }
+    uint idIndex = 0;
+    uint[] memory ids = new uint[](userGamesCounter);
+    for (uint j = 0; j < games.length; j++) {
+      if (games[j].player1 == msg.sender || games[j].player2 == msg.sender) {
+        ids[idIndex++] = j;
+      }
+    }
+    return ids;
+  }
+
+  function getUserGameFieldsById(uint id) view public returns (uint, uint, State, Result, uint) {
+    return (
+      games[id].player1TotalBet, games[id].player2TotalBet,
+      games[id].state, games[id].result, games[id].lastRaiseTime
+    );
   }
 
 }

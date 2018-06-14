@@ -63,3 +63,60 @@ function getHostedGamesFieldsByIds(gamesIds, contractInstance) {
     });
   });
 }
+
+export const getUserGames = () => async (dispatch, getState) => {
+  const contractInstance = getState().gameOfMadness.contractInstance;
+  const userGamesList = await getUserGamesList(contractInstance);
+  dispatch({
+    type: CONSTANTS.GAME_OF_MADNESS_GET_USER_GAMES,
+    payload: userGamesList || [],
+  });
+};
+
+function getUserGamesList(contractInstance) {
+  return new Promise((resolve) => {
+    const {getUserGamesIds} = contractInstance;
+    getUserGamesIds((err, answer) => {
+      if (err) {
+        console.log('error', err);
+      } else {
+        const userGamesList = answer.map(item => {
+          return Number(item);
+        });
+        resolve(
+          Promise.all(getUserGamesFieldsByIds(userGamesList, contractInstance))
+        );
+      }
+    });
+  });
+}
+
+function getUserGamesFieldsByIds(gamesIds, contractInstance) {
+  const {getUserGameFieldsById} = contractInstance;
+  return gamesIds.map(gameId => {
+    return new Promise((resolve) => {
+      getUserGameFieldsById(
+        gameId,
+        (err, result) => {
+          if (err) {
+            console.log('err: ', err);
+          } else {
+            const player1TotalBet = Number(result[0]);
+            const player2TotalBet = Number(result[1]);
+            const gameStatus = Number(result[2]);
+            const gameResult = Number(result[3]);
+            const lastRaiseTime = Number(result[4]);
+            resolve({
+              id: gameId,
+              player1TotalBet,
+              player2TotalBet,
+              status: gameStatus,
+              result: gameResult,
+              lastRaiseTime,
+            });
+          }
+        }
+      )
+    });
+  });
+}

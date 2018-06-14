@@ -72,7 +72,7 @@ class MainPage extends Component {
         </React.Fragment>
       );
       return (
-        <Row key={key} className="games-list-element-container">
+        <Row key={key} className="games-list-item-container">
           <Col md={6}>
             Game #{item.id}
             <br />

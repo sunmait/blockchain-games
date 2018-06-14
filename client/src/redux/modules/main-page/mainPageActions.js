@@ -237,5 +237,4 @@ function getUserGamesList(contractInstance) {
       }
     });
   });
-
 }

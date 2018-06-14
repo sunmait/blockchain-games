@@ -7,7 +7,7 @@ div[role=tabpanel] {
     margin-top: 25px;
 }
 
-.games-list-element-container {
+.games-list-item-container {
     height: 100px;
     display: flex;
     align-items: center;
