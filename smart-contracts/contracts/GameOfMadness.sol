@@ -91,4 +91,27 @@ contract GameOfMadness {
     emit GameEnded();
   }
 
+  function getHostedGameFieldsById(uint id) view public returns (address, uint) {
+    return (
+      games[id].player1, games[id].player1TotalBet
+    );
+  }
+
+  function getHostedGamesIds() view public returns (uint[]) {
+    uint hostedGamesCounter = 0;
+    for (uint i = 0; i < games.length; i++) {
+      if (games[i].state == State.Hosted) {
+        hostedGamesCounter++;
+      }
+    }
+    uint idIndex = 0;
+    uint[] memory ids = new uint[](hostedGamesCounter);
+    for (uint j = 0; j < games.length; j++) {
+      if (games[j].state == State.Hosted) {
+        ids[idIndex++] = j;
+      }
+    }
+    return ids;
+  }
+
 }

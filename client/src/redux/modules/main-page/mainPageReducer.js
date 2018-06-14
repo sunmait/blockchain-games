@@ -21,7 +21,7 @@ const defaultState = {
 
 export default function (state = defaultState, {type, payload}) {
   switch (type) {
-    case CONSTANTS.SET_CONTRACT_INSTANCE:
+    case CONSTANTS.GUESS_NUMBER_GAME_SET_CONTRACT_INSTANCE:
       return setContractInstance(state, payload);
 
     case CONSTANTS.SET_CURRENT_METAMASK_ACCOUNT:
@@ -30,34 +30,34 @@ export default function (state = defaultState, {type, payload}) {
     case CONSTANTS.SET_ETH_PRICE:
       return setEthPrice(state, payload);
 
-    case CONSTANTS.HANDLE_ACTIVE_TAB_CHANGE:
+    case CONSTANTS.GUESS_NUMBER_GAME_HANDLE_ACTIVE_TAB_CHANGE:
       return handleActiveTabChange(state, payload);
 
-    case CONSTANTS.HANDLE_CURRENT_GAME_CHANGE:
+    case CONSTANTS.GUESS_NUMBER_GAME_HANDLE_CURRENT_GAME_CHANGE:
       return handleCurrentGameChange(state, payload);
 
-    case CONSTANTS.TRIGGER_CURRENT_GAME_TAB_SPINNER:
+    case CONSTANTS.GUESS_NUMBER_GAME_TRIGGER_CURRENT_GAME_TAB_SPINNER:
       return triggerCurrentGameTabSpinner(state);
 
-    case CONSTANTS.GET_HOSTED_GAMES:
+    case CONSTANTS.GUESS_NUMBER_GAME_GET_HOSTED_GAMES:
       return getHostedGames(state, payload);
 
-    case CONSTANTS.GET_USER_GAMES:
+    case CONSTANTS.GUESS_NUMBER_GAME_GET_USER_GAMES:
       return getUserGames(state, payload);
 
-    case CONSTANTS.HANDLE_GAME_HOSTED_EVENT:
+    case CONSTANTS.GUESS_NUMBER_GAME_HANDLE_GAME_HOSTED_EVENT:
       return handleGameHostedEvent(state, payload);
 
-    case CONSTANTS.HANDLE_GAME_JOINED_EVENT:
+    case CONSTANTS.GUESS_NUMBER_GAME_HANDLE_GAME_JOINED_EVENT:
       return handleGameJoinedEvent(state, payload);
 
-    case CONSTANTS.HANDLE_GAME_ENDED_EVENT:
+    case CONSTANTS.GUESS_NUMBER_GAME_HANDLE_GAME_ENDED_EVENT:
       return handleGameEndedEvent(state, payload);
 
-    case CONSTANTS.HANDLE_ADD_TO_USER_GAMES:
+    case CONSTANTS.GUESS_NUMBER_GAME_HANDLE_ADD_TO_USER_GAMES:
       return handleAddToUserGames(state, payload);
 
-    case CONSTANTS.HANDLE_CHANGE_USER_GAME_STATUS:
+    case CONSTANTS.GUESS_NUMBER_GAME_HANDLE_CHANGE_USER_GAME_STATUS:
       return handleChangeUserGameStatus(state, payload);
 
     default:

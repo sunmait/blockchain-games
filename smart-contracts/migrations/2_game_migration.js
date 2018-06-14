@@ -1,5 +1,6 @@
-var Migrations = artifacts.require("GuessNumberGame");
+var GuessNumberGame = artifacts.require("GuessNumberGame");
+var GameOfMadness = artifacts.require("GameOfMadness");
 
 module.exports = function(deployer) {
-  deployer.deploy(Migrations);
+  deployer.deploy(GuessNumberGame).then(() => deployer.deploy(GameOfMadness));
 };

@@ -19,32 +19,32 @@ class Header extends React.Component {
                 </Button>
               </NavItem>
             </LinkContainer>
+            <LinkContainer to="/madness">
+              <NavItem>
+                <Button bsStyle="link">
+                  Game Of Madness
+                </Button>
+              </NavItem>
+            </LinkContainer>
           </Navbar.Brand>
         </Navbar.Header>
         <Navbar.Collapse>
           <Nav>
-            <LinkContainer to="/">
-              <NavItem>
-                <Button
-                  bsStyle="link"
-                >
-                  Help
-                </Button>
-              </NavItem>
-            </LinkContainer>
-            <LinkContainer to="/">
-              <NavItem>
-                <Button
-                  bsStyle="primary"
-                  onClick={() => {
-                    this.props.handleCurrentGameChange(null);
-                    this.props.handleActiveTabChange(3);
-                  }}
-                >
-                  Host Game
-                </Button>
-              </NavItem>
-            </LinkContainer>
+            <NavItem>
+              <Button
+                bsStyle="link"
+              >
+                Help
+              </Button>
+            </NavItem>
+            <NavItem>
+              <Button
+                bsStyle="primary"
+                onClick={this.props.onHostGameClick}
+              >
+                Host Game
+              </Button>
+            </NavItem>
           </Nav>
         </Navbar.Collapse>
       </Navbar>

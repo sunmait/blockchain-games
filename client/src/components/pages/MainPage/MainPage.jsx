@@ -14,11 +14,15 @@ import gameSettings from '../../../helpers/guessNumberGame/gameSettings';
 import getEthPrice from '../../../helpers/getEthPrice';
 import Spinner from '../../common/Spinner/Spinner';
 import {mapVeiToEth} from '../../../helpers/ethConverter';
+import Header from '../../containers/Header/Header';
 
 class MainPage extends Component {
 
   componentDidMount() {
     window.addEventListener('load', this.onLoad.bind(this), false);
+    if (this.props.currentAccount) {
+      contractInitialization(this);
+    }
   }
 
   componentWillUnmount() {
@@ -36,7 +40,6 @@ class MainPage extends Component {
 
   onLoad = () => {
     web3Initialization(this);
-    //guessNumberGameContractInitialization(this);
     getEthPrice()
       .then(response => {
         this.props.setEthPrice(response);
@@ -104,25 +107,32 @@ class MainPage extends Component {
 
   render() {
     return (
-      <Tabs
-        id="main-page-tabs-container"
-        activeKey={this.props.activeTabId}
-        onSelect={(key) => this.props.handleActiveTabChange(key)}
-      >
-        <Tab eventKey={1} title="Open Games">
-          <Row className="games-list-container">
-            <Col md={10}>
-              {this.props.isHostedGamesLoaded ? this.renderGamesList() : <Spinner/>}
-            </Col>
-          </Row>
-        </Tab>
-        <Tab eventKey={2} title="My Games">
-          {this.props.isUserGamesLoaded ? <MyGamesContainer /> : <Spinner/>}
-        </Tab>
-        <Tab eventKey={3} title="Game">
-          {this.props.isCurrentGameLoaded ? this.renderGameTabContent() : <Spinner/>}
-        </Tab>
-      </Tabs>
+      <React.Fragment>
+        <Header
+          onHostGameClick={() => {
+
+          }}
+        />
+        <Tabs
+          id="main-page-tabs-container"
+          activeKey={this.props.activeTabId}
+          onSelect={(key) => this.props.handleActiveTabChange(key)}
+        >
+          <Tab eventKey={1} title="Open Games">
+            <Row className="games-list-container">
+              <Col md={10}>
+                {this.props.isHostedGamesLoaded ? this.renderGamesList() : <Spinner/>}
+              </Col>
+            </Row>
+          </Tab>
+          <Tab eventKey={2} title="My Games">
+            {this.props.isUserGamesLoaded ? <MyGamesContainer /> : <Spinner/>}
+          </Tab>
+          <Tab eventKey={3} title="Game">
+            {this.props.isCurrentGameLoaded ? this.renderGameTabContent() : <Spinner/>}
+          </Tab>
+        </Tabs>
+      </React.Fragment>
     );
   }
 }

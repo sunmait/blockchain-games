@@ -3,7 +3,7 @@ import gameStatuses from '../../../helpers/guessNumberGame/gameStatuses';
 import gameResults from '../../../helpers/guessNumberGame/gameResults';
 
 export const setContractInstance = (contractInstance) => ({
-  type: CONSTANTS.SET_CONTRACT_INSTANCE,
+  type: CONSTANTS.GUESS_NUMBER_GAME_SET_CONTRACT_INSTANCE,
   payload: contractInstance,
 });
 
@@ -19,7 +19,7 @@ export const setEthPrice = (ethPrice) => ({
 
 export const handleCurrentGameChange = (gameId) => async (dispatch, getState) => {
   dispatch({
-    type: CONSTANTS.TRIGGER_CURRENT_GAME_TAB_SPINNER,
+    type: CONSTANTS.GUESS_NUMBER_GAME_TRIGGER_CURRENT_GAME_TAB_SPINNER,
   });
   let game = {
     id: gameId,
@@ -34,7 +34,7 @@ export const handleCurrentGameChange = (gameId) => async (dispatch, getState) =>
   }
 
   dispatch({
-    type: CONSTANTS.HANDLE_CURRENT_GAME_CHANGE,
+    type: CONSTANTS.GUESS_NUMBER_GAME_HANDLE_CURRENT_GAME_CHANGE,
     payload: game,
   });
 };
@@ -80,19 +80,19 @@ function getCurrentGameHostLastBets(gameId, contractInstance) {
 }
 
 export const handleActiveTabChange = (tabId) => ({
-  type: CONSTANTS.HANDLE_ACTIVE_TAB_CHANGE,
+  type: CONSTANTS.GUESS_NUMBER_GAME_HANDLE_ACTIVE_TAB_CHANGE,
   payload: tabId,
 });
 
 export const handleGameHostedEvent = (game) => (dispatch, getState) => {
   dispatch({
-    type: CONSTANTS.HANDLE_GAME_HOSTED_EVENT,
+    type: CONSTANTS.GUESS_NUMBER_GAME_HANDLE_GAME_HOSTED_EVENT,
     payload: game,
   });
   const currentAccount = getState().main.currentAccount;
   if (game.player1 === currentAccount) {
     dispatch({
-      type: CONSTANTS.HANDLE_ADD_TO_USER_GAMES,
+      type: CONSTANTS.GUESS_NUMBER_GAME_HANDLE_ADD_TO_USER_GAMES,
       payload: {
         id: game.id,
         price: game.price,
@@ -104,13 +104,13 @@ export const handleGameHostedEvent = (game) => (dispatch, getState) => {
 
 export const handleGameJoinedEvent = (game) => (dispatch, getState) => {
   dispatch({
-    type: CONSTANTS.HANDLE_GAME_JOINED_EVENT,
+    type: CONSTANTS.GUESS_NUMBER_GAME_HANDLE_GAME_JOINED_EVENT,
     payload: game,
   });
   const currentAccount = getState().main.currentAccount;
   if (game.player2 === currentAccount) {
     dispatch({
-      type: CONSTANTS.HANDLE_ADD_TO_USER_GAMES,
+      type: CONSTANTS.GUESS_NUMBER_GAME_HANDLE_ADD_TO_USER_GAMES,
       payload: {
         hostAddress: game.player1,
         joinedAddress: game.player2,
@@ -123,7 +123,7 @@ export const handleGameJoinedEvent = (game) => (dispatch, getState) => {
   }
   if(game.player1 === currentAccount) {
     dispatch({
-      type: CONSTANTS.HANDLE_CHANGE_USER_GAME_STATUS,
+      type: CONSTANTS.GUESS_NUMBER_GAME_HANDLE_CHANGE_USER_GAME_STATUS,
       payload: {
         id: game.id,
       },
@@ -132,7 +132,7 @@ export const handleGameJoinedEvent = (game) => (dispatch, getState) => {
 };
 
 export const handleGameEndedEvent = (game) => ({
-  type: CONSTANTS.HANDLE_GAME_ENDED_EVENT,
+  type: CONSTANTS.GUESS_NUMBER_GAME_HANDLE_GAME_ENDED_EVENT,
   payload: game,
 });
 
@@ -140,7 +140,7 @@ export const getHostedGames = () => async (dispatch, getState) => {
   const contractInstance = getState().main.contractInstance;
   const hostedGamesList = await getHostedGamesList(contractInstance);
   dispatch({
-    type: CONSTANTS.GET_HOSTED_GAMES,
+    type: CONSTANTS.GUESS_NUMBER_GAME_GET_HOSTED_GAMES,
     payload: hostedGamesList || [],
   });
 };
@@ -149,7 +149,7 @@ export const getUserGames = () => async (dispatch, getState) => {
   const contractInstance = getState().main.contractInstance;
   const userGamesList = await getUserGamesList(contractInstance);
   dispatch({
-    type: CONSTANTS.GET_USER_GAMES,
+    type: CONSTANTS.GUESS_NUMBER_GAME_GET_USER_GAMES,
     payload: userGamesList || [],
   });
 };
