@@ -1,1 +1,6 @@
-export const contractAddress = '0xe59dedbe492bd1d5d684353a4382a397b831c214';
+const contractsAddresses = {
+  guessNumberGame: 'CONTRACT ADDRESS',
+  gameOfMadness: 'CONTRACT ADDRESS',
+};
+
+export default contractsAddresses;

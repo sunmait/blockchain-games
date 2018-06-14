@@ -6,6 +6,7 @@ import * as mainPageActions from '../../../redux/modules/main-page/mainPageActio
 const mapStateToProps = (state) => ({
   contractInstance: state.main.contractInstance,
   currentGame: state.main.currentGame,
+  currentAccount: state.main.currentAccount,
   activeTabId: state.main.activeTabId,
   hostedGamesList: state.main.hostedGamesList,
   isHostedGamesLoaded: state.main.isHostedGamesLoaded,

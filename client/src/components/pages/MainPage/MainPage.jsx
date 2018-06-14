@@ -8,7 +8,9 @@ import HostGameContainer from './HostGame/HostGameContainer';
 import CurrentGameContainer from './CurrentGame/CurrentGameContainer';
 import MyGamesContainer from './MyGames/MyGamesContainer';
 import './MainPage.css';
-import contractInitialization from '../../../helpers/contractInitialization';
+import web3Initialization from '../../../helpers/web3Initialization';
+import contractInitialization from '../../../helpers/guessNumberGame/contractInitialization';
+import gameSettings from '../../../helpers/guessNumberGame/gameSettings';
 import getEthPrice from '../../../helpers/getEthPrice';
 import Spinner from '../../common/Spinner/Spinner';
 import {mapVeiToEth} from '../../../helpers/ethConverter';
@@ -23,8 +25,18 @@ class MainPage extends Component {
     window.removeEventListener('load', this.onLoad.bind(this), false);
   }
 
+  componentDidUpdate(prevProps) {
+    if (this.props.currentAccount && prevProps.currentAccount !== this.props.currentAccount) {
+      contractInitialization(this);
+    }
+    if (this.props.contractInstance && prevProps.contractInstance !== this.props.contractInstance) {
+      gameSettings(this);
+    }
+  }
+
   onLoad = () => {
-    contractInitialization(this);
+    web3Initialization(this);
+    //guessNumberGameContractInitialization(this);
     getEthPrice()
       .then(response => {
         this.props.setEthPrice(response);

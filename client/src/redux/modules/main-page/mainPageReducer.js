@@ -1,5 +1,5 @@
 import CONSTANTS from './mainPageActionConstants';
-import gameStatuses from '../../../helpers/gameStatuses';
+import gameStatuses from '../../../helpers/guessNumberGame/gameStatuses';
 
 const defaultState = {
   contractInstance: null,
@@ -12,7 +12,7 @@ const defaultState = {
     price: undefined,
     hostLastBets: [],
   },
-  isCurrentGameLoaded: true,
+  isCurrentGameLoaded: false,
   hostedGamesList: [],
   isHostedGamesLoaded: false,
   userGamesList: [],
@@ -76,6 +76,7 @@ function setCurrentMetamaskAccount(state, account) {
   return {
     ...state,
     currentAccount: account,
+    isCurrentGameLoaded: true,
   };
 }
 

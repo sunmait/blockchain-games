@@ -1,6 +1,6 @@
 import CONSTANTS from './mainPageActionConstants';
-import gameStatuses from '../../../helpers/gameStatuses';
-import gameResults from '../../../helpers/gameResults';
+import gameStatuses from '../../../helpers/guessNumberGame/gameStatuses';
+import gameResults from '../../../helpers/guessNumberGame/gameResults';
 
 export const setContractInstance = (contractInstance) => ({
   type: CONSTANTS.SET_CONTRACT_INSTANCE,
