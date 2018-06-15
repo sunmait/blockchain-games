@@ -11,6 +11,7 @@ import getEthPrice from "../../../helpers/getEthPrice";
 import web3Initialization from "../../../helpers/web3Initialization";
 import HostGameContainer from './HostGame/HostGameContainer';
 import MyGamesContainer from './MyGames/MyGamesContainer';
+import CurrentGameContainer from './CurrentGame/CurrentGameContainer';
 
 class GameOfMadness extends React.Component {
 
@@ -91,7 +92,7 @@ class GameOfMadness extends React.Component {
             <MyGamesContainer />
           </Tab>
           <Tab eventKey={3} title="Game">
-            <HostGameContainer />
+            {this.props.currentGame ? <CurrentGameContainer /> : <HostGameContainer />}
           </Tab>
         </Tabs>
       </React.Fragment>

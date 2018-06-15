@@ -67,6 +67,7 @@ contract GameOfMadness {
       require(thisGame.player2TotalBet + msg.value > thisGame.player2TotalBet);
       thisGame.player2TotalBet += msg.value;
     }
+    thisGame.lastRaiseTime = now;
     thisGame.playerWhoBetLast = msg.sender;
 
     emit TurnPassed();

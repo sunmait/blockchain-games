@@ -55,11 +55,20 @@ class MyGamesItem extends React.Component {
     }
   };
 
+  goToGame = () => {
+    this.props.handleCurrentGameChange(this.props.item);
+    this.props.handleActiveTabChange(3);
+  };
+
   render() {
     return (
       <Row className="madness-game-item-container">
         <Col md={3}>
-          Game #{this.props.item.id}
+          <div
+            onClick={this.goToGame}
+          >
+            Game #{this.props.item.id}
+          </div>
           <br />
           Host total bet: {this.props.item.player1TotalBet} Vei
           <br />
