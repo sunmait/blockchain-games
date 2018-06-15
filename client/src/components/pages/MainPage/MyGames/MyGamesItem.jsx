@@ -33,6 +33,7 @@ class MyGamesItem extends React.Component {
             <Col md={12}>
               <Countdown
                 start={item.gameJoinTime}
+                duration={60*60*24*7}
                 className="pull-right"
               />
             </Col>

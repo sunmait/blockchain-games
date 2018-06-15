@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 class Countdown extends React.Component {
   static propTypes = {
     start: PropTypes.number,
+    duration: PropTypes.number,
   };
 
   constructor(props) {
@@ -29,7 +30,7 @@ class Countdown extends React.Component {
       return;
     }
     this.setState({
-      elapsed: this.props.start + 60*60*24*7 - Math.round(new Date()/1000),
+      elapsed: this.props.start + this.props.duration - Math.round(new Date()/1000),
     });
   };
 

@@ -20,7 +20,7 @@ contract GameOfMadness {
   }
 
   address public owner;
-  uint constant turnMaxDuration = 1 days;
+  uint constant turnMaxDuration = 3 minutes;
   uint gameIdCounter;
   Game[] public games;
 
@@ -131,10 +131,11 @@ contract GameOfMadness {
     return ids;
   }
 
-  function getUserGameFieldsById(uint id) view public returns (uint, uint, State, Result, uint) {
+  function getUserGameFieldsById(uint id) view public returns (uint, uint, State, Result, uint, address) {
     return (
       games[id].player1TotalBet, games[id].player2TotalBet,
-      games[id].state, games[id].result, games[id].lastRaiseTime
+      games[id].state, games[id].result,
+      games[id].lastRaiseTime, games[id].playerWhoBetLast
     );
   }
 

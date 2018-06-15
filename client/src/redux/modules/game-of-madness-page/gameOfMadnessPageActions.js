@@ -1,4 +1,5 @@
 import CONSTANTS from './gameOfMadnessPageActionConstants';
+import gameStatuses from '../../../helpers/gameOfMadness/gameStatuses';
 
 export const setContractInstance = (contractInstance) => ({
   type: CONSTANTS.GAME_OF_MADNESS_SET_CONTRACT_INSTANCE,
@@ -103,16 +104,18 @@ function getUserGamesFieldsByIds(gamesIds, contractInstance) {
           } else {
             const player1TotalBet = Number(result[0]);
             const player2TotalBet = Number(result[1]);
-            const gameStatus = Number(result[2]);
+            const gameStatusId = Number(result[2]);
             const gameResult = Number(result[3]);
             const lastRaiseTime = Number(result[4]);
+            const playerWhoBetLast = result[5];
             resolve({
               id: gameId,
               player1TotalBet,
               player2TotalBet,
-              status: gameStatus,
+              status: gameStatuses[gameStatusId],
               result: gameResult,
               lastRaiseTime,
+              playerWhoBetLast,
             });
           }
         }
