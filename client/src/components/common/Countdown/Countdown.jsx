@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 class Countdown extends React.Component {
   static propTypes = {
     start: PropTypes.number,
-    duration: PropTypes.number,
   };
 
   constructor(props) {

@@ -2,7 +2,7 @@ const gameSettings = (context) => {
   context.props.getHostedGames();
   context.props.getUserGames();
 
-  const gameHostedEvent = context.props.contractInstance.GameHosted({});
+  const gameHostedEvent = context.props.contractInstance.GameHosted();
 
   gameHostedEvent.watch((error, result) => {
     if (result) {
@@ -15,7 +15,7 @@ const gameSettings = (context) => {
     }
   });
 
-  const GameJoinedEvent = context.props.contractInstance.GameJoined({});
+  const GameJoinedEvent = context.props.contractInstance.GameJoined();
 
   GameJoinedEvent.watch((error, result) => {
     if (result) {
@@ -29,7 +29,7 @@ const gameSettings = (context) => {
     }
   });
 
-  const GameEndedEvent = context.props.contractInstance.GameEnded({});
+  const GameEndedEvent = context.props.contractInstance.GameEnded();
 
   GameEndedEvent.watch((error, result) => {
     if (result) {

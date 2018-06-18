@@ -20,21 +20,29 @@ contract GameOfMadness {
   }
 
   address public owner;
-  uint constant turnMaxDuration = 3 minutes;
+  uint8 constant turnMaxDuration = 3 minutes;
   uint gameIdCounter;
   Game[] public games;
 
-  event GameHosted();
-  event GameJoined();
-  event TurnPassed();
-  event GameEnded();
+  event GameHosted(uint indexed gameId, uint betAmount);
+  event GameJoined(
+    uint indexed gameId, address player1, address player2,
+    uint player1TotalBet, uint player2TotalBet,
+    uint lastRaiseTime, address playerWhoBetLast
+  );
+  event BetRaised(
+    uint indexed gameId, uint player1TotalBet, uint player2TotalBet,
+    uint lastRaiseTime, address playerWhoBetLast
+  );
+  event GameEnded(uint indexed gameId, Result result);
 
   function hostGame() public payable {
     require(msg.value > 0);
     games.push(Game(msg.sender, address(0), msg.value, 0, msg.sender, State.Hosted, Result.Unfinished, 0));
-    gameIdCounter++;
 
-    emit GameHosted();
+    emit GameHosted(gameIdCounter, msg.value);
+
+    gameIdCounter++;
   }
 
   function joinGame(uint gameId) public payable {
@@ -50,7 +58,11 @@ contract GameOfMadness {
     thisGame.lastRaiseTime = now;
     thisGame.state = State.Joined;
 
-    emit GameJoined();
+    emit GameJoined(
+      gameId, thisGame.player1, thisGame.player2,
+      thisGame.player1TotalBet, msg.value,
+      thisGame.lastRaiseTime, thisGame.playerWhoBetLast
+    );
   }
 
   function raise(uint gameId) public payable {
@@ -70,7 +82,10 @@ contract GameOfMadness {
     thisGame.lastRaiseTime = now;
     thisGame.playerWhoBetLast = msg.sender;
 
-    emit TurnPassed();
+    emit BetRaised(
+      gameId, thisGame.player1TotalBet, thisGame.player2TotalBet,
+      thisGame.lastRaiseTime, thisGame.playerWhoBetLast
+    );
   }
 
   function windrawal(uint gameId) public {
@@ -89,7 +104,7 @@ contract GameOfMadness {
 
     msg.sender.transfer(thisGame.player1TotalBet + thisGame.player2TotalBet);
 
-    emit GameEnded();
+    emit GameEnded(gameId, thisGame.result);
   }
 
   function getHostedGamesIds() view public returns (uint[]) {

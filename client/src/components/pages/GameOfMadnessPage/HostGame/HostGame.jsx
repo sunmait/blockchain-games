@@ -8,25 +8,19 @@ class HostGame extends React.Component {
     super(props);
 
     this.state = {
-      betAmount: 0,
+      betAmount: 0
     }
   }
 
   hostGame = () => {
     if (this.state.betAmount < 100) return;
     const {hostGame} = this.props.contractInstance;
-    hostGame.sendTransaction(
-      {
-        value: this.state.betAmount,
-      },
-      (err, result) => {
-        if (err) {
-          console.log('err');
-        } else {
-          console.log('game hosted');
-        }
+    hostGame.sendTransaction({ value: this.state.betAmount }, (err) => {
+      if (err) {
+        // TODO: handle this case
+        console.log('err');
       }
-    );
+    });
   };
 
   handleFieldChange = (field, value) => {

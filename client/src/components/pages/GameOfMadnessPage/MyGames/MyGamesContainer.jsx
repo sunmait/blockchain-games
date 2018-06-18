@@ -6,7 +6,6 @@ const mapStateToProps = (state) => ({
   userGamesList: state.gameOfMadness.userGamesList,
 });
 
-const mapDispatchToProps = (dispatch) => bindActionCreators({
-}, dispatch);
+const mapDispatchToProps = (dispatch) => bindActionCreators({}, dispatch);
 
 export default connect(mapStateToProps, mapDispatchToProps)(MyGames);

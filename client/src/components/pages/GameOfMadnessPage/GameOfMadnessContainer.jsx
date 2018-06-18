@@ -20,6 +20,10 @@ const mapDispatchToProps = (dispatch) => bindActionCreators({
   handleCurrentGameChange: gameOfMadnessPageActions.handleCurrentGameChange,
   getHostedGames: gameOfMadnessPageActions.getHostedGames,
   getUserGames: gameOfMadnessPageActions.getUserGames,
+  handleGameHostedEvent: gameOfMadnessPageActions.handleGameHostedEvent,
+  handleGameJoinedEvent: gameOfMadnessPageActions.handleGameJoinedEvent,
+  handleBetRaisedEvent: gameOfMadnessPageActions.handleBetRaisedEvent,
+  handleGameEndedEvent: gameOfMadnessPageActions.handleGameEndedEvent,
 }, dispatch);
 
 export default connect(mapStateToProps, mapDispatchToProps)(GameOfMadness);

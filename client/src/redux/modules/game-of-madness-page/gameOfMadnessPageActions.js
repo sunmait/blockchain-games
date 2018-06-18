@@ -1,5 +1,6 @@
 import CONSTANTS from './gameOfMadnessPageActionConstants';
 import gameStatuses from '../../../helpers/gameOfMadness/gameStatuses';
+import gameResults from "../../../helpers/guessNumberGame/gameResults";
 
 export const setContractInstance = (contractInstance) => ({
   type: CONSTANTS.GAME_OF_MADNESS_SET_CONTRACT_INSTANCE,
@@ -123,3 +124,64 @@ function getUserGamesFieldsByIds(gamesIds, contractInstance) {
     });
   });
 }
+
+export const handleGameHostedEvent = (game) => (dispatch, getState) => {
+  dispatch({
+    type: CONSTANTS.GAME_OF_MADNESS_HANDLE_GAME_HOSTED_EVENT,
+    payload: game,
+  });
+  const currentAccount = getState().main.currentAccount;
+  if (game.player1 === currentAccount) {
+    dispatch({
+      type: CONSTANTS.GAME_OF_MADNESS_HANDLE_ADD_TO_USER_GAMES,
+      payload: {
+        id: game.id,
+        price: game.price,
+        status: gameStatuses[1],
+      },
+    });
+  }
+};
+
+export const handleGameJoinedEvent = (game) => (dispatch, getState) => {
+  dispatch({
+    type: CONSTANTS.GAME_OF_MADNESS_HANDLE_GAME_JOINED_EVENT,
+    payload: game,
+  });
+  const currentAccount = getState().main.currentAccount;
+  if (game.player2 === currentAccount) {
+    dispatch({
+      type: CONSTANTS.GAME_OF_MADNESS_HANDLE_ADD_TO_USER_GAMES,
+      payload: {
+        id: game.id,
+        hostAddress: game.player1,
+        joinedAddress: game.player2,
+        player1TotalBet: game.player1TotalBet,
+        player2TotalBet: game.player2TotalBet,
+        status: gameStatuses[2],
+        result: gameResults[0],
+        lastRaiseTime: Number(game.lastRaiseTime),
+      },
+    });
+  }
+  if(game.player1 === currentAccount) {
+    dispatch({
+      type: CONSTANTS.GAME_OF_MADNESS_HANDLE_CHANGE_USER_GAME_STATUS,
+      payload: {
+        id: game.id,
+      },
+    });
+  }
+};
+
+export const handleBetRaisedEvent = (game) => (dispatch) => {
+  dispatch({
+    type: CONSTANTS.GAME_OF_MADNESS_HANDLE_BET_RAISED_EVENT,
+    payload: game,
+  });
+};
+
+export const handleGameEndedEvent = (game) => ({
+  type: CONSTANTS.GAME_OF_MADNESS_HANDLE_GAME_ENDED_EVENT,
+  payload: game,
+});

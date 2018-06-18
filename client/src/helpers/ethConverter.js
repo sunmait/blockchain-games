@@ -5,3 +5,5 @@ export const mapEthToVei = (ethValue) => {
 export const mapVeiToEth = (veiValue) => {
   return veiValue / (10 ** 18);
 };
+
+// TODO: удалить

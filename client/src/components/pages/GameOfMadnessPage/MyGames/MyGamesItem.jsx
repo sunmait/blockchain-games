@@ -15,7 +15,7 @@ class MyGamesItem extends React.Component {
 
   enableFinishGameButton = () => {
     this.setState({
-      isFinishGameButton: true,
+      isFinishGameButtonEnabled: true,
     });
   };
 
@@ -42,7 +42,7 @@ class MyGamesItem extends React.Component {
               <Button
                 className="pull-right"
                 onClick={this.finishGame}
-                disabled={!this.state.isFinishGameButton}
+                disabled={!this.state.isFinishGameButtonEnabled}
               >
                 Finish
               </Button>

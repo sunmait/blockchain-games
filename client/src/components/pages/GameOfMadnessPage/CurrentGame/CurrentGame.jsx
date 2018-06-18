@@ -11,7 +11,7 @@ class CurrentGame extends React.Component {
 
     this.state = {
       betAmount: 0,
-      isFinishGameButton: false,
+      isFinishGameButtonEnabled: false,
     }
   }
 
@@ -25,9 +25,9 @@ class CurrentGame extends React.Component {
         <Col md={3}>
           Game #{this.props.currentGame.id}
           <br />
-          Host total bet: {this.props.currentGame.player1TotalBet} Vei
+          Host total bet: {this.props.currentGame.player1TotalBet} Wei
           <br />
-          Joined total bet: {this.props.currentGame.player2TotalBet} Vei
+          Joined total bet: {this.props.currentGame.player2TotalBet} Wei
         </Col>
         <Col md={3}>
           Game status: {this.props.currentGame.status}
@@ -50,7 +50,7 @@ class CurrentGame extends React.Component {
 
   enableFinishGameButton = () => {
     this.setState({
-      isFinishGameButton: true,
+      isFinishGameButtonEnabled: true,
     });
   };
 
@@ -64,7 +64,7 @@ class CurrentGame extends React.Component {
     return (
       <Button
         onClick={this.handleFinishGameButtonClick}
-        disabled={!this.state.isFinishGameButton}
+        disabled={!this.state.isFinishGameButtonEnabled}
       >
         Finish game
       </Button>
@@ -73,16 +73,13 @@ class CurrentGame extends React.Component {
 
   handleFinishGameButtonClick = () => {
     const {windrawal} = this.props.contractInstance;
-    windrawal(
-      this.props.currentGame.id,
-      (err, result) => {
-        if (err) {
-          console.log('err: ', err);
-        } else {
-          console.log('game ended');
-        }
+    windrawal(this.props.currentGame.id, (err) => {
+      if (err) {
+        console.log('err: ', err);
+      } else {
+        console.log('game ended');
       }
-    );
+    });
   };
 
   // TODO: handle situation when your opponent did bet before you finished the game
@@ -109,19 +106,15 @@ class CurrentGame extends React.Component {
     if (this.state.betAmount < this.props.currentGame.player1TotalBet &&
         this.state.betAmount < this.props.currentGame.player2TotalBet) return;
     const {raise} = this.props.contractInstance;
-    raise.sendTransaction(
-      this.props.currentGame.id,
-      {
-        value: this.state.betAmount,
-      },
-      (err, result) => {
-        if (err) {
-          console.log('err: ', err);
-        } else {
-          console.log('raised');
-        }
+
+    const data = { value: this.state.betAmount };
+    raise.sendTransaction(this.props.currentGame.id, data, (err) => {
+      if (err) {
+        console.log('err: ', err);
+      } else {
+        console.log('raised');
       }
-    );
+    });
   };
 
   renderFinishedGame = () => {

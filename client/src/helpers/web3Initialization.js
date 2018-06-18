@@ -4,15 +4,13 @@ const web3Initialization = (context) => {
   if (typeof web3 !== 'undefined') {
     window.web3 = new Web3(window.web3.currentProvider);
 
-    if (window.web3.currentProvider.isMetaMask === true) {
+    if (window.web3.currentProvider.isMetaMask) {
       window.web3.eth.getAccounts((error, accounts) => {
         if (accounts.length === 0) {
-          console.log('no account');
-          // there is no active accounts in MetaMask
+          // TODO: handle this case (there is no active accounts in MetaMask)
+          throw new Error("There are no active accounts in MetaMask");
         }
         else {
-          console.log('all is fine');
-          // It's ok
           window.web3.eth.defaultAccount = window.web3.eth.accounts[0];
           context.props.setCurrentMetamaskAccount(window.web3.eth.accounts[0]);
         }
@@ -23,7 +21,7 @@ const web3Initialization = (context) => {
     }
   } else {
     console.log('no web3 provider');
-    // No web 3 provider
+    // TODO: handle this case (No web 3 provider)
   }
 };
 
