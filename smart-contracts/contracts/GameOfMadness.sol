@@ -24,7 +24,7 @@ contract GameOfMadness {
   uint gameIdCounter;
   Game[] public games;
 
-  event GameHosted(uint indexed gameId, uint betAmount);
+  event GameHosted(uint indexed gameId, address player1, uint betAmount);
   event GameJoined(
     uint indexed gameId, address player1, address player2,
     uint player1TotalBet, uint player2TotalBet,
@@ -40,7 +40,7 @@ contract GameOfMadness {
     require(msg.value > 0);
     games.push(Game(msg.sender, address(0), msg.value, 0, msg.sender, State.Hosted, Result.Unfinished, 0));
 
-    emit GameHosted(gameIdCounter, msg.value);
+    emit GameHosted(gameIdCounter, msg.sender, msg.value);
 
     gameIdCounter++;
   }

@@ -118,8 +118,11 @@ function handleGameJoinedEvent(state, payload) {
 function handleChangeUserGameStatus(state, payload) {
   const userGamesList = state.userGamesList.slice();
   const gameIndex = userGamesList.findIndex(game => game.id === payload.id);
+  let userListCurrentGame = null;
   if (gameIndex !== -1) {
-    userGamesList[gameIndex].status = gameStatuses[2];
+    userListCurrentGame = {...userGamesList[gameIndex]};
+    userListCurrentGame.status = gameStatuses[2];
+    userGamesList[gameIndex] = userListCurrentGame;
   }
   return {
     ...state,
@@ -130,12 +133,15 @@ function handleChangeUserGameStatus(state, payload) {
 function handleBetRaisedEvent(state, payload) {
   const userGamesList = state.userGamesList.slice();
   const gameIndex = userGamesList.findIndex(game => game.id === payload.id);
+  let userListCurrentGame = null;
   if (gameIndex !== -1) {
-    userGamesList[gameIndex].status = gameStatuses[2];
-    userGamesList[gameIndex].player1TotalBet = payload.player1TotalBet;
-    userGamesList[gameIndex].player2TotalBet = payload.player2TotalBet;
-    userGamesList[gameIndex].lastRaiseTime = payload.lastRaiseTime;
-    userGamesList[gameIndex].playerWhoBetLast = payload.playerWhoBetLast;
+    userListCurrentGame = {...userGamesList[gameIndex]};
+    userListCurrentGame.status = gameStatuses[2];
+    userListCurrentGame.player1TotalBet = payload.player1TotalBet;
+    userListCurrentGame.player2TotalBet = payload.player2TotalBet;
+    userListCurrentGame.lastRaiseTime = payload.lastRaiseTime;
+    userListCurrentGame.playerWhoBetLast = payload.playerWhoBetLast;
+    userGamesList[gameIndex] = userListCurrentGame;
   }
   return {
     ...state,
@@ -144,14 +150,21 @@ function handleBetRaisedEvent(state, payload) {
 }
 
 function handleGameEndedEvent(state, payload) {
-  const currentGame = state.currentGame;
-  if (currentGame && currentGame.id === payload.id) {
-    currentGame.status = gameStatuses[3];
+  let currentGame = state.currentGame;
+  if (currentGame) {
+    currentGame = {...currentGame};
+    if (currentGame.id === payload.id) {
+      currentGame.status = gameStatuses[3];
+    }
   }
+
   const userGamesList = state.userGamesList.slice();
   const gameIndex = userGamesList.findIndex(game => game.id === payload.id);
+  let userListCurrentGame = null;
   if (gameIndex !== -1) {
-    userGamesList[gameIndex].status = gameStatuses[3];
+    userListCurrentGame = {...userGamesList[gameIndex]};
+    userListCurrentGame.status = gameStatuses[3];
+    userGamesList[gameIndex] = userListCurrentGame;
   }
   return {
     ...state,

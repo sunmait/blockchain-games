@@ -137,14 +137,20 @@ function handleGameJoinedEvent(state, payload) {
 }
 
 function handleGameEndedEvent(state, payload) {
-  const currentGame = state.currentGame;
-  if (currentGame.id === payload.id) {
-    currentGame.status = gameStatuses[3];
+  let currentGame = state.currentGame;
+  if (currentGame) {
+    currentGame = {...currentGame};
+    if (currentGame.id === payload.id) {
+      currentGame.status = gameStatuses[3];
+    }
   }
   const userGamesList = state.userGamesList.slice();
   const gameIndex = userGamesList.findIndex(game => game.id === payload.id);
+  let userListCurrentGame = null;
   if (gameIndex !== -1) {
-    userGamesList[gameIndex].status = gameStatuses[3];
+    userListCurrentGame = {...userGamesList[gameIndex]};
+    userListCurrentGame.status = gameStatuses[3];
+    userGamesList[gameIndex] = userListCurrentGame;
   }
   return {
     ...state,
@@ -168,8 +174,11 @@ function handleAddToUserGames(state, payload) {
 function handleChangeUserGameStatus(state, payload) {
   const userGamesList = state.userGamesList.slice();
   const gameIndex = userGamesList.findIndex(game => game.id === payload.id);
+  let userListCurrentGame = null;
   if (gameIndex !== -1) {
-    userGamesList[gameIndex].status = gameStatuses[2];
+    userListCurrentGame = {...userGamesList[gameIndex]};
+    userListCurrentGame.status = gameStatuses[2];
+    userGamesList[gameIndex] = userListCurrentGame;
   }
   return {
     ...state,

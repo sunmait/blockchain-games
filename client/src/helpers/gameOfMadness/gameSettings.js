@@ -8,6 +8,7 @@ const gameSettings = (context) => {
     if (result) {
       const hostedGame = {
         id: Number(result.args.gameId),
+        player1: result.args.player1,
         price: Number(result.args.betAmount),
       };
       context.props.handleGameHostedEvent(hostedGame);
@@ -31,18 +32,18 @@ const gameSettings = (context) => {
     }
   });
 
-  const BetRaisedEvent = context.props.contractInstance.GameEnded();
+  const BetRaisedEvent = context.props.contractInstance.BetRaised();
 
   BetRaisedEvent.watch((error, result) => {
     if (result) {
-      const betRiasedParams = {
+      const betRaisedParams = {
         id: Number(result.args.gameId),
         player1TotalBet: Number(result.args.player1TotalBet),
         player2TotalBet: Number(result.args.player2TotalBet),
         lastRaiseTime: Number(result.args.lastRaiseTime),
         playerWhoBetLast: result.args.playerWhoBetLast,
       };
-      context.props.handleBetRaisedEvent(betRiasedParams);
+      context.props.handleBetRaisedEvent(betRaisedParams);
     }
   });
 
