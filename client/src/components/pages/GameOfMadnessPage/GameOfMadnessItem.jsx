@@ -11,7 +11,7 @@ class GameOfMadnessItem extends React.Component {
 
     this.state = {
       isExpandedRow: false,
-      betAmount: this.props.item.price+100,
+      betAmount: window.web3.fromWei(this.props.item.price),
     }
   }
 
@@ -22,14 +22,12 @@ class GameOfMadnessItem extends React.Component {
   };
 
   joinGame = () => {
-    if (this.state.betAmount <= this.props.item.price) return;
+    if (this.state.betAmount <= window.web3.fromWei(this.props.item.price)) {
+      return;
+    }
     const {joinGame} = this.props.contractInstance;
-    joinGame.sendTransaction(
-      this.props.item.id,
-      {
-        value: this.state.betAmount,
-      },
-      (err, result) => {
+    const transactionData = { value: window.web3.toWei(this.state.betAmount) };
+    joinGame.sendTransaction(this.props.item.id, transactionData, (err, result) => {
         if (err) {
           console.log('err', err);
         } else {

@@ -17,6 +17,7 @@ contract GameOfMadness {
     State state;
     Result result;
     uint lastRaiseTime;
+    uint[] betsHistory;
   }
 
   address public owner;
@@ -38,7 +39,9 @@ contract GameOfMadness {
 
   function hostGame() public payable {
     require(msg.value > 0);
-    games.push(Game(msg.sender, address(0), msg.value, 0, msg.sender, State.Hosted, Result.Unfinished, 0));
+    uint[] memory betsHistory;
+    games.push(Game(msg.sender, address(0), msg.value, 0, msg.sender, State.Hosted, Result.Unfinished, 0, betsHistory));
+    games[gameIdCounter].betsHistory.push(msg.value);
 
     emit GameHosted(gameIdCounter, msg.sender, msg.value);
 
@@ -57,6 +60,7 @@ contract GameOfMadness {
     thisGame.playerWhoBetLast = msg.sender;
     thisGame.lastRaiseTime = now;
     thisGame.state = State.Joined;
+    thisGame.betsHistory.push(thisGame.player2TotalBet);
 
     emit GameJoined(
       gameId, thisGame.player1, thisGame.player2,
@@ -75,9 +79,11 @@ contract GameOfMadness {
     if (thisGame.player1 == msg.sender) {
       require(thisGame.player1TotalBet + msg.value > thisGame.player2TotalBet);
       thisGame.player1TotalBet += msg.value;
+      thisGame.betsHistory.push(thisGame.player1TotalBet);
     } else if (thisGame.player2 == msg.sender) {
       require(thisGame.player2TotalBet + msg.value > thisGame.player2TotalBet);
       thisGame.player2TotalBet += msg.value;
+      thisGame.betsHistory.push(thisGame.player2TotalBet);
     }
     thisGame.lastRaiseTime = now;
     thisGame.playerWhoBetLast = msg.sender;
@@ -147,11 +153,12 @@ contract GameOfMadness {
     return ids;
   }
 
-  function getUserGameFieldsById(uint id) view public returns (uint, uint, State, Result, uint, address) {
+  function getUserGameFieldsById(uint id) view public returns (uint, uint, State, Result, uint, address, uint[]) {
     return (
       games[id].player1TotalBet, games[id].player2TotalBet,
       games[id].state, games[id].result,
-      games[id].lastRaiseTime, games[id].playerWhoBetLast
+      games[id].lastRaiseTime, games[id].playerWhoBetLast,
+      games[id].betsHistory
     );
   }
 

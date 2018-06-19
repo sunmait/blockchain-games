@@ -12,7 +12,7 @@
     color: #337ab7 !important;
 }
 
-.navbar-header>span>a {
+.navbar-header>span>.active {
     font-size: 18px;
     color: #337ab7 !important;
 }

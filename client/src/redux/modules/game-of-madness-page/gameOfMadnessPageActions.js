@@ -109,6 +109,7 @@ function getUserGamesFieldsByIds(gamesIds, contractInstance) {
             const gameResult = Number(result[3]);
             const lastRaiseTime = Number(result[4]);
             const playerWhoBetLast = result[5];
+            const betsHistory = result[6];
             resolve({
               id: gameId,
               player1TotalBet,
@@ -117,6 +118,7 @@ function getUserGamesFieldsByIds(gamesIds, contractInstance) {
               result: gameResult,
               lastRaiseTime,
               playerWhoBetLast,
+              betsHistory,
             });
           }
         }

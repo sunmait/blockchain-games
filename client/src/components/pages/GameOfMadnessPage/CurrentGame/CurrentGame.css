@@ -1,0 +1,11 @@
+.game-bets-history-table, .game-bets-history-table tr, .game-bets-history-table td {
+  border: 1px solid black;
+  border-collapse: separate;
+  padding: 2px;
+}
+
+.game-bets-history-table td {
+  width: 250px;
+  text-align: center;
+}
+

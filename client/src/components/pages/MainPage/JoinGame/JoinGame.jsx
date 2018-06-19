@@ -80,9 +80,8 @@ class JoinGame extends React.Component {
       )
     }
     return this.props.currentGame.hostLastBets.map((item, index) => {
-      const key = index;
       return (
-        <Col md={1} key={key} className="last-bets-item-container">
+        <Col md={1} key={index} className="last-bets-item-container">
           {item}
         </Col>
       );

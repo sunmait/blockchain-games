@@ -64,14 +64,13 @@ class MainPage extends Component {
       );
     }
     return this.props.hostedGamesList.map((item, index) => {
-      const key = index;
       const risk = (
         <React.Fragment>
           ({(this.props.ethPrice * window.web3.fromWei(item.price)).toFixed(2)}USD)
         </React.Fragment>
       );
       return (
-        <Row key={key} className="games-list-item-container">
+        <Row key={index} className="games-list-item-container">
           <Col md={6}>
             Game #{item.id}
             <br />
