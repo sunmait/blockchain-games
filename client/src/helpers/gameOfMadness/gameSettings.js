@@ -5,7 +5,7 @@ const gameSettings = (context) => {
   const gameHostedEvent = context.props.contractInstance.GameHosted();
 
   gameHostedEvent.watch((error, result) => {
-    if (result) {
+    if (result) { // TODO: not enough fields for MyGames tab
       const hostedGame = {
         id: Number(result.args.gameId),
         player1: result.args.player1,

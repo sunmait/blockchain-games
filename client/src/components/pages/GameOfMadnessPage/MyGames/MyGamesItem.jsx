@@ -33,6 +33,7 @@ class MyGamesItem extends React.Component {
     );
   };
 
+  // TODO: this button don't renders when gameJoinEvent triggers
   renderFinishGameButton = () => {
     if (this.props.item.status === 'Joined') {
       if(this.props.currentAccount === this.props.item.playerWhoBetLast) {
@@ -81,7 +82,7 @@ class MyGamesItem extends React.Component {
           Countdown:
           <Countdown
             start={this.props.item.lastRaiseTime}
-            duration={60*3}
+            duration={3}
             countdownEnded={this.enableFinishGameButton}
           />
         </Col>

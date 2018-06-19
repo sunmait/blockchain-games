@@ -131,6 +131,18 @@ function handleChangeUserGameStatus(state, payload) {
 }
 
 function handleBetRaisedEvent(state, payload) {
+  let currentGame = state.currentGame;
+  if (currentGame) {
+    currentGame = {...currentGame};
+    if (currentGame.id === payload.id) {
+      currentGame.status = gameStatuses[2];
+      currentGame.player1TotalBet = payload.player1TotalBet;
+      currentGame.player2TotalBet = payload.player2TotalBet;
+      currentGame.lastRaiseTime = payload.lastRaiseTime;
+      currentGame.playerWhoBetLast = payload.playerWhoBetLast;
+    }
+  }
+
   const userGamesList = state.userGamesList.slice();
   const gameIndex = userGamesList.findIndex(game => game.id === payload.id);
   let userListCurrentGame = null;

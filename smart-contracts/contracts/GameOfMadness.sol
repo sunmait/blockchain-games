@@ -20,7 +20,7 @@ contract GameOfMadness {
   }
 
   address public owner;
-  uint8 constant turnMaxDuration = 3 minutes;
+  uint8 constant turnMaxDuration = 3 seconds;
   uint gameIdCounter;
   Game[] public games;
 

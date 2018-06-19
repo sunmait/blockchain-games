@@ -36,7 +36,7 @@ class CurrentGame extends React.Component {
           Countdown:
           <Countdown
             start={this.props.currentGame.lastRaiseTime}
-            duration={60*3}
+            duration={3}
             countdownEnded={this.enableFinishGameButton}
           />
         </Col>
@@ -102,6 +102,7 @@ class CurrentGame extends React.Component {
     );
   };
 
+  // TODO: switch to person who raised and waiting finish game button enabling
   handleRaiseButtonClick = () => {
     if (this.state.betAmount < this.props.currentGame.player1TotalBet &&
         this.state.betAmount < this.props.currentGame.player2TotalBet) return;
