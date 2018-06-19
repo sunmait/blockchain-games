@@ -2,7 +2,6 @@ import React from 'react';
 import Button from 'react-bootstrap/lib/Button';
 import Row from 'react-bootstrap/lib/Row';
 import Col from 'react-bootstrap/lib/Col';
-import {mapVeiToEth} from '../../../../helpers/ethConverter';
 import Countdown from '../../../common/Countdown/Countdown';
 
 class MyGamesItem extends React.Component {
@@ -87,8 +86,7 @@ class MyGamesItem extends React.Component {
 
   finishExpiredGame = (gameId) => {
     const {withdrawal} = this.props.contractInstance;
-    withdrawal(gameId,
-      (err, answer) => {
+    withdrawal(gameId, (err, answer) => {
         if (err) {
           console.log('err: ', err);
         } else {
@@ -100,7 +98,7 @@ class MyGamesItem extends React.Component {
   render() {
     const risk = (
       <React.Fragment>
-        ({(this.props.ethPrice * mapVeiToEth(this.props.item.price)).toFixed(2)}USD)
+        ({(this.props.ethPrice * window.web3.fromWei(this.props.item.price)).toFixed(2)}USD)
       </React.Fragment>
     );
     return (
@@ -108,7 +106,7 @@ class MyGamesItem extends React.Component {
         <Col md={6}>
           Game #{this.props.item.id}
           <br />
-          Game price: {mapVeiToEth(this.props.item.price)} ETH {this.props.ethPrice ? risk : null}
+          Game price: {window.web3.fromWei(this.props.item.price)} ETH {this.props.ethPrice ? risk : null}
         </Col>
         <Col md={3}>
           Game status: {this.props.item.status}

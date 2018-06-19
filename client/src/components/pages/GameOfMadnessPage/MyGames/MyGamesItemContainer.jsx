@@ -7,6 +7,7 @@ import * as gameOfMadnessPageActions from '../../../../redux/modules/game-of-mad
 const mapStateToProps = (state) => ({
   currentAccount: state.main.currentAccount,
   contractInstance: state.gameOfMadness.contractInstance,
+  ethPrice: state.main.ethPrice,
 });
 
 const mapDispatchToProps = (dispatch) => bindActionCreators({

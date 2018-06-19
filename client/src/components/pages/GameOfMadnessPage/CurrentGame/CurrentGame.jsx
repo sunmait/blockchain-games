@@ -20,14 +20,24 @@ class CurrentGame extends React.Component {
   };
 
   renderJoinedGame = () => {
+    const hostRisk = (
+      <React.Fragment>
+        ({(this.props.ethPrice * window.web3.fromWei(this.props.currentGame.player1TotalBet)).toFixed(2)}USD)
+      </React.Fragment>
+    );
+    const joinedRisk = (
+      <React.Fragment>
+        ({(this.props.ethPrice * window.web3.fromWei(this.props.currentGame.player2TotalBet)).toFixed(2)}USD)
+      </React.Fragment>
+    );
     return (
       <Row className="madness-game-item-container">
         <Col md={3}>
           Game #{this.props.currentGame.id}
           <br />
-          Host total bet: {this.props.currentGame.player1TotalBet} Wei
+          Host total bet: {window.web3.fromWei(this.props.currentGame.player1TotalBet)} ETH {this.props.ethPrice ? hostRisk : null}
           <br />
-          Joined total bet: {this.props.currentGame.player2TotalBet} Wei
+          Joined total bet: {window.web3.fromWei(this.props.currentGame.player2TotalBet)} ETH {this.props.ethPrice ? joinedRisk : null}
         </Col>
         <Col md={3}>
           Game status: {this.props.currentGame.status}
@@ -108,8 +118,8 @@ class CurrentGame extends React.Component {
         this.state.betAmount < this.props.currentGame.player2TotalBet) return;
     const {raise} = this.props.contractInstance;
 
-    const data = { value: this.state.betAmount };
-    raise.sendTransaction(this.props.currentGame.id, data, (err) => {
+    const transactionData = { value: this.state.betAmount };
+    raise.sendTransaction(this.props.currentGame.id, transactionData, (err) => {
       if (err) {
         console.log('err: ', err);
       } else {

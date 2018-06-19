@@ -154,13 +154,14 @@ export const handleGameJoinedEvent = (game) => (dispatch, getState) => {
       type: CONSTANTS.GAME_OF_MADNESS_HANDLE_ADD_TO_USER_GAMES,
       payload: {
         id: game.id,
-        hostAddress: game.player1,
-        joinedAddress: game.player2,
+        player1: game.player1,
+        player2: game.player2,
         player1TotalBet: game.player1TotalBet,
         player2TotalBet: game.player2TotalBet,
         status: gameStatuses[2],
         result: gameResults[0],
         lastRaiseTime: Number(game.lastRaiseTime),
+        playerWhoBetLast: game.playerWhoBetLast,
       },
     });
   }

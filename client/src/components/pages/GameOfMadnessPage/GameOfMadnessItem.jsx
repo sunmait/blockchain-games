@@ -64,12 +64,17 @@ class GameOfMadnessItem extends React.Component {
         </Button>
       </Col>
     );
+    const risk = (
+      <React.Fragment>
+        ({(this.props.ethPrice * window.web3.fromWei(this.props.item.price)).toFixed(2)}USD)
+      </React.Fragment>
+    );
     return (
       <Row className="madness-game-item-container">
         <Col className="madness-game-item" onClick={this.toggleExpandedRowState}>
           Game #{this.props.item.id}
           <br />
-          Host bet: {this.props.item.price} Vei
+          Host bet: {window.web3.fromWei(this.props.item.price)} ETH {this.props.ethPrice ? risk : null}
         </Col>
         {this.state.isExpandedRow ? expandedRow : null}
       </Row>

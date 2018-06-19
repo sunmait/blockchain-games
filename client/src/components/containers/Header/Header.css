@@ -7,8 +7,14 @@
     padding: auto;
 }
 
-.navbar-header>li {
-    display: block;
+.navbar-header>span {
+    font-size: 18px;
+    color: #337ab7 !important;
+}
+
+.navbar-header>span>a {
+    font-size: 18px;
+    color: #337ab7 !important;
 }
 
 .navbar-collapse {

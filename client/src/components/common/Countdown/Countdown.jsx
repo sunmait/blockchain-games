@@ -11,6 +11,7 @@ class Countdown extends React.Component {
 
     this.state = {
       elapsed: undefined,
+      isDialShown: true,
     }
   }
 
@@ -26,6 +27,9 @@ class Countdown extends React.Component {
     if(this.state.elapsed <= 0) {
       clearInterval(this.timer);
       this.props.countdownEnded();
+      this.setState({
+        isDialShown: false,
+      });
       return;
     }
     this.setState({
@@ -40,11 +44,19 @@ class Countdown extends React.Component {
     const minutes = Math.floor(((this.state.elapsed % (60*60*24)) % (60*60)) / 60);
     const seconds = ((this.state.elapsed % (60*60*24)) % (60*60)) % 60;
 
-    return (
-      <div {...otherProps}>
-        {days} D {hours} H {minutes} M {seconds} S
-      </div>
-    );
+    if (this.state.isDialShown) {
+      return (
+        <div {...otherProps}>
+          {days} D {hours} H {minutes} M {seconds} S
+        </div>
+      );
+    } else {
+      return (
+        <div>
+          Countdown ended.
+        </div>
+      );
+    }
   }
 }
 

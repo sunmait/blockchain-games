@@ -4,6 +4,7 @@ import HostGame from './HostGame.jsx';
 
 const mapStateToProps = (state) => ({
   contractInstance: state.gameOfMadness.contractInstance,
+  ethPrice: state.main.ethPrice,
 });
 
 const mapDispatchToProps = (dispatch) => bindActionCreators({}, dispatch);

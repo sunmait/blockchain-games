@@ -13,18 +13,14 @@ class Header extends React.Component {
         <Navbar.Header>
           <Navbar.Brand>
             <LinkContainer to="/">
-              <NavItem>
-                <Button bsStyle="link">
-                  Guess Number Game
-                </Button>
-              </NavItem>
-            </LinkContainer>
+              <Button bsStyle="link">
+                Guess Number Game
+              </Button>
+            </LinkContainer> /
             <LinkContainer to="/madness">
-              <NavItem>
-                <Button bsStyle="link">
-                  Game Of Madness
-                </Button>
-              </NavItem>
+              <Button bsStyle="link">
+                Game Of Madness
+              </Button>
             </LinkContainer>
           </Navbar.Brand>
         </Navbar.Header>

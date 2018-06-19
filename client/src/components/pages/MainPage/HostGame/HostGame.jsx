@@ -6,7 +6,6 @@ import Button from 'react-bootstrap/lib/Button';
 import Modal from 'react-bootstrap/lib/Modal';
 import FormControl from 'react-bootstrap/lib/FormControl';
 import generateString from '../../../../helpers/stringGenerator';
-import {mapEthToVei} from '../../../../helpers/ethConverter';
 import './HostGame.css';
 
 class HostGame extends React.Component {
@@ -37,9 +36,9 @@ class HostGame extends React.Component {
     const {hostGame} = this.props.contractInstance;
     const secretWord = generateString(16);
     const hiddenNumber = window.web3.sha3(window.web3.toHex(this.state.selectedNumber) + secretWord);
-    hostGame.sendTransaction(hiddenNumber, mapEthToVei(this.state.gamePrice),
+    hostGame.sendTransaction(hiddenNumber, window.web3.toWei(this.state.gamePrice),
       {
-        value: mapEthToVei(this.state.gamePrice),
+        value: window.web3.toWei(this.state.gamePrice),
       },
       (err, answer) => {
       if (err) {

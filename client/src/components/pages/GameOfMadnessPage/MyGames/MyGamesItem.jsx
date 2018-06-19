@@ -21,9 +21,7 @@ class MyGamesItem extends React.Component {
 
   finishGame = () => {
     const {windrawal} = this.props.contractInstance;
-    windrawal(
-      this.props.item.id,
-      (err, result) => {
+    windrawal(this.props.item.id, (err) => {
         if (err) {
           console.log('err: ', err);
         } else {
@@ -33,10 +31,9 @@ class MyGamesItem extends React.Component {
     );
   };
 
-  // TODO: this button don't renders when gameJoinEvent triggers
   renderFinishGameButton = () => {
     if (this.props.item.status === 'Joined') {
-      if(this.props.currentAccount === this.props.item.playerWhoBetLast) {
+      if (this.props.currentAccount === this.props.item.playerWhoBetLast) {
         return (
           <React.Fragment>
             <Col md={12}>
@@ -62,6 +59,16 @@ class MyGamesItem extends React.Component {
   };
 
   render() {
+    const hostRisk = (
+      <React.Fragment>
+        ({(this.props.ethPrice * window.web3.fromWei(this.props.item.player1TotalBet)).toFixed(2)}USD)
+      </React.Fragment>
+    );
+    const joinedRisk = (
+      <React.Fragment>
+        ({(this.props.ethPrice * window.web3.fromWei(this.props.item.player2TotalBet)).toFixed(2)}USD)
+      </React.Fragment>
+    );
     return (
       <Row className="madness-game-item-container">
         <Col md={3}>
@@ -71,9 +78,9 @@ class MyGamesItem extends React.Component {
             Game #{this.props.item.id}
           </div>
           <br />
-          Host total bet: {this.props.item.player1TotalBet} Vei
+          Host total bet: {window.web3.fromWei(this.props.item.player1TotalBet)} ETH {this.props.ethPrice ? hostRisk : null}
           <br />
-          Joined total bet: {this.props.item.player2TotalBet} Vei
+          Joined total bet: {window.web3.fromWei(this.props.item.player2TotalBet)} ETH {this.props.ethPrice ? joinedRisk : null}
         </Col>
         <Col md={3}>
           Game status: {this.props.item.status}
