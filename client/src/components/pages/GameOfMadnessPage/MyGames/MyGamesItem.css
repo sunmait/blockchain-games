@@ -1,0 +1,11 @@
+.game-link-container {
+  color: blue;
+}
+
+.game-link-container:hover {
+  cursor: pointer;
+}
+
+.game-item-data-container {
+  margin: 10px 0;
+}

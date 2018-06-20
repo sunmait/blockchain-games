@@ -3,6 +3,7 @@ import Row from 'react-bootstrap/lib/Row';
 import Col from 'react-bootstrap/lib/Col';
 import Button from 'react-bootstrap/lib/Button';
 import Countdown from '../../../common/Countdown/Countdown';
+import './MyGamesItem.css';
 
 class MyGamesItem extends React.Component {
   constructor(props) {
@@ -98,19 +99,22 @@ class MyGamesItem extends React.Component {
     );
     return (
       <Row className="madness-game-item-container">
-        <Col md={3}>
-          <div
-            onClick={this.goToGame}
-          >
-            Game #{this.props.item.id}
-          </div>
-          <br />
-          Host total bet: {window.web3.fromWei(this.props.item.player1TotalBet)} ETH {this.props.ethPrice ? hostRisk : null}
-          <br />
-          {this.renderJoinedTotalBet()}
-        </Col>
-        <Col md={3}>
-          Game status: {this.props.item.status}
+        <Col md={6}>
+          <Col md={6}>
+            <div className="game-link-container"
+                 onClick={this.goToGame}
+            >
+              Game #{this.props.item.id}
+            </div>
+          </Col>
+          <Col md={6}>
+            Game status: {this.props.item.status}
+          </Col>
+          <Col md={12} className="game-item-data-container">
+            Host total bet: {window.web3.fromWei(this.props.item.player1TotalBet)} ETH {this.props.ethPrice ? hostRisk : null}
+            <br />
+            {this.renderJoinedTotalBet()}
+          </Col>
         </Col>
         <Col md={3}>
           {this.renderCountDown()}
