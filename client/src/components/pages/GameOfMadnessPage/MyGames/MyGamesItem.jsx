@@ -58,15 +58,42 @@ class MyGamesItem extends React.Component {
     this.props.handleActiveTabChange(3);
   };
 
+  renderJoinedTotalBet = () => {
+    const joinedRisk = (
+      <React.Fragment>
+        ({(this.props.ethPrice * window.web3.fromWei(this.props.item.player2TotalBet)).toFixed(2)}USD)
+      </React.Fragment>
+    );
+    if (this.props.item.player2TotalBet) {
+      return (
+        <React.Fragment>
+          Joined total bet: {window.web3.fromWei(this.props.item.player2TotalBet)} ETH {this.props.ethPrice ? joinedRisk : null}
+        </React.Fragment>
+      );
+    }
+    return null;
+  };
+
+  renderCountDown = () => {
+    if (this.props.item.status === 'Joined') {
+      return (
+        <React.Fragment>
+          Countdown:
+          <Countdown
+            start={this.props.item.lastRaiseTime || 0}
+            duration={3}
+            countdownEnded={this.enableFinishGameButton}
+          />
+        </React.Fragment>
+      );
+    }
+    return null;
+  };
+
   render() {
     const hostRisk = (
       <React.Fragment>
         ({(this.props.ethPrice * window.web3.fromWei(this.props.item.player1TotalBet)).toFixed(2)}USD)
-      </React.Fragment>
-    );
-    const joinedRisk = (
-      <React.Fragment>
-        ({(this.props.ethPrice * window.web3.fromWei(this.props.item.player2TotalBet)).toFixed(2)}USD)
       </React.Fragment>
     );
     return (
@@ -80,18 +107,13 @@ class MyGamesItem extends React.Component {
           <br />
           Host total bet: {window.web3.fromWei(this.props.item.player1TotalBet)} ETH {this.props.ethPrice ? hostRisk : null}
           <br />
-          Joined total bet: {window.web3.fromWei(this.props.item.player2TotalBet)} ETH {this.props.ethPrice ? joinedRisk : null}
+          {this.renderJoinedTotalBet()}
         </Col>
         <Col md={3}>
           Game status: {this.props.item.status}
         </Col>
         <Col md={3}>
-          Countdown:
-          <Countdown
-            start={this.props.item.lastRaiseTime || 0}
-            duration={3}
-            countdownEnded={this.enableFinishGameButton}
-          />
+          {this.renderCountDown()}
         </Col>
         <Col md={3}>
           {this.renderFinishGameButton()}
