@@ -11,7 +11,7 @@ class GameOfMadnessItem extends React.Component {
 
     this.state = {
       isExpandedRow: false,
-      betAmount: window.web3.fromWei(this.props.item.price),
+      betAmount: window.web3.fromWei(this.props.item.player1TotalBet),
     }
   }
 
@@ -22,7 +22,7 @@ class GameOfMadnessItem extends React.Component {
   };
 
   joinGame = () => {
-    if (this.state.betAmount <= window.web3.fromWei(this.props.item.price)) {
+    if (this.state.betAmount <= window.web3.fromWei(this.props.item.player1TotalBet)) {
       return;
     }
     const {joinGame} = this.props.contractInstance;
@@ -64,7 +64,7 @@ class GameOfMadnessItem extends React.Component {
     );
     const risk = (
       <React.Fragment>
-        ({(this.props.ethPrice * window.web3.fromWei(this.props.item.price)).toFixed(2)}USD)
+        ({(this.props.ethPrice * window.web3.fromWei(this.props.item.player1TotalBet)).toFixed(2)}USD)
       </React.Fragment>
     );
     return (
@@ -72,7 +72,7 @@ class GameOfMadnessItem extends React.Component {
         <Col className="madness-game-item" onClick={this.toggleExpandedRowState}>
           Game #{this.props.item.id}
           <br />
-          Host bet: {window.web3.fromWei(this.props.item.price)} ETH {this.props.ethPrice ? risk : null}
+          Host bet: {window.web3.fromWei(this.props.item.player1TotalBet)} ETH {this.props.ethPrice ? risk : null}
         </Col>
         {this.state.isExpandedRow ? expandedRow : null}
       </Row>

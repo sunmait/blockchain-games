@@ -88,7 +88,7 @@ class MyGamesItem extends React.Component {
         <Col md={3}>
           Countdown:
           <Countdown
-            start={this.props.item.lastRaiseTime}
+            start={this.props.item.lastRaiseTime || 0}
             duration={3}
             countdownEnded={this.enableFinishGameButton}
           />

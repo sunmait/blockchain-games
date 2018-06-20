@@ -5,11 +5,11 @@ const gameSettings = (context) => {
   const gameHostedEvent = context.props.contractInstance.GameHosted();
 
   gameHostedEvent.watch((error, result) => {
-    if (result) { // TODO: not enough fields for MyGames tab
+    if (result) {
       const hostedGame = {
         id: Number(result.args.gameId),
         player1: result.args.player1,
-        price: Number(result.args.betAmount),
+        player1TotalBet: Number(result.args.betAmount),
       };
       context.props.handleGameHostedEvent(hostedGame);
     }

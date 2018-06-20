@@ -57,7 +57,7 @@ function getHostedGamesFieldsByIds(gamesIds, contractInstance) {
             const gamePrice = Number(result[1]);
             resolve({
               id: gameId,
-              price: gamePrice,
+              player1TotalBet: gamePrice,
             });
           }
         }
@@ -138,7 +138,7 @@ export const handleGameHostedEvent = (game) => (dispatch, getState) => {
       type: CONSTANTS.GAME_OF_MADNESS_HANDLE_ADD_TO_USER_GAMES,
       payload: {
         id: game.id,
-        price: game.price,
+        player1TotalBet: game.player1TotalBet,
         status: gameStatuses[1],
       },
     });
