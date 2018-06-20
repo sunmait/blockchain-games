@@ -3,9 +3,9 @@ import Row from 'react-bootstrap/lib/Row';
 import Col from 'react-bootstrap/lib/Col';
 import Button from 'react-bootstrap/lib/Button';
 import FormControl from 'react-bootstrap/lib/FormControl';
-import './GameOfMadnessItem.css';
+import './HostedGamesItem.css';
 
-class GameOfMadnessItem extends React.Component {
+class HostedGamesItem extends React.Component {
   constructor(props) {
     super(props);
 
@@ -80,4 +80,4 @@ class GameOfMadnessItem extends React.Component {
   }
 }
 
-export default GameOfMadnessItem;
+export default HostedGamesItem;

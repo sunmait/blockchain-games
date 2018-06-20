@@ -1,17 +1,16 @@
 import React  from 'react';
 import Tabs from 'react-bootstrap/lib/Tabs';
 import Tab from 'react-bootstrap/lib/Tab';
-import Button from 'react-bootstrap/lib/Button';
 import Header from '../../containers/Header/Header';
 import contractInitialization from '../../../helpers/gameOfMadness/contractInitialization';
 import gameSettings from '../../../helpers/gameOfMadness/gameSettings';
 import './GameOfMadness.css';
-import GameOfMadnessItemContainer from './GameOfMadnessItemContainer';
 import getEthPrice from "../../../helpers/getEthPrice";
 import web3Initialization from "../../../helpers/web3Initialization";
 import HostGameContainer from './HostGame/HostGameContainer';
 import MyGamesContainer from './MyGames/MyGamesContainer';
 import CurrentGameContainer from './CurrentGame/CurrentGameContainer';
+import HostedGamesContainer from './HostedGames/HostedGamesContainer';
 
 class GameOfMadness extends React.Component {
 
@@ -43,34 +42,6 @@ class GameOfMadness extends React.Component {
       });
   };
 
-  renderGamesList = () => {
-    if (this.props.hostedGamesList.length === 0) {
-      return (
-        <div>
-          There are no currently open games
-          <br />
-          <Button
-            onClick={() => {
-              this.props.handleCurrentGameChange(null);
-              this.props.handleActiveTabChange(3);
-            }}
-            bsStyle="primary"
-          >
-            Host game
-          </Button>
-        </div>
-      );
-    }
-    return this.props.hostedGamesList.map((item, index) => {
-      return (
-        <GameOfMadnessItemContainer
-          item={item}
-          key={index}
-        />
-      );
-    });
-  };
-
   render() {
     return (
       <React.Fragment>
@@ -86,7 +57,7 @@ class GameOfMadness extends React.Component {
           onSelect={(key) => this.props.handleActiveTabChange(key)}
         >
           <Tab eventKey={1} title="Open Games">
-            {this.renderGamesList()}
+            <HostedGamesContainer />
           </Tab>
           <Tab eventKey={2} title="My Games">
             <MyGamesContainer />
