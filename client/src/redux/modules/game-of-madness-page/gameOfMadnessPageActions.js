@@ -106,7 +106,7 @@ function getUserGamesFieldsByIds(gamesIds, contractInstance) {
             const player1TotalBet = Number(result[0]);
             const player2TotalBet = Number(result[1]);
             const gameStatusId = Number(result[2]);
-            const gameResult = Number(result[3]);
+            const gameResult = gameResults[Number(result[3])];
             const lastRaiseTime = Number(result[4]);
             const playerWhoBetLast = result[5];
             const betsHistory = result[6];

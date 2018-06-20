@@ -1,3 +1,5 @@
+import gameResults from './gameResults';
+
 const gameSettings = (context) => {
   context.props.getHostedGames();
   context.props.getUserGames();
@@ -53,7 +55,7 @@ const gameSettings = (context) => {
     if (result) {
       const endedGame = {
         id: Number(result.args.gameId),
-        gameResult: Number(result.args.result)
+        gameResult: gameResults[Number(result.args.result)],
       };
       context.props.handleGameEndedEvent(endedGame);
     }

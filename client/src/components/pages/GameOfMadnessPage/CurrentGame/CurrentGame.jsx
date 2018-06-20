@@ -16,30 +16,47 @@ class CurrentGame extends React.Component {
     }
   }
 
-  renderHostedGame = () => {
-    return null;
-  };
-
-  renderJoinedGame = () => {
-    const hostRisk = (
+  renderHostRisk = () => {
+    return (
       <React.Fragment>
         ({(this.props.ethPrice * window.web3.fromWei(this.props.currentGame.player1TotalBet)).toFixed(2)}USD)
       </React.Fragment>
     );
-    const joinedRisk = (
+  };
+
+  renderJoinedRisk = () => {
+    return (
       <React.Fragment>
         ({(this.props.ethPrice * window.web3.fromWei(this.props.currentGame.player2TotalBet)).toFixed(2)}USD)
       </React.Fragment>
     );
+  };
+
+  renderHostedGame = () => {
+    return (
+      <Row className="madness-current-game-container">
+        <Col md={3}>
+          Game #{this.props.currentGame.id}
+          <br />
+          Host total bet: {window.web3.fromWei(this.props.currentGame.player1TotalBet)} ETH {this.props.ethPrice ? this.renderHostRisk() : null}
+        </Col>
+        <Col md={3}>
+          Game status: {this.props.currentGame.status}
+        </Col>
+      </Row>
+    );
+  };
+
+  renderJoinedGame = () => {
     return (
       <React.Fragment>
         <Row className="madness-current-game-container">
           <Col md={3}>
             Game #{this.props.currentGame.id}
             <br />
-            Host total bet: {window.web3.fromWei(this.props.currentGame.player1TotalBet)} ETH {this.props.ethPrice ? hostRisk : null}
+            Host total bet: {window.web3.fromWei(this.props.currentGame.player1TotalBet)} ETH {this.props.ethPrice ? this.renderHostRisk() : null}
             <br />
-            Joined total bet: {window.web3.fromWei(this.props.currentGame.player2TotalBet)} ETH {this.props.ethPrice ? joinedRisk : null}
+            Joined total bet: {window.web3.fromWei(this.props.currentGame.player2TotalBet)} ETH {this.props.ethPrice ? this.renderJoinedRisk() : null}
           </Col>
           <Col md={3}>
             Game status: {this.props.currentGame.status}
@@ -172,7 +189,23 @@ class CurrentGame extends React.Component {
   };
 
   renderFinishedGame = () => {
-    return null;
+    return (
+      <Row className="madness-current-game-container">
+        <Col md={3}>
+          Game #{this.props.currentGame.id}
+          <br />
+          Host total bet: {window.web3.fromWei(this.props.currentGame.player1TotalBet)} ETH {this.props.ethPrice ? this.renderHostRisk() : null}
+          <br />
+          Joined total bet: {window.web3.fromWei(this.props.currentGame.player2TotalBet)} ETH {this.props.ethPrice ? this.renderJoinedRisk() : null}
+        </Col>
+        <Col md={3}>
+          Game status: {this.props.currentGame.status}
+        </Col>
+        <Col md={3}>
+          Game result: {this.props.currentGame.result === 'Win' ? 'Host won' : 'Joined won'}!
+        </Col>
+      </Row>
+    );
   };
 
   render() {
