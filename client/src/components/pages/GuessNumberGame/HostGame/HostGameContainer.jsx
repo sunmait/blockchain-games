@@ -2,7 +2,7 @@ import { connect } from 'react-redux';
 import HostGame from './HostGame.jsx';
 
 const mapStateToProps = (state) => ({
-  contractInstance: state.gameOfMadness.contractInstance,
+  contractInstance: state.guessNumberGame.contractInstance,
   ethPrice: state.main.ethPrice,
 });
 

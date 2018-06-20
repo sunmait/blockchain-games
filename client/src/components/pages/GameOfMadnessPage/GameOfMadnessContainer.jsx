@@ -2,7 +2,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import GameOfMadness from './GameOfMadness';
 import * as gameOfMadnessPageActions from '../../../redux/modules/game-of-madness-page/gameOfMadnessPageActions';
-import * as mainPageActions from "../../../redux/modules/main-page/mainPageActions";
+import * as mainPageActions from '../../../redux/modules/main-page/mainPageActions';
 
 const mapStateToProps = (state) => ({
   currentAccount: state.main.currentAccount,

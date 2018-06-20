@@ -132,7 +132,7 @@ export const handleGameHostedEvent = (game) => (dispatch, getState) => {
     type: CONSTANTS.GAME_OF_MADNESS_HANDLE_GAME_HOSTED_EVENT,
     payload: game,
   });
-  const currentAccount = getState().main.currentAccount;
+  const currentAccount = getState().guessNumberGame.currentAccount;
   if (game.player1 === currentAccount) {
     dispatch({
       type: CONSTANTS.GAME_OF_MADNESS_HANDLE_ADD_TO_USER_GAMES,
@@ -150,7 +150,7 @@ export const handleGameJoinedEvent = (game) => (dispatch, getState) => {
     type: CONSTANTS.GAME_OF_MADNESS_HANDLE_GAME_JOINED_EVENT,
     payload: game,
   });
-  const currentAccount = getState().main.currentAccount;
+  const currentAccount = getState().guessNumberGame.currentAccount;
   if (game.player2 === currentAccount) {
     dispatch({
       type: CONSTANTS.GAME_OF_MADNESS_HANDLE_ADD_TO_USER_GAMES,

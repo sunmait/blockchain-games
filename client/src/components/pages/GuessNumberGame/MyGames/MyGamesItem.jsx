@@ -3,6 +3,7 @@ import Button from 'react-bootstrap/lib/Button';
 import Row from 'react-bootstrap/lib/Row';
 import Col from 'react-bootstrap/lib/Col';
 import Countdown from '../../../common/Countdown/Countdown';
+import './MyGamesItem.css';
 
 class MyGamesItem extends React.Component {
   constructor(props) {
@@ -87,12 +88,12 @@ class MyGamesItem extends React.Component {
   finishExpiredGame = (gameId) => {
     const {withdrawal} = this.props.contractInstance;
     withdrawal(gameId, (err, answer) => {
-        if (err) {
-          console.log('err: ', err);
-        } else {
-          console.log('answer: ', answer);
-        }
-      });
+      if (err) {
+        console.log('err: ', err);
+      } else {
+        console.log('answer: ', answer);
+      }
+    });
   };
 
   render() {
@@ -102,7 +103,7 @@ class MyGamesItem extends React.Component {
       </React.Fragment>
     );
     return (
-      <Row className="games-list-element-container">
+      <Row className="games-list-item-container">
         <Col md={6}>
           Game #{this.props.item.id}
           <br />

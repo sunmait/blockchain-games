@@ -15,6 +15,7 @@ const gameSettings = (context) => {
     }
   });
 
+  // TODO: game status at MyGames tab do not changes untill page is refreshed, like it was at gameOfMadness before
   const GameJoinedEvent = context.props.contractInstance.GameJoined();
 
   GameJoinedEvent.watch((error, result) => {
