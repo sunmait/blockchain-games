@@ -11,6 +11,6 @@
 }
 
 .madness-game-item-container {
-  border-bottom: 4px double lightslategray;
+  border-bottom: 1px solid lightslategray;
   margin: 10px 0;
 }

@@ -57,6 +57,7 @@ function getHostedGamesFieldsByIds(gamesIds, contractInstance) {
             const gamePrice = Number(result[1]);
             resolve({
               id: gameId,
+              player1: result[0],
               player1TotalBet: gamePrice,
             });
           }
@@ -99,7 +100,7 @@ function getUserGamesFieldsByIds(gamesIds, contractInstance) {
     return new Promise((resolve) => {
       getUserGameFieldsById(
         gameId,
-        (err, result) => {
+        async (err, result) => {
           if (err) {
             console.log('err: ', err);
           } else {
@@ -110,7 +111,10 @@ function getUserGamesFieldsByIds(gamesIds, contractInstance) {
             const lastRaiseTime = Number(result[4]);
             const playerWhoBetLast = result[5];
             const betsHistory = result[6];
+            const gamePlayers = await getGamePlayersById(gameId, contractInstance);
             resolve({
+              player1: gamePlayers.player1,
+              player2: gamePlayers.player2,
               id: gameId,
               player1TotalBet,
               player2TotalBet,
@@ -127,17 +131,34 @@ function getUserGamesFieldsByIds(gamesIds, contractInstance) {
   });
 }
 
+function getGamePlayersById(gameId, contractInstance) {
+  const {getGamePlayersById} = contractInstance;
+  return new Promise((resolve) => {
+    getGamePlayersById(gameId, (err, result) => {
+      if (err) {
+        console.log('err: ', err);
+      } else {
+        resolve({
+          player1: result[0],
+          player2: result[1],
+        });
+      }
+    });
+  });
+}
+
 export const handleGameHostedEvent = (game) => (dispatch, getState) => {
   dispatch({
     type: CONSTANTS.GAME_OF_MADNESS_HANDLE_GAME_HOSTED_EVENT,
     payload: game,
   });
-  const currentAccount = getState().guessNumberGame.currentAccount;
+  const currentAccount = getState().main.currentAccount;
   if (game.player1 === currentAccount) {
     dispatch({
       type: CONSTANTS.GAME_OF_MADNESS_HANDLE_ADD_TO_USER_GAMES,
       payload: {
         id: game.id,
+        player1: game.player1,
         player1TotalBet: game.player1TotalBet,
         status: gameStatuses[1],
       },
@@ -150,7 +171,7 @@ export const handleGameJoinedEvent = (game) => (dispatch, getState) => {
     type: CONSTANTS.GAME_OF_MADNESS_HANDLE_GAME_JOINED_EVENT,
     payload: game,
   });
-  const currentAccount = getState().guessNumberGame.currentAccount;
+  const currentAccount = getState().main.currentAccount;
   if (game.player2 === currentAccount) {
     dispatch({
       type: CONSTANTS.GAME_OF_MADNESS_HANDLE_ADD_TO_USER_GAMES,

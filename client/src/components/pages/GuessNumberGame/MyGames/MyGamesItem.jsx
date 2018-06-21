@@ -3,7 +3,7 @@ import Button from 'react-bootstrap/lib/Button';
 import Row from 'react-bootstrap/lib/Row';
 import Col from 'react-bootstrap/lib/Col';
 import Countdown from '../../../common/Countdown/Countdown';
-import './MyGamesItem.css';
+import getGravatarUrl from '../../../../helpers/getGravatarUrl';
 
 class MyGamesItem extends React.Component {
   constructor(props) {
@@ -104,9 +104,14 @@ class MyGamesItem extends React.Component {
     );
     return (
       <Row className="games-list-item-container">
-        <Col md={6}>
+        <Col md={3}>
           Game #{this.props.item.id}
-          <br />
+          <img
+            src={getGravatarUrl(this.props.item.hostAddress)}
+            alt="no img"
+          />
+        </Col>
+        <Col md={3}>
           Game price: {window.web3.fromWei(this.props.item.price)} ETH {this.props.ethPrice ? risk : null}
         </Col>
         <Col md={3}>

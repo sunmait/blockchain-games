@@ -153,6 +153,12 @@ contract GameOfMadness {
     return ids;
   }
 
+  function getGamePlayersById(uint id) view public returns (address, address) {
+    return (
+      games[id].player1, games[id].player2
+    );
+  }
+
   function getUserGameFieldsById(uint id) view public returns (uint, uint, State, Result, uint, address, uint[]) {
     return (
       games[id].player1TotalBet, games[id].player2TotalBet,

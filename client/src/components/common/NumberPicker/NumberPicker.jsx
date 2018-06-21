@@ -36,7 +36,6 @@ class NumberPicker extends React.Component {
     return range.map((elem) => {
       return (
         <MenuItem
-          eventKey={elem}
           key={elem}
           onSelect={() => this.toggleDropdownButtonState(elem)}
         >

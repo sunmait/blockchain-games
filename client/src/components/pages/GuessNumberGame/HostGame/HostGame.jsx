@@ -13,7 +13,7 @@ class HostGame extends React.Component {
     super(props);
 
     this.state = {
-      selectedNumber: null,
+      selectedNumber: undefined,
       isModal: false,
       secretWord: '',
       gamePrice: 0.000045,
@@ -56,7 +56,6 @@ class HostGame extends React.Component {
     this.setState({
       isModal: false,
       secretWord: '',
-      selectedNumber: null,
     });
   };
 

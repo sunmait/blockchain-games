@@ -10,7 +10,7 @@ const defaultState = {
     price: undefined,
     hostLastBets: [],
   },
-  isCurrentGameLoaded: false,
+  isCurrentGameLoaded: true,
   hostedGamesList: [],
   isHostedGamesLoaded: false,
   userGamesList: [],

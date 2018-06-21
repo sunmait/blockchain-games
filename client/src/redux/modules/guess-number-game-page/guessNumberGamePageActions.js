@@ -79,13 +79,14 @@ export const handleGameHostedEvent = (game) => (dispatch, getState) => {
     type: CONSTANTS.GUESS_NUMBER_GAME_HANDLE_GAME_HOSTED_EVENT,
     payload: game,
   });
-  const currentAccount = getState().guessNumberGame.currentAccount;
+  const currentAccount = getState().main.currentAccount;
   if (game.player1 === currentAccount) {
     dispatch({
       type: CONSTANTS.GUESS_NUMBER_GAME_HANDLE_ADD_TO_USER_GAMES,
       payload: {
         id: game.id,
         price: game.price,
+        hostAddress: game.hostAddress,
         status: gameStatuses[1],
       },
     });
@@ -97,7 +98,7 @@ export const handleGameJoinedEvent = (game) => (dispatch, getState) => {
     type: CONSTANTS.GUESS_NUMBER_GAME_HANDLE_GAME_JOINED_EVENT,
     payload: game,
   });
-  const currentAccount = getState().guessNumberGame.currentAccount;
+  const currentAccount = getState().main.currentAccount;
   if (game.player2 === currentAccount) {
     dispatch({
       type: CONSTANTS.GUESS_NUMBER_GAME_HANDLE_ADD_TO_USER_GAMES,
@@ -158,6 +159,7 @@ function getHostedGamesFieldsByIds(gamesIds, contractInstance) {
             resolve({
               id: gameId,
               price: gamePrice,
+              hostAddress: result[0],
             });
           }
         }

@@ -4,6 +4,7 @@ import Col from 'react-bootstrap/lib/Col';
 import Button from 'react-bootstrap/lib/Button';
 import Countdown from '../../../common/Countdown/Countdown';
 import './MyGamesItem.css';
+import getGravatarUrl from '../../../../helpers/getGravatarUrl';
 
 class MyGamesItem extends React.Component {
   constructor(props) {
@@ -106,6 +107,10 @@ class MyGamesItem extends React.Component {
             >
               Game #{this.props.item.id}
             </div>
+            <img
+              src={getGravatarUrl(this.props.item.player1)}
+              alt="no img"
+            />
           </Col>
           <Col md={6}>
             Game status: {this.props.item.status}

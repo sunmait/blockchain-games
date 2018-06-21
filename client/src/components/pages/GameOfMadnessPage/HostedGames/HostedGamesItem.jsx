@@ -4,6 +4,7 @@ import Col from 'react-bootstrap/lib/Col';
 import Button from 'react-bootstrap/lib/Button';
 import FormControl from 'react-bootstrap/lib/FormControl';
 import './HostedGamesItem.css';
+import getGravatarUrl from '../../../../helpers/getGravatarUrl';
 
 class HostedGamesItem extends React.Component {
   constructor(props) {
@@ -69,9 +70,14 @@ class HostedGamesItem extends React.Component {
     );
     return (
       <Row className="madness-game-item-container">
-        <Col className="madness-game-item" onClick={this.toggleExpandedRowState}>
+        <Col md={3} className="madness-game-item" onClick={this.toggleExpandedRowState}>
           Game #{this.props.item.id}
-          <br />
+          <img
+            src={getGravatarUrl(this.props.item.player1)}
+            alt="no img"
+          />
+        </Col>
+        <Col md={9}>
           Host bet: {window.web3.fromWei(this.props.item.player1TotalBet)} ETH {this.props.ethPrice ? risk : null}
         </Col>
         {this.state.isExpandedRow ? expandedRow : null}

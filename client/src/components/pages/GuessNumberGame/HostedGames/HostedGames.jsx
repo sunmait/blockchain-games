@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Row from 'react-bootstrap/lib/Row';
 import Col from 'react-bootstrap/lib/Col';
 import Button from 'react-bootstrap/lib/Button';
+import getGravatarUrl from '../../../../helpers/getGravatarUrl';
 
 class HostedGames extends Component {
 
@@ -31,9 +32,14 @@ class HostedGames extends Component {
       );
       return (
         <Row key={index} className="games-list-item-container">
-          <Col md={6}>
+          <Col md={3}>
             Game #{item.id}
-            <br />
+            <img
+              src={getGravatarUrl(item.hostAddress)}
+              alt="no img"
+            />
+          </Col>
+          <Col md={3}>
             Bet amount: {window.web3.fromWei(item.price)} ETH {this.props.ethPrice ? risk : null}
           </Col>
           <Col md={6}>

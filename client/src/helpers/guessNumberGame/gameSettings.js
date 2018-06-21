@@ -9,7 +9,7 @@ const gameSettings = (context) => {
       const hostedGame = {
         id: Number(result.args.gameId),
         price: Number(result.args.betAmount),
-        player1: result.args.player1,
+        hostAddress: result.args.player1,
       };
       context.props.handleGameHostedEvent(hostedGame);
     }
