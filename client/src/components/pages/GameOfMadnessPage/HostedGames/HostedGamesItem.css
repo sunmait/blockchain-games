@@ -3,14 +3,18 @@
   height: 75px;
 }
 
-.madness-game-item {
-  height: 100px;
-  border-bottom: unset;
-  display: flex;
-  align-items: center;
-}
-
 .madness-game-item-container {
   border-bottom: 1px solid lightslategray;
   margin: 10px 0;
+}
+
+.madness-game-join-button-container {
+  width: 100%;
+  margin-top: 10px;
+}
+
+.madness-game-join-button-container>button {
+  width: 100%;
+  background: #800000;
+  color: white;
 }

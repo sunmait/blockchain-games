@@ -60,6 +60,7 @@ class GuessNumberGame extends Component {
     return (
       <React.Fragment>
         <Header
+          currentAccount={this.props.currentAccount}
           onHostGameClick={() => {
             this.props.handleCurrentGameChange(null);
             this.props.handleActiveTabChange(3);

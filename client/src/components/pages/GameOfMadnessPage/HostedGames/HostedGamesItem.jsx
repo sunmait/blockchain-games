@@ -45,24 +45,6 @@ class HostedGamesItem extends React.Component {
   };
 
   render() {
-    const expandedRow = (
-      <Col md={12} className="madness-game-item-expanded-row">
-        <Col md={3}>
-          Your bet:
-          <FormControl
-            type="text"
-            value={this.state.betAmount}
-            onChange={(event) => this.handleFieldChange('betAmount', event.target.value)}
-          />
-        </Col>
-        <Button
-          className="pull-right"
-          onClick={this.joinGame}
-        >
-          Join game
-        </Button>
-      </Col>
-    );
     const risk = (
       <React.Fragment>
         ({(this.props.ethPrice * window.web3.fromWei(this.props.item.player1TotalBet)).toFixed(2)}USD)
@@ -70,17 +52,41 @@ class HostedGamesItem extends React.Component {
     );
     return (
       <Row className="madness-game-item-container">
-        <Col md={3} className="madness-game-item" onClick={this.toggleExpandedRowState}>
-          Game #{this.props.item.id}
-          <img
-            src={getGravatarUrl(this.props.item.player1)}
-            alt="no img"
-          />
+        <Col md={3}>
+          <Row className="madness-game-item-title-container">
+            <Col md={12} className="madness-game-item-title">
+              Game #{this.props.item.id}
+            </Col>
+            <Col md={12}>
+              <img
+                src={getGravatarUrl(this.props.item.player1)}
+                alt="no img"
+              />
+            </Col>
+          </Row>
         </Col>
-        <Col md={9}>
+        <Col md={5} className="madness-game-item-data-container">
           Host bet: {window.web3.fromWei(this.props.item.player1TotalBet)} ETH {this.props.ethPrice ? risk : null}
         </Col>
-        {this.state.isExpandedRow ? expandedRow : null}
+        <Col md={4}>
+          <Row>
+            <Col md={12} className="madness-game-join-input-container">
+              Your bet:
+              <FormControl
+                type="text"
+                value={this.state.betAmount}
+                onChange={(event) => this.handleFieldChange('betAmount', event.target.value)}
+              />
+            </Col>
+            <Col md={12} className="madness-game-join-button-container">
+              <Button
+                onClick={this.joinGame}
+              >
+                Join game
+              </Button>
+            </Col>
+          </Row>
+        </Col>
       </Row>
     );
   }

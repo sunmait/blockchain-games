@@ -1,11 +1,21 @@
-.game-link-container {
+.madness-game-link-container {
   color: blue;
+  display: inline;
 }
 
-.game-link-container:hover {
+.madness-game-link-container:hover {
   cursor: pointer;
 }
 
-.game-item-data-container {
-  margin: 10px 0;
+.madness-game-interaction-button-container {
+  display: flex;
+  align-items: center;
+  height: 100px;
+  padding: 0;
+}
+
+.madness-game-interaction-button-container>button {
+  width: 100%;
+  background: #800000;
+  color: white;
 }

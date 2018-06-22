@@ -33,26 +33,44 @@ class MyGamesItem extends React.Component {
     );
   };
 
-  renderFinishGameButton = () => {
+  renderGameInteractionButton = () => {
     if (this.props.item.status === 'Joined') {
       if (this.props.currentAccount === this.props.item.playerWhoBetLast) {
-        return (
-          <React.Fragment>
-            <Col md={12}>
-              <Button
-                className="pull-right"
-                onClick={this.finishGame}
-                disabled={!this.state.isFinishGameButtonEnabled}
-              >
-                Finish
-              </Button>
-            </Col>
-            <Col md={12}>
-            </Col>
-          </React.Fragment>
-        );
+        return this.renderFinishGameButton();
+      } else {
+        return this.renderRaiseButton();
       }
     }
+  };
+
+  renderRaiseButton = () => {
+    return (
+      <React.Fragment>
+        <Col md={12} className="madness-game-interaction-button-container">
+          <Button
+            onClick={this.goToGame}
+            disabled={!this.state.isFinishGameButtonEnabled}
+          >
+            Raise
+          </Button>
+        </Col>
+      </React.Fragment>
+    );
+  };
+
+  renderFinishGameButton = () => {
+      return (
+        <React.Fragment>
+          <Col md={12} className="madness-game-interaction-button-container">
+            <Button
+              onClick={this.finishGame}
+              disabled={!this.state.isFinishGameButtonEnabled}
+            >
+              Finish
+            </Button>
+          </Col>
+        </React.Fragment>
+      );
   };
 
   goToGame = () => {
@@ -78,9 +96,11 @@ class MyGamesItem extends React.Component {
 
   renderCountDown = () => {
     if (this.props.item.status === 'Joined') {
+      const title = this.props.item.playerWhoBetLast === this.props.currentAccount ?
+        "Your opponent's turn" : 'Your turn';
       return (
         <React.Fragment>
-          Countdown:
+          {title}
           <Countdown
             start={this.props.item.lastRaiseTime || 0}
             duration={3}
@@ -100,32 +120,35 @@ class MyGamesItem extends React.Component {
     );
     return (
       <Row className="madness-game-item-container">
-        <Col md={6}>
-          <Col md={6}>
-            <div className="game-link-container"
-                 onClick={this.goToGame}
-            >
-              Game #{this.props.item.id}
-            </div>
-            <img
-              src={getGravatarUrl(this.props.item.player1)}
-              alt="no img"
-            />
+        <Col md={7}>
+          <Col md={4} className="madness-game-item-title-container">
+            <Row>
+              <Col md={12}>
+                <div className="madness-game-item-title madness-game-link-container"
+                     onClick={this.goToGame}
+                >
+                  Game #{this.props.item.id}
+                </div> {this.props.item.status}
+              </Col>
+              <Col md={12}>
+                <img
+                  src={getGravatarUrl(this.props.item.player1)}
+                  alt="no img"
+                />
+              </Col>
+            </Row>
           </Col>
-          <Col md={6}>
-            Game status: {this.props.item.status}
-          </Col>
-          <Col md={12} className="game-item-data-container">
+          <Col md={8} className="madness-game-item-data-container">
             Host total bet: {window.web3.fromWei(this.props.item.player1TotalBet)} ETH {this.props.ethPrice ? hostRisk : null}
             <br />
             {this.renderJoinedTotalBet()}
           </Col>
         </Col>
-        <Col md={3}>
+        <Col md={3} className="madness-game-item-data-container">
           {this.renderCountDown()}
         </Col>
-        <Col md={3}>
-          {this.renderFinishGameButton()}
+        <Col md={2} className="madness-game-interaction-button-container">
+          {this.renderGameInteractionButton()}
         </Col>
       </Row>
     );

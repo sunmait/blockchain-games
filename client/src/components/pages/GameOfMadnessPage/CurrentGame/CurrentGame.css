@@ -1,6 +1,4 @@
 .game-bets-history-table, .game-bets-history-table tr, .game-bets-history-table td {
-  border: 1px solid black;
-  border-collapse: separate;
   padding: 2px;
 }
 
@@ -9,3 +7,23 @@
   text-align: center;
 }
 
+.table-filled-field {
+  background: blue;
+  color: white;
+}
+
+.madness-game-raise-button-container {
+  margin-top: 10px;
+}
+
+.madness-game-raise-button-container>button {
+  width: 100%;
+  background: #800000;
+  color: white;
+}
+
+.madness-game-finish-button-container>button {
+  width: 100%;
+  background: #800000;
+  color: white;
+}

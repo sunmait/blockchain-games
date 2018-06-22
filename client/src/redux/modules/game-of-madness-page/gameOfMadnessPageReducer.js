@@ -140,6 +140,7 @@ function handleBetRaisedEvent(state, payload) {
       currentGame.player2TotalBet = payload.player2TotalBet;
       currentGame.lastRaiseTime = payload.lastRaiseTime;
       currentGame.playerWhoBetLast = payload.playerWhoBetLast;
+      currentGame.betsHistory = payload.betsHistory;
     }
   }
 
@@ -157,6 +158,7 @@ function handleBetRaisedEvent(state, payload) {
   }
   return {
     ...state,
+    currentGame,
     userGamesList,
   };
 }

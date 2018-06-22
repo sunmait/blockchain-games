@@ -33,7 +33,7 @@ contract GameOfMadness {
   );
   event BetRaised(
     uint indexed gameId, uint player1TotalBet, uint player2TotalBet,
-    uint lastRaiseTime, address playerWhoBetLast
+    uint lastRaiseTime, address playerWhoBetLast, uint[] betsHistory
   );
   event GameEnded(uint indexed gameId, Result result);
 
@@ -90,7 +90,7 @@ contract GameOfMadness {
 
     emit BetRaised(
       gameId, thisGame.player1TotalBet, thisGame.player2TotalBet,
-      thisGame.lastRaiseTime, thisGame.playerWhoBetLast
+      thisGame.lastRaiseTime, thisGame.playerWhoBetLast, thisGame.betsHistory
     );
   }
 

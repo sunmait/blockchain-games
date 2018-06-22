@@ -5,6 +5,7 @@ import Button from 'react-bootstrap/lib/Button';
 import {LinkContainer} from 'react-router-bootstrap';
 import NavItem from 'react-bootstrap/lib/NavItem';
 import './Header.css';
+import getGravatarUrl from '../../../helpers/getGravatarUrl';
 
 class Header extends React.Component {
   render() {
@@ -26,6 +27,12 @@ class Header extends React.Component {
         </Navbar.Header>
         <Navbar.Collapse>
           <Nav>
+            <NavItem className="user-avatar-container">
+              <img
+                src={getGravatarUrl(this.props.currentAccount)}
+                alt="no img"
+              />
+            </NavItem>
             <NavItem>
               <Button
                 bsStyle="link"

@@ -16,6 +16,11 @@ class Countdown extends React.Component {
   }
 
   componentDidMount() {
+    if (this.props.start + this.props.duration - Math.round(new Date()/1000)) {
+      this.setState({
+        isDialShown: false,
+      });
+    }
     this.timer = setInterval(this.tick, 1000);
   }
 
@@ -51,11 +56,7 @@ class Countdown extends React.Component {
         </div>
       );
     } else {
-      return (
-        <div>
-          Countdown ended.
-        </div>
-      );
+      return null;
     }
   }
 }
