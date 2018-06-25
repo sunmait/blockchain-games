@@ -22,8 +22,8 @@ class MyGamesItem extends React.Component {
   };
 
   finishGame = () => {
-    const {windrawal} = this.props.contractInstance;
-    windrawal(this.props.item.id, (err) => {
+    const {withdrawal} = this.props.contractInstance;
+    withdrawal(this.props.item.id, (err) => {
         if (err) {
           console.log('err: ', err);
         } else {

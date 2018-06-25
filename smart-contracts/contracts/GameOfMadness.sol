@@ -94,7 +94,7 @@ contract GameOfMadness {
     );
   }
 
-  function windrawal(uint gameId) public {
+  function withdrawal(uint gameId) public {
     Game storage thisGame = games[gameId];
 
     require(thisGame.playerWhoBetLast == msg.sender);

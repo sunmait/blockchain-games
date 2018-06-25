@@ -159,8 +159,8 @@ class CurrentGame extends React.Component {
   };
 
   handleFinishGameButtonClick = () => {
-    const {windrawal} = this.props.contractInstance;
-    windrawal(this.props.currentGame.id, (err) => {
+    const {withdrawal} = this.props.contractInstance;
+    withdrawal(this.props.currentGame.id, (err) => {
       if (err) {
         console.log('err: ', err);
       } else {
