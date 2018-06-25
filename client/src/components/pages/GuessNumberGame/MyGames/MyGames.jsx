@@ -25,7 +25,7 @@ class MyGames extends React.Component {
   render() {
     return (
       <Row>
-        <Col md={10}>
+        <Col md={12}>
           {this.renderGamesList()}
         </Col>
       </Row>

@@ -127,16 +127,6 @@ class HostGame extends React.Component {
             />
           </Col>
           <Col md={4}>
-            <Button
-              onClick={this.hostGame}
-              bsStyle="primary"
-            >
-              Host Game
-            </Button>
-          </Col>
-        </Row>
-        <Row>
-          <Col md={12}>
             Bet amount:
             <FormControl
               className="game-price-input"
@@ -145,6 +135,14 @@ class HostGame extends React.Component {
               onChange={(event) => this.handleFieldChange('gamePrice', event.target.value)}
             />
             ETH {this.props.ethPrice ? risk : null}
+          </Col>
+          <Col md={4} className="number-game-interaction-button-container">
+            <Button
+              onClick={this.hostGame}
+              bsStyle="primary"
+            >
+              Host Game
+            </Button>
           </Col>
         </Row>
         {this.message()}

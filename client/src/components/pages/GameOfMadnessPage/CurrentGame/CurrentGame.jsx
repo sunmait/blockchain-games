@@ -110,7 +110,7 @@ class CurrentGame extends React.Component {
           </tr>
         </thead>
         <tbody>
-          {
+          { // TODO: it's crashes sometimes with message 'cannot read map of undefined ...'
             this.props.currentGame.betsHistory.map((bet, index) => {
               if (index % 2 === 0) {
                 return (

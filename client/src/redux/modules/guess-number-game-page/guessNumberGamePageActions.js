@@ -13,6 +13,7 @@ export const handleCurrentGameChange = (gameId) => async (dispatch, getState) =>
   });
   let game = {
     id: gameId,
+    player1: undefined,
     price: undefined,
     status: undefined,
     result: gameResults[0],
@@ -38,11 +39,13 @@ function getCurrentGameFieldsById(gameId, contractInstance) {
         if (err) {
           console.log('err: ', err);
         } else {
+          const player1 = result[0];
           const gamePrice = Number(result[2]);
           const gameStatus = gameStatuses[Number(result[3])];
           const gameResult = gameResults[Number(result[4])];
           const hostLastBets = await getCurrentGameHostLastBets(gameId, contractInstance);
           resolve({
+            player1,
             id: gameId,
             price: gamePrice,
             status: gameStatus,
@@ -159,7 +162,7 @@ function getHostedGamesFieldsByIds(gamesIds, contractInstance) {
             resolve({
               id: gameId,
               price: gamePrice,
-              hostAddress: result[0],
+              player1: result[0],
             });
           }
         }
@@ -199,8 +202,8 @@ function getUserGamesFieldsByIds(gamesIds, contractInstance) {
             const gamePrice = Number(result[2]);
             const statusId = Number(result[3]);
             resolve({
-              hostAddress: result[0],
-              joinedAddress: result[1],
+              player1: result[0],
+              player2: result[1],
               id: gameId,
               price: gamePrice,
               status: gameStatuses[statusId],

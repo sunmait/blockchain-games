@@ -73,7 +73,7 @@ class GuessNumberGame extends Component {
         >
           <Tab eventKey={1} title="Open Games">
             <Row className="games-list-container">
-              <Col md={10}>
+              <Col md={12}>
                 {this.props.isHostedGamesLoaded ? <HostedGamesContainer /> : <Spinner/>}
               </Col>
             </Row>

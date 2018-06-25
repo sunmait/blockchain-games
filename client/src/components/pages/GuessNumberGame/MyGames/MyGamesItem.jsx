@@ -4,6 +4,7 @@ import Row from 'react-bootstrap/lib/Row';
 import Col from 'react-bootstrap/lib/Col';
 import Countdown from '../../../common/Countdown/Countdown';
 import getGravatarUrl from '../../../../helpers/getGravatarUrl';
+import './MyGamesItem.css';
 
 class MyGamesItem extends React.Component {
   constructor(props) {
@@ -16,12 +17,11 @@ class MyGamesItem extends React.Component {
 
   renderRevealButton = (item) => {
     if (item.status === 'Joined') {
-      if (this.props.currentAccount === item.hostAddress) {
+      if (this.props.currentAccount === item.player1) {
         return (
           <React.Fragment>
-            <Col md={12}>
+            <Col md={12} className="number-game-interaction-button-container">
               <Button
-                className="pull-right"
                 onClick={() => {
                   this.props.handleCurrentGameChange(item.id);
                   this.props.handleActiveTabChange(3);
@@ -34,18 +34,16 @@ class MyGamesItem extends React.Component {
               <Countdown
                 start={item.gameJoinTime}
                 duration={60*60*24*7}
-                className="pull-right"
               />
             </Col>
           </React.Fragment>
         );
       }
-      if (this.props.currentAccount === item.joinedAddress) {
+      if (this.props.currentAccount === item.player2) {
         return (
           <React.Fragment>
-            <Col md={12}>
+            <Col md={12} className="number-game-interaction-button-container">
               <Button
-                className="pull-right"
                 onClick={() => this.finishExpiredGame(item.id)}
                 disabled={!this.state.isFinishExpiredGameButton}
               >
@@ -56,7 +54,6 @@ class MyGamesItem extends React.Component {
               <Countdown
                 start={item.gameJoinTime}
                 countdownEnded={this.enableFinishExpiredGameButton}
-                className="pull-right"
               />
             </Col>
           </React.Fragment>
@@ -103,21 +100,24 @@ class MyGamesItem extends React.Component {
       </React.Fragment>
     );
     return (
-      <Row className="games-list-item-container">
+      <Row className="number-game-item-container">
         <Col md={3}>
-          Game #{this.props.item.id}
-          <img
-            src={getGravatarUrl(this.props.item.hostAddress)}
-            alt="no img"
-          />
+          <Row className="number-game-item-title-container">
+            <Col md={12} className="number-game-item-title">
+              Game #{this.props.item.id} {this.props.item.status}
+            </Col>
+            <Col md={12}>
+              <img
+                src={getGravatarUrl(this.props.item.player1)}
+                alt="no img"
+              />
+            </Col>
+          </Row>
         </Col>
-        <Col md={3}>
+        <Col md={5} className="number-game-item-data-container">
           Game price: {window.web3.fromWei(this.props.item.price)} ETH {this.props.ethPrice ? risk : null}
         </Col>
-        <Col md={3}>
-          Game status: {this.props.item.status}
-        </Col>
-        <Col md={3}>
+        <Col md={4}>
           {this.renderRevealButton(this.props.item)}
         </Col>
       </Row>

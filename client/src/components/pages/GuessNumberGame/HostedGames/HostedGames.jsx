@@ -3,6 +3,7 @@ import Row from 'react-bootstrap/lib/Row';
 import Col from 'react-bootstrap/lib/Col';
 import Button from 'react-bootstrap/lib/Button';
 import getGravatarUrl from '../../../../helpers/getGravatarUrl';
+import './HostedGames.css';
 
 class HostedGames extends Component {
 
@@ -31,20 +32,25 @@ class HostedGames extends Component {
         </React.Fragment>
       );
       return (
-        <Row key={index} className="games-list-item-container">
+        <Row key={index} className="number-game-item-container">
           <Col md={3}>
-            Game #{item.id}
-            <img
-              src={getGravatarUrl(item.hostAddress)}
-              alt="no img"
-            />
+            <Row className="number-game-item-title-container">
+              <Col md={12} className="number-game-item-title">
+                Game #{item.id}
+              </Col>
+              <Col md={12}>
+                <img
+                  src={getGravatarUrl(item.player1)}
+                  alt="no img"
+                />
+              </Col>
+            </Row>
           </Col>
-          <Col md={3}>
+          <Col md={5} className="number-game-item-data-container">
             Bet amount: {window.web3.fromWei(item.price)} ETH {this.props.ethPrice ? risk : null}
           </Col>
-          <Col md={6}>
+          <Col md={4} className="number-game-interaction-button-container">
             <Button
-              className="pull-right"
               onClick={() => {
                 this.props.handleActiveTabChange(3);
                 this.props.handleCurrentGameChange(item.id);

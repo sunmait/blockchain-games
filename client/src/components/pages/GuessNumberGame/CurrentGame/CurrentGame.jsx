@@ -4,6 +4,7 @@ import Col from 'react-bootstrap/lib/Col';
 import Button from 'react-bootstrap/lib/Button';
 import FormControl from 'react-bootstrap/lib/FormControl';
 import JoinGameContainer from '../JoinGame/JoinGameContainer';
+import './CurrentGame.css';
 
 class CurrentGame extends React.Component {
   constructor(props) {
@@ -59,34 +60,38 @@ class CurrentGame extends React.Component {
     } else if (this.props.currentGame.status === 'Joined') {
       return (
         <Row>
-          <Row>
-            <Col md={3}>
-              Insert your number:
-              <FormControl
-                type="text"
-                value={this.state.hostNumber}
-                onChange={(event) => this.handleFieldChange('hostNumber', event.target.value)}
-              />
-            </Col>
-          </Row>
-          <Row>
-            <Col md={3}>
-              Insert your secret:
-              <FormControl
-                type="text"
-                value={this.state.hostSecret}
-                onChange={(event) => this.handleFieldChange('hostSecret', event.target.value)}
-              />
-            </Col>
-          </Row>
-
-          <Button
-            onClick={() => {
-              this.revealWinner();
-            }}
-          >
-            Reveal winner
-          </Button>
+          <Col md={8}>
+            Input your number and secret to finish this game.
+            <Row>
+              <Col md={6}>
+                Your number:
+                <FormControl
+                  type="text"
+                  value={this.state.hostNumber}
+                  onChange={(event) => this.handleFieldChange('hostNumber', event.target.value)}
+                />
+              </Col>
+            </Row>
+            <Row>
+              <Col md={6}>
+                Your secret:
+                <FormControl
+                  type="text"
+                  value={this.state.hostSecret}
+                  onChange={(event) => this.handleFieldChange('hostSecret', event.target.value)}
+                />
+              </Col>
+            </Row>
+          </Col>
+          <Col md={4} className="number-game-interaction-button-container">
+            <Button
+              onClick={() => {
+                this.revealWinner();
+              }}
+            >
+              Reveal winner
+            </Button>
+          </Col>
         </Row>
       )
     }

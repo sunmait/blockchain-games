@@ -1,15 +1,44 @@
 #main-page-tabs-container {
-    width: 80%;
-    margin: auto;
+  width: 80%;
+  margin: auto;
 }
 
 div[role=tabpanel] {
-    margin-top: 25px;
+  margin-top: 25px;
 }
 
-.games-list-item-container {
-    height: 100px;
-    display: flex;
-    align-items: center;
-    border-bottom: 1px solid lightslategray;
+.number-game-list-item-container {
+  height: 100px;
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid lightslategray;
+}
+
+.number-game-item-title-container {
+  text-align: center;
+  margin-bottom: 15px;
+}
+
+.number-game-item-title {
+  font-size: 12px;
+}
+
+.number-game-item-data-container {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  height: 100px;
+  font-size: 18px;
+}
+
+.number-game-interaction-button-container {
+  display: flex;
+  align-items: center;
+  padding: 0;
+}
+
+.number-game-interaction-button-container>button {
+  width: 100%;
+  background: #800000;
+  color: white;
 }

@@ -5,6 +5,7 @@ import Button from 'react-bootstrap/lib/Button';
 import DropdownButton from 'react-bootstrap/lib/DropdownButton';
 import MenuItem from 'react-bootstrap/lib/MenuItem';
 import './JoinGame.css';
+import getGravatarUrl from '../../../../helpers/getGravatarUrl';
 
 class JoinGame extends React.Component {
   constructor(props) {
@@ -97,11 +98,24 @@ class JoinGame extends React.Component {
     return (
       <Row>
         <Col md={12}>
-          <Col md={4}>
-            Game #{this.props.currentGame.id}
+          <Col md={3}>
+            <Row className="number-game-item-title-container">
+              <Col md={12} className="number-game-item-title">
+                Game #{this.props.currentGame.id}
+              </Col>
+              <Col md={12}>
+                <img
+                  src={getGravatarUrl(this.props.currentGame.player1)}
+                  alt="no img"
+                />
+              </Col>
+            </Row>
+          </Col>
+          <Col md={4} className="number-game-item-data-container">
+            Game price: {window.web3.fromWei(this.props.currentGame.price)} ETH {this.props.ethPrice ? risk : null}
             {this.renderEvenOddSelector()}
           </Col>
-          <Col md={4}>
+          <Col md={4} className="number-game-interaction-button-container">
             <Button
               onClick={this.joinGame}
               bsStyle="primary"
@@ -116,11 +130,6 @@ class JoinGame extends React.Component {
           </Col>
           <Col>
             {this.renderHostLastBets()}
-          </Col>
-        </Col>
-        <Col md={12}>
-          <Col md={12}>
-            Game price: {window.web3.fromWei(this.props.currentGame.price)} ETH {this.props.ethPrice ? risk : null}
           </Col>
         </Col>
       </Row>

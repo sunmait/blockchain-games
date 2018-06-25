@@ -11,16 +11,9 @@ class HostedGamesItem extends React.Component {
     super(props);
 
     this.state = {
-      isExpandedRow: false,
       betAmount: window.web3.fromWei(this.props.item.player1TotalBet),
     }
   }
-
-  toggleExpandedRowState = () => {
-    this.setState({
-      isExpandedRow: !this.state.isExpandedRow,
-    });
-  };
 
   joinGame = () => {
     if (this.state.betAmount <= window.web3.fromWei(this.props.item.player1TotalBet)) {
