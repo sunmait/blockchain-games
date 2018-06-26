@@ -3,7 +3,7 @@ const Game = artifacts.require('GuessNumberGame');
 const expectRevert = require('./helpers/expectRevert');
 const increaseTime = require('./helpers/increaseTime');
 
-contract('Game test', async accounts => {
+contract('GuessNumberGame tests', async accounts => {
   let instance;
 
   const player1 = accounts[1];

@@ -21,7 +21,7 @@ contract GameOfMadness {
   }
 
   address public owner;
-  uint8 constant turnMaxDuration = 3 seconds;
+  uint8 constant turnMaxDuration = 3 seconds; // TODO: change turn duration time in prod
   uint gameIdCounter;
   Game[] public games;
 

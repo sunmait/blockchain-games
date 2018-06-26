@@ -229,7 +229,7 @@ contract('GameOfMadness tests', async accounts => {
 
       const joinedGame = await instance.games.call(gameId);
       const lastRaiseTime = joinedGame[7].toNumber();
-      await increaseTime(lastRaiseTime + 3);
+      await increaseTime(lastRaiseTime + 3); // TODO: change turn duration time in prod
 
       const withdrawalTransactionParams = {
         from: player2,
@@ -328,48 +328,48 @@ contract('GameOfMadness tests', async accounts => {
     });
   });
 
-  // describe('withdrawal function', () => {
-  //   it('should withdrawal correct value to the player balance', async () => {
-  //     const player1BetAmount = Number.parseInt(web3.toWei(0.000045), 10);
-  //     const player2BetAmount = Number.parseInt(web3.toWei(0.000046), 10);
-  //
-  //     const hostGameTransactionParams = {
-  //       from: player1,
-  //       value: player1BetAmount,
-  //     };
-  //     await instance.hostGame(hostGameTransactionParams);
-  //
-  //     const gameId = 0;
-  //     const joinGameTransactionParams = {
-  //       from: player2,
-  //       value: player2BetAmount,
-  //     };
-  //     await instance.joinGame(gameId, joinGameTransactionParams);
-  //
-  //     const joinedGame = await instance.games.call(gameId);
-  //     const lastRaiseTime = joinedGame[7].toNumber();
-  //     await increaseTime(lastRaiseTime + 3);
-  //
-  //     const player2BalanceBefore = web3.eth.getBalance(player2).toNumber();
-  //     const estimatedGas = await instance.withdrawal.estimateGas(gameId, {
-  //       from: player2,
-  //     });
-  //
-  //     const gasPrice = 1;
-  //     const player2ExpectedBalance = player2BalanceBefore + player1BetAmount + player2BetAmount - estimatedGas * gasPrice;
-  //
-  //     const withdrawalTransactionParams = {
-  //       from: player2,
-  //       gas: estimatedGas,
-  //       gasPrice,
-  //     };
-  //     await instance.withdrawal(gameId, withdrawalTransactionParams);
-  //
-  //     const player2BalanceAfter = web3.eth.getBalance(player2).toNumber();
-  //
-  //     assert.strictEqual(player2BalanceAfter, player2ExpectedBalance, 'Incorrect player2 result balance');
-  //   });
-  // });
+  describe('withdrawal function', () => {
+    it('should withdrawal correct value to the player balance', async () => {
+      const player1BetAmount = Number.parseInt(web3.toWei(0.000045), 10);
+      const player2BetAmount = Number.parseInt(web3.toWei(0.000046), 10);
+
+      const hostGameTransactionParams = {
+        from: player1,
+        value: player1BetAmount,
+      };
+      await instance.hostGame(hostGameTransactionParams);
+
+      const gameId = 0;
+      const joinGameTransactionParams = {
+        from: player2,
+        value: player2BetAmount,
+      };
+      await instance.joinGame(gameId, joinGameTransactionParams);
+
+      const joinedGame = await instance.games.call(gameId);
+      const lastRaiseTime = joinedGame[7].toNumber();
+      await increaseTime(lastRaiseTime + 3); // TODO: change turn duration time in prod
+
+      const player2BalanceBefore = web3.eth.getBalance(player2).toNumber();
+      const estimatedGas = await instance.withdrawal.estimateGas(gameId, {
+        from: player2,
+      });
+
+      const gasPrice = 2;
+      const player2ExpectedBalance = player2BalanceBefore + player1BetAmount + player2BetAmount - estimatedGas * gasPrice;
+
+      const withdrawalTransactionParams = {
+        from: player2,
+        gasLimit: estimatedGas,
+        gasPrice,
+      };
+      await instance.withdrawal(gameId, withdrawalTransactionParams);
+
+      const player2BalanceAfter = web3.eth.getBalance(player2).toNumber();
+
+      assert.strictEqual(player2ExpectedBalance, player2BalanceAfter, 'Incorrect player2 result balance');
+    });
+  });
 
   describe('getHostedGamesIds function', () => {
     it('should return hosted games ids correct', async () => {
