@@ -29,6 +29,7 @@ const gameSettings = (context) => {
         player2TotalBet: Number(result.args.player2TotalBet),
         lastRaiseTime: Number(result.args.lastRaiseTime),
         playerWhoBetLast: result.args.playerWhoBetLast,
+        betsHistory: result.args.betsHistory.map(item => Number(item)),
       };
       context.props.handleGameJoinedEvent(joinedGame);
     }

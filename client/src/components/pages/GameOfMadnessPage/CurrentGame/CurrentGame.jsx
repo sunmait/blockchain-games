@@ -211,33 +211,69 @@ class CurrentGame extends React.Component {
 
   renderFinishedGame = () => {
     return (
-      <Row className="madness-current-game-container">
-        <Col md={3}>
-          <Row className="madness-game-item-title-container">
-            <Col md={12} className="madness-game-item-title">
-              Game #{this.props.currentGame.id} {this.props.currentGame.status}
-            </Col>
-            <Col md={12}>
-              <img
-                src={getGravatarUrl(this.props.currentGame.player1)}
-                alt="no img"
-              />
-            </Col>
-          </Row>
-        </Col>
-        <Col md={6} className="madness-game-item-data-container">
-          Host total bet: {window.web3.fromWei(this.props.currentGame.player1TotalBet)} ETH {this.props.ethPrice ? this.renderHostRisk() : null}
-          <br />
-          Joined total bet: {window.web3.fromWei(this.props.currentGame.player2TotalBet)} ETH {this.props.ethPrice ? this.renderJoinedRisk() : null}
-        </Col>
-        <Col md={3} className="madness-game-item-data-container">
-          Game is over
-          <br />
-          {this.props.currentGame.result === 'Win' ?
-          (this.props.currentGame.player1 === this.props.currentAccount ? 'Congratulations, You won' : 'Sorry, You lost')
-          : (this.props.currentGame.player2 === this.props.currentAccount ? 'Congratulations, You won' : 'Sorry, You lost')}!
-        </Col>
-      </Row>
+      <React.Fragment>
+        <Row className="madness-current-game-container">
+          <Col md={3}>
+            <Row className="madness-game-item-title-container">
+              <Col md={12} className="madness-game-item-title">
+                Game #{this.props.currentGame.id} {this.props.currentGame.status}
+              </Col>
+              <Col md={12}>
+                <img
+                  src={getGravatarUrl(this.props.currentGame.player1)}
+                  alt="no img"
+                />
+              </Col>
+            </Row>
+          </Col>
+          <Col md={6} className="madness-game-item-data-container">
+            Host total bet: {window.web3.fromWei(this.props.currentGame.player1TotalBet)} ETH {this.props.ethPrice ? this.renderHostRisk() : null}
+            <br />
+            Joined total bet: {window.web3.fromWei(this.props.currentGame.player2TotalBet)} ETH {this.props.ethPrice ? this.renderJoinedRisk() : null}
+          </Col>
+        </Row>
+        <Row>
+          <Col mdOffset={3} md={6} className="madness-game-item-data-container">
+            <h3>Game is over</h3>
+            <br />
+            <div className="finished-game-message-container">
+              {
+                this.props.currentGame.result === 'Win' ?
+                  (
+                    this.props.currentGame.player1 === this.props.currentAccount ?
+                    <p>
+                      Congratulations, You won!<br />
+                      The money has been sent to your wallet.
+                    </p> :
+                    'Sorry, You lost.'
+                  ) :
+                  (
+                    this.props.currentGame.player2 === this.props.currentAccount ?
+                    <p>
+                      Congratulations, You won!<br />
+                      The money has been sent to your wallet.
+                    </p> :
+                    'Sorry, You lost.'
+                  )
+              }
+            </div>
+            <br />
+            <div className="finished-game-message-container">
+              {
+                this.props.currentGame.player1 === this.props.currentAccount ?
+                  <p>
+                    Your total bet was {window.web3.fromWei(this.props.currentGame.player1TotalBet)} ETH<br />
+                    Your opponent's total bet was {window.web3.fromWei(this.props.currentGame.player2TotalBet)} ETH
+                  </p> :
+                  <p>
+                    Your total bet was {window.web3.fromWei(this.props.currentGame.player2TotalBet)} ETH<br />
+                    Your opponent's total bet was {window.web3.fromWei(this.props.currentGame.player1TotalBet)} ETH
+                  </p>
+              }
+            </div>
+          </Col>
+        </Row>
+      </React.Fragment>
     );
   };
 

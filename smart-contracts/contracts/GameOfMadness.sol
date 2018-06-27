@@ -27,9 +27,11 @@ contract GameOfMadness {
 
   event GameHosted(uint indexed gameId, address player1, uint betAmount);
   event GameJoined(
-    uint indexed gameId, address player1, address player2,
+    uint indexed gameId,
+    address player1, address player2,
     uint player1TotalBet, uint player2TotalBet,
-    uint lastRaiseTime, address playerWhoBetLast
+    uint lastRaiseTime, address playerWhoBetLast,
+    uint[] betsHistory
   );
   event BetRaised(
     uint indexed gameId, uint player1TotalBet, uint player2TotalBet,
@@ -63,9 +65,11 @@ contract GameOfMadness {
     thisGame.betsHistory.push(thisGame.player2TotalBet);
 
     emit GameJoined(
-      gameId, thisGame.player1, thisGame.player2,
+      gameId,
+      thisGame.player1, thisGame.player2,
       thisGame.player1TotalBet, msg.value,
-      thisGame.lastRaiseTime, thisGame.playerWhoBetLast
+      thisGame.lastRaiseTime, thisGame.playerWhoBetLast,
+      thisGame.betsHistory
     );
   }
 

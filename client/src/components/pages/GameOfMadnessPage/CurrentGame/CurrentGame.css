@@ -27,3 +27,8 @@
   background: #800000;
   color: white;
 }
+
+.finished-game-message-container {
+  display: inline-block;
+  width: 100%;
+}

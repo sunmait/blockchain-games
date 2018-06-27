@@ -185,6 +185,7 @@ export const handleGameJoinedEvent = (game) => (dispatch, getState) => {
         result: gameResults[0],
         lastRaiseTime: Number(game.lastRaiseTime),
         playerWhoBetLast: game.playerWhoBetLast,
+        betsHistory: game.betsHistory,
       },
     });
   }
