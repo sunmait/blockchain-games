@@ -46,8 +46,10 @@ class NumberPicker extends React.Component {
   };
 
   render() {
+    const {title, range, handleValueChanged, ...otherProps} = this.props;
     return (
       <DropdownButton
+        {...otherProps}
         title={this.state.title}
         id={1}
       >

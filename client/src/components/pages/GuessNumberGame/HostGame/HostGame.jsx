@@ -123,34 +123,54 @@ class HostGame extends React.Component {
     );
     return (
       <Row>
-        <Row>
-          <Col mdOffset={1} md={3}>
-            <NumberPicker
-              title={this.state.selectedNumber || 'Select'}
-              handleValueChanged={(value) => this.handleValueChanged(value)}
-            />
-          </Col>
-          <Col md={4}>
-            Bet amount:
-            <FormControl
-              className="game-price-input"
-              type="text"
-              value={this.state.gamePrice}
-              onChange={(event) => this.handleFieldChange('gamePrice', event.target.value)}
-            />
-            ETH {this.props.ethPrice ? risk : null}
-          </Col>
-        </Row>
-        <Row>
-          <Col mdOffset={5} md={3} className="number-game-interaction-button-container">
-            <Button
-              onClick={this.hostGame}
-              bsStyle="primary"
-            >
-              Host Game
-            </Button>
-          </Col>
-        </Row>
+        <Col mdOffset={3} md={6}>
+          <Row>
+            <Col md={12} className="host-game-title">
+              Host new game
+            </Col>
+          </Row>
+          <Row className="input-data-container">
+            <Col md={5}>
+              <div className="number-picker-title">
+                Your number
+              </div>
+              <NumberPicker
+                title={this.state.selectedNumber || 'Select'}
+                handleValueChanged={(value) => this.handleValueChanged(value)}
+              />
+            </Col>
+            <Col md={7}>
+              <Row>
+                <div className="bet-title">
+                  Bet amount:
+                </div>
+                <FormControl
+                  className="game-price-input"
+                  type="text"
+                  value={this.state.gamePrice}
+                  onChange={(event) => this.handleFieldChange('gamePrice', event.target.value)}
+                />
+                ETH
+              </Row>
+              <Row>
+                <div className="risk-container">
+                  {this.props.ethPrice ? risk : null}
+                </div>
+              </Row>
+            </Col>
+          </Row>
+          <Row>
+            <Col md={12} className="number-game-interaction-button-container">
+              <Button
+                onClick={this.hostGame}
+                bsStyle="primary"
+              >
+                Host Game
+              </Button>
+            </Col>
+          </Row>
+        </Col>
+
         {this.message()}
       </Row>
     );
