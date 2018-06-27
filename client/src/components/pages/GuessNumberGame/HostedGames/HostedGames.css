@@ -1,3 +1,27 @@
-.number-game-interaction-button-container {
+.game-item-container {
   height: 100px;
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid lightslategray;
+}
+
+.game-item-title {
+  font-size: 11px;
+}
+
+.game-item-payload {
+  font-size: 18px;
+  padding-bottom: 5px;
+}
+
+.game-item-interaction-button-container {
+  display: flex;
+  align-items: center;
+  padding: 0;
+}
+
+.game-item-interaction-button-container>button {
+  width: 100%;
+  background: #800000;
+  color: white;
 }

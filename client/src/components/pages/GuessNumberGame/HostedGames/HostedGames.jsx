@@ -32,32 +32,34 @@ class HostedGames extends Component {
         </React.Fragment>
       );
       return (
-        <Row key={index} className="number-game-item-container">
-          <Col md={3}>
-            <Row className="number-game-item-title-container">
-              <Col md={12} className="number-game-item-title">
-                Game #{item.id}
-              </Col>
-              <Col md={12}>
+        <Row key={index} className="game-item-container">
+          <Col mdOffset={3} md={6}>
+            <Row>
+              <Col md={2}>
                 <img
                   src={getGravatarUrl(item.player1)}
                   alt="no img"
                 />
               </Col>
+              <Col md={10}>
+                <Row className="game-item-title">
+                  Game #{item.id}
+                </Row>
+                <Row className="game-item-payload">
+                  Bet amount: {window.web3.fromWei(item.price)} ETH {this.props.ethPrice ? risk : null}
+                </Row>
+                <Row className="game-item-interaction-button-container">
+                  <Button
+                    onClick={() => {
+                      this.props.handleActiveTabChange(3);
+                      this.props.handleCurrentGameChange(item.id);
+                    }}
+                  >
+                    Join Game
+                  </Button>
+                </Row>
+              </Col>
             </Row>
-          </Col>
-          <Col md={5} className="number-game-item-data-container">
-            Bet amount: {window.web3.fromWei(item.price)} ETH {this.props.ethPrice ? risk : null}
-          </Col>
-          <Col md={4} className="number-game-interaction-button-container">
-            <Button
-              onClick={() => {
-                this.props.handleActiveTabChange(3);
-                this.props.handleCurrentGameChange(item.id);
-              }}
-            >
-              Join Game
-            </Button>
           </Col>
         </Row>
       );
