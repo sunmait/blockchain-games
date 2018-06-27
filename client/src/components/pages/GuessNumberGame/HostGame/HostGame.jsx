@@ -120,7 +120,7 @@ class HostGame extends React.Component {
     return (
       <Row>
         <Row>
-          <Col md={4}>
+          <Col mdOffset={1} md={3}>
             <NumberPicker
               title={this.state.selectedNumber || 'Select'}
               handleValueChanged={(value) => this.handleValueChanged(value)}
@@ -136,7 +136,9 @@ class HostGame extends React.Component {
             />
             ETH {this.props.ethPrice ? risk : null}
           </Col>
-          <Col md={4} className="number-game-interaction-button-container">
+        </Row>
+        <Row>
+          <Col mdOffset={5} md={3} className="number-game-interaction-button-container">
             <Button
               onClick={this.hostGame}
               bsStyle="primary"

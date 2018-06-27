@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 class Countdown extends React.Component {
   static propTypes = {
     start: PropTypes.number,
+    duration: PropTypes.number,
   };
 
   constructor(props) {
@@ -16,7 +17,7 @@ class Countdown extends React.Component {
   }
 
   componentDidMount() {
-    if (this.props.start + this.props.duration - Math.round(new Date()/1000)) {
+    if (this.props.start + this.props.duration - Math.round(new Date()/1000) < 0) {
       this.setState({
         isDialShown: false,
       });
@@ -31,7 +32,9 @@ class Countdown extends React.Component {
   tick = () => {
     if(this.state.elapsed <= 0) {
       clearInterval(this.timer);
-      this.props.countdownEnded();
+      if (this.props.countdownEnded) {
+        this.props.countdownEnded();
+      }
       this.setState({
         isDialShown: false,
       });

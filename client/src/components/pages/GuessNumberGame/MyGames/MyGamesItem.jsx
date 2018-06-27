@@ -50,9 +50,10 @@ class MyGamesItem extends React.Component {
                 Finish game
               </Button>
             </Col>
-            <Col md={12}>
+            <Col md={12} className="countdown-container">
               <Countdown
                 start={item.gameJoinTime}
+                duration={60*60*24*7}
                 countdownEnded={this.enableFinishExpiredGameButton}
               />
             </Col>
@@ -62,15 +63,16 @@ class MyGamesItem extends React.Component {
     }
     if (item.status === 'Ended') {
       return (
-        <Button
-          className="pull-right"
-          onClick={() => {
-            this.props.handleCurrentGameChange(item.id);
-            this.props.handleActiveTabChange(3);
-          }}
-        >
-          Check result
-        </Button>
+        <Col md={12} className="number-game-interaction-button-container">
+          <Button
+            onClick={() => {
+              this.props.handleCurrentGameChange(item.id);
+              this.props.handleActiveTabChange(3);
+            }}
+          >
+            Check result
+          </Button>
+        </Col>
       )
     }
     return null;

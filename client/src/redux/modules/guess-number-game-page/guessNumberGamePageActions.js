@@ -40,12 +40,14 @@ function getCurrentGameFieldsById(gameId, contractInstance) {
           console.log('err: ', err);
         } else {
           const player1 = result[0];
+          const player2 = result[1];
           const gamePrice = Number(result[2]);
           const gameStatus = gameStatuses[Number(result[3])];
           const gameResult = gameResults[Number(result[4])];
           const hostLastBets = await getCurrentGameHostLastBets(gameId, contractInstance);
           resolve({
             player1,
+            player2,
             id: gameId,
             price: gamePrice,
             status: gameStatus,
@@ -89,7 +91,7 @@ export const handleGameHostedEvent = (game) => (dispatch, getState) => {
       payload: {
         id: game.id,
         price: game.price,
-        hostAddress: game.hostAddress,
+        player1: game.player1,
         status: gameStatuses[1],
       },
     });
@@ -106,8 +108,8 @@ export const handleGameJoinedEvent = (game) => (dispatch, getState) => {
     dispatch({
       type: CONSTANTS.GUESS_NUMBER_GAME_HANDLE_ADD_TO_USER_GAMES,
       payload: {
-        hostAddress: game.player1,
-        joinedAddress: game.player2,
+        player1: game.player1,
+        player2: game.player2,
         id: game.id,
         price: game.price,
         status: gameStatuses[2],

@@ -47,14 +47,32 @@ class CurrentGame extends React.Component {
       );
     } else if (this.props.currentGame.status === 'Ended') {
       let result = '';
+      let userResult = '';
       if (this.props.currentGame.result === 'Win') {
         result = 'Hosted game player Win';
+        if (this.props.currentGame.player1 === this.props.currentAccount) {
+          userResult = 'You won';
+        } else if (this.props.currentGame.player2 === this.props.currentAccount) {
+          userResult = 'You lost';
+        }
       } else if (this.props.currentGame.result === 'Loss') {
         result = 'Joined game player Win';
+        if (this.props.currentGame.player1 === this.props.currentAccount) {
+          userResult = 'You lost';
+        } else if (this.props.currentGame.player2 === this.props.currentAccount) {
+          userResult = 'You won';
+        }
       }
+      const risk = (
+        <React.Fragment>
+          ({(this.props.ethPrice * window.web3.fromWei(this.props.currentGame.price)).toFixed(2)}USD)
+        </React.Fragment>
+      );
       return (
-        <Row>
+        <Row className="finished-game-container">
           Game ended with result: {result}.
+          <br />
+          {userResult}: {window.web3.fromWei(this.props.currentGame.price)} ETH {this.props.ethPrice ? risk : null}
         </Row>
       );
     } else if (this.props.currentGame.status === 'Joined') {

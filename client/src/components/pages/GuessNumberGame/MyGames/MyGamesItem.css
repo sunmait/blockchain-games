@@ -1,3 +1,7 @@
 .number-game-interaction-button-container {
   height: 100px;
 }
+
+.countdown-container {
+  text-align: center;
+}

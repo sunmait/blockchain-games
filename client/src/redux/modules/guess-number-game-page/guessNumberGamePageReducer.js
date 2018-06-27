@@ -1,5 +1,6 @@
 import CONSTANTS from './guessNumberGamePageActionConstants';
 import gameStatuses from '../../../helpers/guessNumberGame/gameStatuses';
+import gameResults from '../../../helpers/guessNumberGame/gameResults';
 
 const defaultState = {
   contractInstance: null,
@@ -119,6 +120,7 @@ function handleGameEndedEvent(state, payload) {
     currentGame = {...currentGame};
     if (currentGame.id === payload.id) {
       currentGame.status = gameStatuses[3];
+      currentGame.result = gameResults[payload.gameResult];
     }
   }
   const userGamesList = state.userGamesList.slice();
