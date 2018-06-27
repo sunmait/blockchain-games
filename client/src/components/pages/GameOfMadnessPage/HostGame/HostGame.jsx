@@ -2,6 +2,7 @@ import React from 'react';
 import Col from 'react-bootstrap/lib/Col';
 import Button from 'react-bootstrap/lib/Button';
 import FormControl from 'react-bootstrap/lib/FormControl';
+import isFloat from '../../../../helpers/isFloat';
 
 class HostGame extends React.Component {
   constructor(props) {
@@ -22,13 +23,18 @@ class HostGame extends React.Component {
       if (err) {
         // TODO: handle this case
         console.log('err');
+      } else {
+        this.props.handleActiveTabChange(2);
       }
     });
   };
 
-  handleFieldChange = (field, value) => {
+  handleBetAmountChange = (value) => {
+    if (!isFloat(value)) {
+      return;
+    }
     this.setState({
-      [field]: value,
+      betAmount: value,
     });
   };
 
@@ -44,7 +50,7 @@ class HostGame extends React.Component {
         <FormControl
           type="text"
           value={this.state.betAmount}
-          onChange={(event) => this.handleFieldChange('betAmount', event.target.value)}
+          onChange={(event) => this.handleBetAmountChange(event.target.value)}
         />
         ETH {this.props.ethPrice ? risk : null}
         <br />

@@ -6,6 +6,7 @@ import FormControl from 'react-bootstrap/lib/FormControl';
 import Countdown from '../../../common/Countdown/Countdown';
 import './CurrentGame.css';
 import getGravatarUrl from '../../../../helpers/getGravatarUrl';
+import isFloat from '../../../../helpers/isFloat';
 
 class CurrentGame extends React.Component {
   constructor(props) {
@@ -110,7 +111,7 @@ class CurrentGame extends React.Component {
           </tr>
         </thead>
         <tbody>
-          { // TODO: it's crashes sometimes with message 'cannot read map of undefined ...'
+          {
             this.props.currentGame.betsHistory.map((bet, index) => {
               if (index % 2 === 0) {
                 return (
@@ -141,9 +142,12 @@ class CurrentGame extends React.Component {
     });
   };
 
-  onFieldChange = (field, value) => {
+  handleRaiseValueChange = (value) => {
+    if (!isFloat(value)) {
+      return;
+    }
     this.setState({
-      [field]: value,
+      betAmount: value,
     });
   };
 
@@ -179,7 +183,7 @@ class CurrentGame extends React.Component {
           <FormControl
             type="text"
             value={this.state.betAmount}
-            onChange={(event) => this.onFieldChange('betAmount', event.target.value)}
+            onChange={(event) => this.handleRaiseValueChange(event.target.value)}
           />
         </Col>
         <Col md={12} className="madness-game-raise-button-container">

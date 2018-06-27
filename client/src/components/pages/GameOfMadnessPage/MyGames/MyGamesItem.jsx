@@ -119,13 +119,13 @@ class MyGamesItem extends React.Component {
       </React.Fragment>
     );
     return (
-      <Row className="madness-game-item-container">
+      <Row className="madness-game-item-container madness-game-link-container" onClick={this.goToGame}>
         <Col md={7}>
           <Col md={4} className="madness-game-item-title-container">
             <Row>
               <Col md={12}>
-                <div className="madness-game-item-title madness-game-link-container"
-                     onClick={this.goToGame}
+                <div className="madness-game-item-title"
+
                 >
                   Game #{this.props.item.id}
                 </div> {this.props.item.status}

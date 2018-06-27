@@ -32,14 +32,14 @@ class JoinGame extends React.Component {
       {
         value: this.props.currentGame.price,
       },
-      (err, answer) => {
+      (err) => {
       if (err) {
         console.log('error', err);
       } else {
-        console.log('answer', answer);
         this.setState({
           evenOddSelectorTitle: 'Select your bet',
         });
+        this.props.handleActiveTabChange(2);
       }
     });
   };

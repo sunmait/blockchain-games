@@ -21,11 +21,11 @@ class HostedGamesItem extends React.Component {
     }
     const {joinGame} = this.props.contractInstance;
     const transactionData = { value: window.web3.toWei(this.state.betAmount) };
-    joinGame.sendTransaction(this.props.item.id, transactionData, (err, result) => {
+    joinGame.sendTransaction(this.props.item.id, transactionData, (err) => {
         if (err) {
           console.log('err', err);
         } else {
-          console.log('game joined', result);
+          this.props.handleActiveTabChange(2);
         }
       }
     );

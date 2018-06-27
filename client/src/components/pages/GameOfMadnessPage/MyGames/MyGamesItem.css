@@ -1,8 +1,3 @@
-.madness-game-link-container {
-  color: blue;
-  display: inline;
-}
-
 .madness-game-link-container:hover {
   cursor: pointer;
 }

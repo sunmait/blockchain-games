@@ -27,6 +27,9 @@ class HostGame extends React.Component {
   };
 
   hostGame = () => {
+    if (!Number(this.state.selectedNumber)) {
+      return;
+    }
     if (this.state.selectedNumber < 1 || this.state.selectedNumber > 10) {
       return;
     }
@@ -40,7 +43,7 @@ class HostGame extends React.Component {
       {
         value: window.web3.toWei(this.state.gamePrice),
       },
-      (err, answer) => {
+      (err) => {
       if (err) {
         console.log('err', err);
       } else {
@@ -57,6 +60,7 @@ class HostGame extends React.Component {
       isModal: false,
       secretWord: '',
     });
+    this.props.handleActiveTabChange(2);
   };
 
   copyToClipboard = () => {
