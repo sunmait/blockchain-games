@@ -75,9 +75,9 @@ class JoinGame extends React.Component {
   renderHostLastBets = () => {
     if (this.props.currentGame.hostLastBets.length === 0) {
       return (
-        <Row>
-          This user don't have ended games.
-        </Row>
+        <div className="last-bets-item-container">
+          This user doesn't have finished games.
+        </div>
       )
     }
     return this.props.currentGame.hostLastBets.map((item, index) => {
@@ -97,40 +97,44 @@ class JoinGame extends React.Component {
     );
     return (
       <Row>
-        <Col md={12}>
-          <Col md={3}>
-            <Row className="number-game-item-title-container">
-              <Col md={12} className="number-game-item-title">
-                Game #{this.props.currentGame.id}
-              </Col>
-              <Col md={12}>
-                <img
-                  src={getGravatarUrl(this.props.currentGame.player1)}
-                  alt="no img"
-                />
-              </Col>
-            </Row>
-          </Col>
-          <Col md={4} className="number-game-item-data-container">
-            Game price: {window.web3.fromWei(this.props.currentGame.price)} ETH {this.props.ethPrice ? risk : null}
-            {this.renderEvenOddSelector()}
-          </Col>
-          <Col md={4} className="number-game-interaction-button-container">
-            <Button
-              onClick={this.joinGame}
-              bsStyle="primary"
-            >
-              Join Game
-            </Button>
-          </Col>
-        </Col>
-        <Col md={12} className="last-bets-container">
-          <Col md={2}>
-            This user last bets:
-          </Col>
-          <Col>
-            {this.renderHostLastBets()}
-          </Col>
+        <Col mdOffset={3} md={6}>
+          <Row>
+            <Col md={12} className="join-game-title">
+              Join game #{this.props.currentGame.id}
+            </Col>
+          </Row>
+          <Row className="join-game-data-container">
+            <Col md={2}>
+              <img
+                src={getGravatarUrl(this.props.currentGame.player1)}
+                alt="no img"
+              />
+            </Col>
+            <Col md={10}>
+              <Row>
+                Bets history: {this.renderHostLastBets()}
+              </Row>
+              <Row className="join-game-payload">
+                Game price: {window.web3.fromWei(this.props.currentGame.price)} ETH {this.props.ethPrice ? risk : null}
+              </Row>
+              <Row className="even-odd-selector-container">
+                <div className="even-odd-selector-title">
+                  The number is:
+                </div>
+                {this.renderEvenOddSelector()}
+              </Row>
+              <Row>
+                <Col md={12} className="number-game-interaction-button-container">
+                  <Button
+                    onClick={this.hostGame}
+                    bsStyle="primary"
+                  >
+                    Join Game
+                  </Button>
+                </Col>
+              </Row>
+            </Col>
+          </Row>
         </Col>
       </Row>
     );

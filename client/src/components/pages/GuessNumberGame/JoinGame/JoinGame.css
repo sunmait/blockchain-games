@@ -8,6 +8,29 @@
 }
 
 .last-bets-item-container {
-  border-right: 2px solid lightslategray;
+  display: inline;
+  margin-right: 5px;
   text-align: center;
+}
+
+.join-game-title {
+  font-size: 22px;
+  color: lightslategray;
+  padding: 0;
+  border-bottom: 1px solid lightslategray;
+}
+
+.join-game-data-container {
+  margin-top: 30px;
+}
+
+.join-game-payload {
+  font-size: 18px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.even-odd-selector-title {
+  display: inline;
+  margin-right: 10px;
 }
