@@ -103,7 +103,9 @@ class MyGamesItem extends React.Component {
         "Your opponent's turn! " : 'Your turn!';
       return (
         <React.Fragment>
+          <div className="madness-game-my-games-countdown-title-container">
           {title}
+          </div>
           <Countdown
             start={this.props.item.lastRaiseTime || 0}
             duration={3}
@@ -137,7 +139,7 @@ class MyGamesItem extends React.Component {
               </Row>
             </Col>
             <Col md={9}>
-              <Row className="madness-game-my-games-countdown-container">
+              <Row>
                 {this.renderCountDown()}
               </Row>
               <Row>

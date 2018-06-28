@@ -2,7 +2,8 @@
   cursor: pointer;
 }
 
-.madness-game-my-games-countdown-container {
+.madness-game-my-games-countdown-title-container {
+  display: inline;
   color: #800000;
   font-weight: 600;
 }
