@@ -7,6 +7,7 @@ import Countdown from '../../../common/Countdown/Countdown';
 import './CurrentGame.css';
 import getGravatarUrl from '../../../../helpers/getGravatarUrl';
 import isFloat from '../../../../helpers/isFloat';
+import { NotificationContainer, NotificationManager } from 'react-notifications';
 
 class CurrentGame extends React.Component {
   constructor(props) {
@@ -203,9 +204,9 @@ class CurrentGame extends React.Component {
     const {withdrawal} = this.props.contractInstance;
     withdrawal(this.props.currentGame.id, (err) => {
       if (err) {
-        console.log('err: ', err);
+        NotificationManager.error(err, 'Transaction failed', 7000);
       } else {
-        console.log('game ended');
+        NotificationManager.info('Transaction operating.', 'Transaction Info', 5000);
       }
     });
   };
@@ -248,9 +249,9 @@ class CurrentGame extends React.Component {
     const transactionData = { value: window.web3.toWei(this.state.betAmount) };
     raise.sendTransaction(this.props.currentGame.id, transactionData, (err) => {
       if (err) {
-        console.log('err: ', err);
+        NotificationManager.error(err, 'Transaction failed', 7000);
       } else {
-        console.log('raised');
+        NotificationManager.info('Transaction operating.', 'Transaction Info', 5000);
       }
     });
   };
@@ -339,16 +340,21 @@ class CurrentGame extends React.Component {
   };
 
   render() {
-    if (this.props.currentGame.status === 'Hosted') {
-      return (this.renderHostedGame());
-    }
-    if (this.props.currentGame.status === 'Joined') {
-      return (this.renderJoinedGame());
-    }
-    if (this.props.currentGame.status === 'Ended') {
-      return (this.renderFinishedGame());
-    }
-    return null;
+    return (
+      <React.Fragment>
+        {
+          this.props.currentGame.status === 'Hosted' ? this.renderHostedGame() : null
+        }
+        {
+          this.props.currentGame.status === 'Joined' ? this.renderJoinedGame() : null
+        }
+        {
+          this.props.currentGame.status === 'Ended' ? this.renderFinishedGame() : null
+        }
+        <NotificationContainer />
+      </React.Fragment>
+    )
+
   }
 }
 

@@ -7,6 +7,7 @@ import Modal from 'react-bootstrap/lib/Modal';
 import FormControl from 'react-bootstrap/lib/FormControl';
 import generateString from '../../../../helpers/stringGenerator';
 import './HostGame.css';
+import { NotificationContainer, NotificationManager } from 'react-notifications';
 
 class HostGame extends React.Component {
   constructor(props) {
@@ -45,8 +46,9 @@ class HostGame extends React.Component {
       },
       (err) => {
       if (err) {
-        console.log('err', err);
+        NotificationManager.error(err, 'Transaction failed', 7000);
       } else {
+        NotificationManager.info('Transaction operating.', 'Transaction Info', 5000);
         this.setState({
           secretWord,
           isModal: true,
@@ -172,6 +174,7 @@ class HostGame extends React.Component {
         </Col>
 
         {this.message()}
+        <NotificationContainer />
       </Row>
     );
   }

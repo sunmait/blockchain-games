@@ -6,6 +6,7 @@ import DropdownButton from 'react-bootstrap/lib/DropdownButton';
 import MenuItem from 'react-bootstrap/lib/MenuItem';
 import './JoinGame.css';
 import getGravatarUrl from '../../../../helpers/getGravatarUrl';
+import { NotificationContainer, NotificationManager } from 'react-notifications';
 
 class JoinGame extends React.Component {
   constructor(props) {
@@ -34,8 +35,9 @@ class JoinGame extends React.Component {
       },
       (err) => {
       if (err) {
-        console.log('error', err);
+        NotificationManager.error(err, 'Transaction failed', 7000);
       } else {
+        NotificationManager.info('Transaction operating.', 'Transaction Info', 5000);
         this.setState({
           evenOddSelectorTitle: 'Select your bet',
         });
@@ -136,6 +138,7 @@ class JoinGame extends React.Component {
             </Col>
           </Row>
         </Col>
+        <NotificationContainer />
       </Row>
     );
   }

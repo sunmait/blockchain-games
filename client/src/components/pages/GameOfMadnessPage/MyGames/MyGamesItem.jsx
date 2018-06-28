@@ -5,6 +5,7 @@ import Button from 'react-bootstrap/lib/Button';
 import Countdown from '../../../common/Countdown/Countdown';
 import './MyGamesItem.css';
 import getGravatarUrl from '../../../../helpers/getGravatarUrl';
+import { NotificationContainer, NotificationManager } from 'react-notifications';
 
 class MyGamesItem extends React.Component {
   constructor(props) {
@@ -25,9 +26,9 @@ class MyGamesItem extends React.Component {
     const {withdrawal} = this.props.contractInstance;
     withdrawal(this.props.item.id, (err) => {
         if (err) {
-          console.log('err: ', err);
+          NotificationManager.error(err, 'Transaction failed', 7000);
         } else {
-          console.log('game ended');
+          NotificationManager.info('Transaction operating.', 'Transaction Info', 5000);
         }
       }
     );
@@ -157,6 +158,7 @@ class MyGamesItem extends React.Component {
             </Col>
           </Row>
         </Col>
+        <NotificationContainer />
       </Row>
     );
   }

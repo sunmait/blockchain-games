@@ -5,6 +5,7 @@ import Button from 'react-bootstrap/lib/Button';
 import FormControl from 'react-bootstrap/lib/FormControl';
 import isFloat from '../../../../helpers/isFloat';
 import './HostGame.css';
+import { NotificationContainer, NotificationManager } from 'react-notifications';
 
 class HostGame extends React.Component {
   constructor(props) {
@@ -23,9 +24,9 @@ class HostGame extends React.Component {
     const transactionData = { value: window.web3.toWei(this.state.betAmount) };
     hostGame.sendTransaction(transactionData, (err) => {
       if (err) {
-        // TODO: handle this case
-        console.log('err');
+        NotificationManager.error(err, 'Transaction failed', 7000);
       } else {
+        NotificationManager.info('Transaction operating.', 'Transaction Info', 5000);
         this.props.handleActiveTabChange(2);
       }
     });
@@ -83,6 +84,7 @@ class HostGame extends React.Component {
             </Col>
           </Row>
         </Col>
+        <NotificationContainer />
       </Row>
     );
   }

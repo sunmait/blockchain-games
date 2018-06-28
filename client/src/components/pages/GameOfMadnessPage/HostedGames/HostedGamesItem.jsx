@@ -5,6 +5,7 @@ import Button from 'react-bootstrap/lib/Button';
 import FormControl from 'react-bootstrap/lib/FormControl';
 import './HostedGamesItem.css';
 import getGravatarUrl from '../../../../helpers/getGravatarUrl';
+import { NotificationContainer, NotificationManager } from 'react-notifications';
 
 class HostedGamesItem extends React.Component {
   constructor(props) {
@@ -23,8 +24,9 @@ class HostedGamesItem extends React.Component {
     const transactionData = { value: window.web3.toWei(this.state.betAmount) };
     joinGame.sendTransaction(this.props.item.id, transactionData, (err) => {
         if (err) {
-          console.log('err', err);
+          NotificationManager.error(err, 'Transaction failed', 7000);
         } else {
+          NotificationManager.info('Transaction operating.', 'Transaction Info', 5000);
           this.props.handleActiveTabChange(2);
         }
       }
@@ -47,7 +49,7 @@ class HostedGamesItem extends React.Component {
       <React.Fragment>
         ({(this.props.ethPrice * this.state.betAmount).toFixed(2)}USD)
       </React.Fragment>
-    )
+    );
     return (
       <Row className="madness-game-item-container">
         <Col mdOffset={3} md={6}>
@@ -96,6 +98,7 @@ class HostedGamesItem extends React.Component {
             </Col>
           </Row>
         </Col>
+        <NotificationContainer />
       </Row>
     );
   }

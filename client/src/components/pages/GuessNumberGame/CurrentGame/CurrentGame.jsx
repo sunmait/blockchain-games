@@ -5,6 +5,7 @@ import Button from 'react-bootstrap/lib/Button';
 import FormControl from 'react-bootstrap/lib/FormControl';
 import JoinGameContainer from '../JoinGame/JoinGameContainer';
 import './CurrentGame.css';
+import { NotificationContainer, NotificationManager } from 'react-notifications';
 
 class CurrentGame extends React.Component {
   constructor(props) {
@@ -27,9 +28,9 @@ class CurrentGame extends React.Component {
     revealHiddenNumber(this.props.currentGame.id, this.state.hostNumber, this.state.hostSecret,
       (err, answer) => {
         if (err) {
-          console.log('err: ', err);
+          NotificationManager.error(err, 'Transaction failed', 7000);
         } else {
-          console.log('answer: ', answer);
+          NotificationManager.info('Transaction operating.', 'Transaction Info', 5000);
         }
       });
   };
@@ -124,6 +125,7 @@ class CurrentGame extends React.Component {
     return (
       <Row>
         {this.renderGame()}
+        <NotificationContainer />
       </Row>
     );
   }
