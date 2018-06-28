@@ -87,7 +87,10 @@ class MyGamesItem extends React.Component {
     if (this.props.item.player2TotalBet) {
       return (
         <React.Fragment>
-          Joined total bet: {window.web3.fromWei(this.props.item.player2TotalBet)} ETH {this.props.ethPrice ? joinedRisk : null}
+          <div className="madness-game-bet-title">
+            Joined total bet:
+          </div>
+          {window.web3.fromWei(this.props.item.player2TotalBet)} ETH {this.props.ethPrice ? joinedRisk : null}
         </React.Fragment>
       );
     }
@@ -136,7 +139,10 @@ class MyGamesItem extends React.Component {
                 {this.renderCountDown()}
               </Row>
               <Row>
-                Host total bet: {window.web3.fromWei(this.props.item.player1TotalBet)} ETH {this.props.ethPrice ? hostRisk : null}
+                <div className="madness-game-bet-title">
+                  Host total bet:
+                </div>
+                {window.web3.fromWei(this.props.item.player1TotalBet)} ETH {this.props.ethPrice ? hostRisk : null}
               </Row>
               <Row>
                 {this.renderJoinedTotalBet()}

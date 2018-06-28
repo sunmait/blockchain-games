@@ -41,3 +41,9 @@ div[role=tabpanel] {
   background: #800000;
   color: white;
 }
+
+.madness-game-bet-title {
+  display: inline;
+  padding-right: 10px;
+  font-weight: 600;
+}

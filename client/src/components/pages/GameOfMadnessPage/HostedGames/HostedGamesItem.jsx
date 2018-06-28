@@ -38,45 +38,61 @@ class HostedGamesItem extends React.Component {
   };
 
   render() {
-    const risk = (
+    const hostRisk = (
       <React.Fragment>
         ({(this.props.ethPrice * window.web3.fromWei(this.props.item.player1TotalBet)).toFixed(2)}USD)
       </React.Fragment>
     );
+    const joinedRisk = (
+      <React.Fragment>
+        ({(this.props.ethPrice * this.state.betAmount).toFixed(2)}USD)
+      </React.Fragment>
+    )
     return (
       <Row className="madness-game-item-container">
-        <Col md={3}>
-          <Row className="madness-game-item-title-container">
-            <Col md={12} className="madness-game-item-title">
-              Game #{this.props.item.id}
-            </Col>
-            <Col md={12}>
-              <img
-                src={getGravatarUrl(this.props.item.player1)}
-                alt="no img"
-              />
-            </Col>
-          </Row>
-        </Col>
-        <Col md={5} className="madness-game-item-data-container">
-          Host bet: {window.web3.fromWei(this.props.item.player1TotalBet)} ETH {this.props.ethPrice ? risk : null}
-        </Col>
-        <Col md={4}>
+        <Col mdOffset={3} md={6}>
           <Row>
-            <Col md={12} className="madness-game-join-input-container">
-              Your bet:
-              <FormControl
-                type="text"
-                value={this.state.betAmount}
-                onChange={(event) => this.handleFieldChange('betAmount', event.target.value)}
-              />
+            <Col md={3}>
+              <Row className="madness-game-hosted-games-item-title">
+                Game #{this.props.item.id}
+              </Row>
+              <Row>
+                <img
+                  src={getGravatarUrl(this.props.item.player1)}
+                  alt="no img"
+                />
+              </Row>
             </Col>
-            <Col md={12} className="madness-game-join-button-container">
-              <Button
-                onClick={this.joinGame}
-              >
-                Join game
-              </Button>
+            <Col md={9}>
+              <Row>
+                <div className="madness-game-bet-title">
+                  Initial bet:
+                </div>
+                {window.web3.fromWei(this.props.item.player1TotalBet)} ETH {this.props.ethPrice ? hostRisk : null}
+              </Row>
+              <Row>
+                <div className="madness-game-bet-title">
+                  Your bet:
+                </div>
+                <FormControl
+                  className="madness-game-join-bet-input"
+                  type="text"
+                  value={this.state.betAmount}
+                  onChange={(event) => this.handleFieldChange('betAmount', event.target.value)}
+                /> ETH
+              </Row>
+              <Row>
+                <div className="madness-game-join-risk-container">
+                  {this.props.ethPrice ? joinedRisk : null}
+                </div>
+              </Row>
+              <Row className="madness-game-interaction-button-container">
+                <Button
+                  onClick={this.joinGame}
+                >
+                  Join game
+                </Button>
+              </Row>
             </Col>
           </Row>
         </Col>
