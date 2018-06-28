@@ -24,9 +24,9 @@ div[role=tabpanel] {
   font-size: 18px;
 }
 
-.number-game-item-container {
+.madness-game-item-container {
   border-bottom: 1px solid lightslategray;
-  margin: 10px 0;
+  padding: 10px 0;
 }
 
 .madness-game-interaction-button-container {

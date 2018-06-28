@@ -169,6 +169,7 @@ function handleGameEndedEvent(state, payload) {
     currentGame = {...currentGame};
     if (currentGame.id === payload.id) {
       currentGame.status = gameStatuses[3];
+      currentGame.result = payload.gameResult;
     }
   }
 
@@ -178,6 +179,7 @@ function handleGameEndedEvent(state, payload) {
   if (gameIndex !== -1) {
     userListCurrentGame = {...userGamesList[gameIndex]};
     userListCurrentGame.status = gameStatuses[3];
+    userListCurrentGame.result = payload.gameResult;
     userGamesList[gameIndex] = userListCurrentGame;
   }
   return {

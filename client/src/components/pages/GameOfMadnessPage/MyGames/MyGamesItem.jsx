@@ -33,7 +33,7 @@ class MyGamesItem extends React.Component {
     );
   };
 
-  renderGameInteractionButton = () => {
+  renderInteractionContainer = () => {
     if (this.props.item.status === 'Joined') {
       if (this.props.currentAccount === this.props.item.playerWhoBetLast) {
         return this.renderFinishGameButton();
@@ -97,7 +97,7 @@ class MyGamesItem extends React.Component {
   renderCountDown = () => {
     if (this.props.item.status === 'Joined') {
       const title = this.props.item.playerWhoBetLast === this.props.currentAccount ?
-        "Your opponent's turn" : 'Your turn';
+        "Your opponent's turn! " : 'Your turn!';
       return (
         <React.Fragment>
           {title}
@@ -119,36 +119,33 @@ class MyGamesItem extends React.Component {
       </React.Fragment>
     );
     return (
-      <Row className="madness-game-item-container madness-game-link-container" onClick={this.goToGame}>
-        <Col md={7}>
-          <Col md={4} className="madness-game-item-title-container">
-            <Row>
-              <Col md={12}>
-                <div className="madness-game-item-title"
-
-                >
-                  Game #{this.props.item.id}
-                </div> {this.props.item.status}
-              </Col>
-              <Col md={12}>
-                <img
-                  src={getGravatarUrl(this.props.item.player1)}
-                  alt="no img"
-                />
-              </Col>
-            </Row>
-          </Col>
-          <Col md={8} className="madness-game-item-data-container">
-            Host total bet: {window.web3.fromWei(this.props.item.player1TotalBet)} ETH {this.props.ethPrice ? hostRisk : null}
-            <br />
-            {this.renderJoinedTotalBet()}
-          </Col>
-        </Col>
-        <Col md={3} className="madness-game-item-data-container">
-          {this.renderCountDown()}
-        </Col>
-        <Col md={2} className="madness-game-interaction-button-container">
-          {this.renderGameInteractionButton()}
+      <Row className="madness-game-item-container" onClick={this.goToGame}>
+        <Col mdOffset={3} md={6}>
+          <Row className="madness-game-my-games-item-title-container">
+            Game #{this.props.item.id} {this.props.item.status}
+          </Row>
+          <Row>
+            <Col md={3}>
+              <img
+                src={getGravatarUrl(this.props.item.player1)}
+                alt="no img"
+              />
+            </Col>
+            <Col md={9}>
+              <Row className="madness-game-my-games-countdown-container">
+                {this.renderCountDown()}
+              </Row>
+              <Row>
+                Host total bet: {window.web3.fromWei(this.props.item.player1TotalBet)} ETH {this.props.ethPrice ? hostRisk : null}
+              </Row>
+              <Row>
+                {this.renderJoinedTotalBet()}
+              </Row>
+              <Row>
+                {this.renderInteractionContainer()}
+              </Row>
+            </Col>
+          </Row>
         </Col>
       </Row>
     );
