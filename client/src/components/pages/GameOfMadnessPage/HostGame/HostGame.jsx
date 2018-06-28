@@ -1,8 +1,10 @@
 import React from 'react';
+import Row from 'react-bootstrap/lib/Row';
 import Col from 'react-bootstrap/lib/Col';
 import Button from 'react-bootstrap/lib/Button';
 import FormControl from 'react-bootstrap/lib/FormControl';
 import isFloat from '../../../../helpers/isFloat';
+import './HostGame.css';
 
 class HostGame extends React.Component {
   constructor(props) {
@@ -45,22 +47,43 @@ class HostGame extends React.Component {
       </React.Fragment>
     );
     return (
-      <Col mdOffset={4} md={4}>
-        Bet amount:
-        <FormControl
-          type="text"
-          value={this.state.betAmount}
-          onChange={(event) => this.handleBetAmountChange(event.target.value)}
-        />
-        ETH {this.props.ethPrice ? risk : null}
-        <br />
-        <Button
-          onClick={this.hostGame}
-          bsStyle="primary"
-        >
-          Host Game
-        </Button>
-      </Col>
+      <Row>
+        <Col mdOffset={3} md={6}>
+          <Row>
+            <Col md={12} className="madness-game-host-game-title">
+              Host new game
+            </Col>
+          </Row>
+          <Row className="madness-game-host-game-input-data-container">
+            <Col md={2} className="madness-game-host-game-bet-title">
+              Bet amount:
+            </Col>
+            <Col md={6}>
+              <FormControl
+                className="madness-game-host-game-bet-input"
+                type="text"
+                value={this.state.betAmount}
+                onChange={(event) => this.handleBetAmountChange(event.target.value)}
+              /> ETH
+            </Col>
+          </Row>
+          <Row>
+            <div className="madness-game-host-game-risk-container">
+            {this.props.ethPrice ? risk : null}
+            </div>
+          </Row>
+          <Row>
+            <Col md={12} className="madness-game-interaction-button-container">
+              <Button
+                onClick={this.hostGame}
+                bsStyle="primary"
+              >
+                Host Game
+              </Button>
+            </Col>
+          </Row>
+        </Col>
+      </Row>
     );
   }
 }

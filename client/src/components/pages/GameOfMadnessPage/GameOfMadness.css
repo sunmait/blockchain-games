@@ -28,3 +28,16 @@ div[role=tabpanel] {
   border-bottom: 1px solid lightslategray;
   margin: 10px 0;
 }
+
+.madness-game-interaction-button-container {
+  display: flex;
+  align-items: center;
+  padding: 0;
+  margin-top: 10px;
+}
+
+.madness-game-interaction-button-container>button {
+  width: 100%;
+  background: #800000;
+  color: white;
+}
