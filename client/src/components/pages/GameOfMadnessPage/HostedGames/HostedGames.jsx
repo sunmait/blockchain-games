@@ -1,5 +1,6 @@
 import React  from 'react';
 import Button from 'react-bootstrap/lib/Button';
+import Col from 'react-bootstrap/lib/Col';
 import HostedGamesItemContainer from './HostedGamesItemContainer';
 
 class HostedGames extends React.Component {
@@ -34,9 +35,9 @@ class HostedGames extends React.Component {
 
   render() {
     return (
-      <React.Fragment>
+      <Col md={12}>
         {this.renderGamesList()}
-      </React.Fragment>
+      </Col>
     );
   }
 }

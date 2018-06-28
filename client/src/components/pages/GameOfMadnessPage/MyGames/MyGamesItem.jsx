@@ -122,17 +122,19 @@ class MyGamesItem extends React.Component {
       </React.Fragment>
     );
     return (
-      <Row className="madness-game-item-container" onClick={this.goToGame}>
+      <Row className="madness-game-item-container madness-game-link-container" onClick={this.goToGame}>
         <Col mdOffset={3} md={6}>
-          <Row className="madness-game-my-games-item-title-container">
-            Game #{this.props.item.id} {this.props.item.status}
-          </Row>
           <Row>
-            <Col md={3}>
-              <img
-                src={getGravatarUrl(this.props.item.player1)}
-                alt="no img"
-              />
+            <Col md={3} className="madness-game-title-container">
+              <Row>
+                Game #{this.props.item.id} {this.props.item.status}
+              </Row>
+              <Row>
+                <img
+                  src={getGravatarUrl(this.props.item.player1)}
+                  alt="no img"
+                />
+              </Row>
             </Col>
             <Col md={9}>
               <Row className="madness-game-my-games-countdown-container">

@@ -121,17 +121,19 @@ class MyGamesItem extends React.Component {
         <Col mdOffset={3} md={6}>
           <Row>
             <Col md={3}>
-              <Col md={12}>
-                Game #{this.props.item.id}
-              </Col>
-              <Col md={12}>
-                <img
-                  src={getGravatarUrl(this.props.item.player1)}
-                  alt="no img"
-                />
+              <Col md={12} className="game-item-title title-centralized">
+                <Row>
+                  Game #{this.props.item.id}
+                </Row>
+                <Row>
+                  <img
+                    src={getGravatarUrl(this.props.item.player1)}
+                    alt="no img"
+                  />
+                </Row>
               </Col>
             </Col>
-            <Col md={9}>
+            <Col md={9} className="number-game-item-payload-container">
               <Row>
                 Status: {this.props.item.status} {this.renderCountodw()}
               </Row>

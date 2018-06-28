@@ -52,8 +52,8 @@ class HostedGamesItem extends React.Component {
       <Row className="madness-game-item-container">
         <Col mdOffset={3} md={6}>
           <Row>
-            <Col md={3}>
-              <Row className="madness-game-hosted-games-item-title">
+            <Col md={3} className="madness-game-title-container">
+              <Row>
                 Game #{this.props.item.id}
               </Row>
               <Row>

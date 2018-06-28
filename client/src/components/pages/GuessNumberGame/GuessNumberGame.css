@@ -51,3 +51,11 @@ div[role=tabpanel] {
   padding-bottom: 10px;
   padding-top: 5px;
 }
+
+.game-item-title {
+  font-size: 11px;
+}
+
+.title-centralized {
+  text-align: center;
+}

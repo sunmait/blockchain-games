@@ -7,11 +7,6 @@ div[role=tabpanel] {
   margin-top: 25px;
 }
 
-.madness-game-item-title-container {
-  text-align: center;
-  margin-bottom: 15px;
-}
-
 .madness-game-item-title {
     font-size: 12px;
 }
@@ -46,4 +41,9 @@ div[role=tabpanel] {
   display: inline;
   padding-right: 10px;
   font-weight: 600;
+}
+
+.madness-game-title-container {
+  font-size: 11px;
+  text-align: center;
 }
