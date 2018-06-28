@@ -15,67 +15,82 @@ class MyGamesItem extends React.Component {
     };
   }
 
-  renderRevealButton = (item) => {
-    if (item.status === 'Joined') {
-      if (this.props.currentAccount === item.player1) {
+  renderCountodw = () => {
+    if (this.props.item.status === 'Joined') {
+      if (this.props.currentAccount === this.props.item.player1) {
         return (
           <React.Fragment>
-            <Col md={12} className="number-game-interaction-button-container">
-              <Button
-                onClick={() => {
-                  this.props.handleCurrentGameChange(item.id);
-                  this.props.handleActiveTabChange(3);
-                }}
-              >
-                Reveal
-              </Button>
-            </Col>
-            <Col md={12}>
-              <Countdown
-                start={item.gameJoinTime}
-                duration={60*60*24*7}
-              />
-            </Col>
+            (<Countdown
+              start={this.props.item.gameJoinTime}
+              duration={60*60*24*7}
+            />)
           </React.Fragment>
         );
       }
-      if (this.props.currentAccount === item.player2) {
+      if (this.props.currentAccount === this.props.item.player2) {
         return (
           <React.Fragment>
-            <Col md={12} className="number-game-interaction-button-container">
-              <Button
-                onClick={() => this.finishExpiredGame(item.id)}
-                disabled={!this.state.isFinishExpiredGameButton}
-              >
-                Finish game
-              </Button>
-            </Col>
-            <Col md={12} className="countdown-container">
-              <Countdown
-                start={item.gameJoinTime}
-                duration={60*60*24*7}
-                countdownEnded={this.enableFinishExpiredGameButton}
-              />
-            </Col>
+            (<Countdown
+              start={this.props.item.gameJoinTime}
+              duration={60*60*24*7}
+              countdownEnded={this.enableFinishExpiredGameButton}
+            />)
           </React.Fragment>
         );
       }
     }
-    if (item.status === 'Ended') {
+  };
+
+  renderInteractionContainer = () => {
+    if (this.props.item.status === 'Ended') {
       return (
-        <Col md={12} className="number-game-interaction-button-container">
+        <Col md={12} className="game-item-interaction-button-container">
           <Button
             onClick={() => {
-              this.props.handleCurrentGameChange(item.id);
+              this.props.handleCurrentGameChange(this.props.item.id);
               this.props.handleActiveTabChange(3);
             }}
           >
             Check result
           </Button>
         </Col>
-      )
+      );
     }
-    return null;
+    if (this.props.item.status === 'Hosted') {
+      return (
+        <React.Fragment>
+          Waiting for an opponent
+        </React.Fragment>
+      );
+    }
+    if (this.props.item.status === 'Joined') {
+      if (this.props.currentAccount === this.props.item.player1) {
+        return (
+          <Col md={12} className="game-item-interaction-button-container">
+            <Button
+              onClick={() => {
+                this.props.handleCurrentGameChange(this.props.item.id);
+                this.props.handleActiveTabChange(3);
+              }}
+            >
+              Reveal
+            </Button>
+          </Col>
+        );
+      }
+      if (this.props.currentAccount === this.props.item.player2) {
+        return (
+          <Col md={12} className="game-item-interaction-button-container">
+            <Button
+              onClick={() => this.finishExpiredGame()}
+              disabled={!this.state.isFinishExpiredGameButton}
+            >
+              Finish game
+            </Button>
+          </Col>
+        );
+      }
+    }
   };
 
   enableFinishExpiredGameButton = () => {
@@ -84,9 +99,9 @@ class MyGamesItem extends React.Component {
     });
   };
 
-  finishExpiredGame = (gameId) => {
+  finishExpiredGame = () => {
     const {withdrawal} = this.props.contractInstance;
-    withdrawal(gameId, (err, answer) => {
+    withdrawal(this.props.item.id, (err, answer) => {
       if (err) {
         console.log('err: ', err);
       } else {
@@ -102,25 +117,32 @@ class MyGamesItem extends React.Component {
       </React.Fragment>
     );
     return (
-      <Row className="number-game-item-container">
-        <Col md={3}>
-          <Row className="number-game-item-title-container">
-            <Col md={12} className="number-game-item-title">
-              Game #{this.props.item.id} {this.props.item.status}
+      <Row className="game-item-container">
+        <Col mdOffset={3} md={6}>
+          <Row>
+            <Col md={3}>
+              <Col md={12}>
+                Game #{this.props.item.id}
+              </Col>
+              <Col md={12}>
+                <img
+                  src={getGravatarUrl(this.props.item.player1)}
+                  alt="no img"
+                />
+              </Col>
             </Col>
-            <Col md={12}>
-              <img
-                src={getGravatarUrl(this.props.item.player1)}
-                alt="no img"
-              />
+            <Col md={9}>
+              <Row>
+                Status: {this.props.item.status} {this.renderCountodw()}
+              </Row>
+              <Row>
+                Game price: {window.web3.fromWei(this.props.item.price)} ETH {this.props.ethPrice ? risk : null}
+              </Row>
+              <Row>
+                {this.renderInteractionContainer()}
+              </Row>
             </Col>
           </Row>
-        </Col>
-        <Col md={5} className="number-game-item-data-container">
-          Game price: {window.web3.fromWei(this.props.item.price)} ETH {this.props.ethPrice ? risk : null}
-        </Col>
-        <Col md={4}>
-          {this.renderRevealButton(this.props.item)}
         </Col>
       </Row>
     );

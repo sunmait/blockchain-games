@@ -124,9 +124,9 @@ class JoinGame extends React.Component {
                 {this.renderEvenOddSelector()}
               </Row>
               <Row>
-                <Col md={12} className="number-game-interaction-button-container">
+                <Col md={12} className="game-item-interaction-button-container">
                   <Button
-                    onClick={this.hostGame}
+                    onClick={this.joinGame}
                     bsStyle="primary"
                   >
                     Join Game

@@ -101,7 +101,7 @@ class CurrentGame extends React.Component {
               </Col>
             </Row>
           </Col>
-          <Col md={4} className="number-game-interaction-button-container">
+          <Col md={4} className="game-item-interaction-button-container">
             <Button
               onClick={() => {
                 this.revealWinner();

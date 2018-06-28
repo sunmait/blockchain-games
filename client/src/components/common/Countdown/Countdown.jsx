@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import './Countdown.css';
 
 class Countdown extends React.Component {
   static propTypes = {
@@ -54,7 +55,7 @@ class Countdown extends React.Component {
 
     if (this.state.isDialShown) {
       return (
-        <div {...otherProps}>
+        <div className="countdown-container" {...otherProps}>
           {days} D {hours} H {minutes} M {seconds} S
         </div>
       );

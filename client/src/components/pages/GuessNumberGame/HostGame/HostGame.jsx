@@ -160,7 +160,7 @@ class HostGame extends React.Component {
             </Col>
           </Row>
           <Row>
-            <Col md={12} className="number-game-interaction-button-container">
+            <Col md={12} className="game-item-interaction-button-container">
               <Button
                 onClick={this.hostGame}
                 bsStyle="primary"
