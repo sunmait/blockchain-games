@@ -92,11 +92,7 @@ class JoinGame extends React.Component {
   };
 
   render() {
-    const risk = (
-      <React.Fragment>
-        ({(this.props.ethPrice * window.web3.fromWei(this.props.currentGame.price)).toFixed(2)}USD)
-      </React.Fragment>
-    );
+    const risk = `(${(this.props.ethPrice * window.web3.fromWei(this.props.currentGame.price)).toFixed(2)}USD)`;
     return (
       <Row>
         <Col mdOffset={3} md={6}>

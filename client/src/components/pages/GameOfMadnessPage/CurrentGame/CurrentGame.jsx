@@ -20,19 +20,11 @@ class CurrentGame extends React.Component {
   }
 
   renderHostRisk = () => {
-    return (
-      <React.Fragment>
-        ({(this.props.ethPrice * window.web3.fromWei(this.props.currentGame.player1TotalBet)).toFixed(2)}USD)
-      </React.Fragment>
-    );
+    return `(${(this.props.ethPrice * window.web3.fromWei(this.props.currentGame.player1TotalBet)).toFixed(2)}USD)`;
   };
 
   renderJoinedRisk = () => {
-    return (
-      <React.Fragment>
-        ({(this.props.ethPrice * window.web3.fromWei(this.props.currentGame.player2TotalBet)).toFixed(2)}USD)
-      </React.Fragment>
-    );
+    return `(${(this.props.ethPrice * window.web3.fromWei(this.props.currentGame.player2TotalBet)).toFixed(2)}USD)`;
   };
 
   renderHostedGame = () => {

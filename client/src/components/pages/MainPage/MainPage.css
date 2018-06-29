@@ -22,11 +22,12 @@
   margin: 15%;
   border: 2px solid lightslategray;
   box-shadow: 0 0 10px 3px lightgrey;
+  transform: rotateY(0deg);
+  transition: all 3s cubic-bezier(0,-0.02, 0.18, 0.82);
 }
 
 .main-page-item:hover {
   transform: rotateY(360deg);
-  transition: all 3s cubic-bezier(0,-0.02, 0.18, 0.82);
   cursor: pointer;
 }
 

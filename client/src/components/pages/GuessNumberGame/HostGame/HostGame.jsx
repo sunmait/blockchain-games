@@ -118,11 +118,7 @@ class HostGame extends React.Component {
   };
 
   render() {
-    const risk = (
-      <React.Fragment>
-        ({(this.props.ethPrice * this.state.gamePrice).toFixed(2)}USD)
-      </React.Fragment>
-    );
+    const risk = `(${(this.props.ethPrice * this.state.gamePrice).toFixed(2)}USD)`;
     return (
       <Row>
         <Col mdOffset={3} md={6}>

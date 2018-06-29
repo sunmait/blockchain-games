@@ -112,11 +112,7 @@ class MyGamesItem extends React.Component {
   };
 
   render() {
-    const risk = (
-      <React.Fragment>
-        ({(this.props.ethPrice * window.web3.fromWei(this.props.item.price)).toFixed(2)}USD)
-      </React.Fragment>
-    );
+    const risk = `(${(this.props.ethPrice * window.web3.fromWei(this.props.item.price)).toFixed(2)}USD)`;
     return (
       <Row className="game-item-container">
         <Col mdOffset={3} md={6}>

@@ -64,11 +64,7 @@ class CurrentGame extends React.Component {
           userResult = 'You won';
         }
       }
-      const risk = (
-        <React.Fragment>
-          ({(this.props.ethPrice * window.web3.fromWei(this.props.currentGame.price)).toFixed(2)}USD)
-        </React.Fragment>
-      );
+      const risk = `(${(this.props.ethPrice * window.web3.fromWei(this.props.currentGame.price)).toFixed(2)}USD)`;
       return (
         <Row className="finished-game-container">
           Game ended with result: {result}.

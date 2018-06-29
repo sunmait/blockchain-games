@@ -26,11 +26,7 @@ class HostedGames extends Component {
       );
     }
     return this.props.hostedGamesList.map((item, index) => {
-      const risk = (
-        <React.Fragment>
-          ({(this.props.ethPrice * window.web3.fromWei(item.price)).toFixed(2)}USD)
-        </React.Fragment>
-      );
+      const risk = `(${(this.props.ethPrice * window.web3.fromWei(item.price)).toFixed(2)}USD)`;
       return (
         <Row key={index} className="game-item-container">
           <Col mdOffset={3} md={6}>

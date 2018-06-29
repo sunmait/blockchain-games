@@ -40,16 +40,8 @@ class HostedGamesItem extends React.Component {
   };
 
   render() {
-    const hostRisk = (
-      <React.Fragment>
-        ({(this.props.ethPrice * window.web3.fromWei(this.props.item.player1TotalBet)).toFixed(2)}USD)
-      </React.Fragment>
-    );
-    const joinedRisk = (
-      <React.Fragment>
-        ({(this.props.ethPrice * this.state.betAmount).toFixed(2)}USD)
-      </React.Fragment>
-    );
+    const hostRisk = `(${(this.props.ethPrice * window.web3.fromWei(this.props.item.player1TotalBet)).toFixed(2)}USD)`;
+    const joinedRisk = `(${(this.props.ethPrice * this.state.betAmount).toFixed(2)}USD)`;
     return (
       <Row className="madness-game-item-container">
         <Col mdOffset={3} md={6}>
