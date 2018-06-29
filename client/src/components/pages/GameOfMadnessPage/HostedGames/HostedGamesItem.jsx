@@ -24,7 +24,7 @@ class HostedGamesItem extends React.Component {
     const transactionData = { value: window.web3.toWei(this.state.betAmount) };
     joinGame.sendTransaction(this.props.item.id, transactionData, (err) => {
         if (err) {
-          NotificationManager.error(err, 'Transaction failed', 7000);
+          NotificationManager.error(err.message, 'Transaction failed', 7000);
         } else {
           NotificationManager.info('Transaction operating.', 'Transaction Info', 5000);
           this.props.handleActiveTabChange(2);

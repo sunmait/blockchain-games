@@ -204,7 +204,7 @@ class CurrentGame extends React.Component {
     const {withdrawal} = this.props.contractInstance;
     withdrawal(this.props.currentGame.id, (err) => {
       if (err) {
-        NotificationManager.error(err, 'Transaction failed', 7000);
+        NotificationManager.error(err.message, 'Transaction failed', 7000);
       } else {
         NotificationManager.info('Transaction operating.', 'Transaction Info', 5000);
       }
@@ -249,7 +249,7 @@ class CurrentGame extends React.Component {
     const transactionData = { value: window.web3.toWei(this.state.betAmount) };
     raise.sendTransaction(this.props.currentGame.id, transactionData, (err) => {
       if (err) {
-        NotificationManager.error(err, 'Transaction failed', 7000);
+        NotificationManager.error(err.message, 'Transaction failed', 7000);
       } else {
         NotificationManager.info('Transaction operating.', 'Transaction Info', 5000);
       }

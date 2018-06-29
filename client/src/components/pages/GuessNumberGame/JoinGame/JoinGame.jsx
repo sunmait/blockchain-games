@@ -35,7 +35,7 @@ class JoinGame extends React.Component {
       },
       (err) => {
       if (err) {
-        NotificationManager.error(err, 'Transaction failed', 7000);
+        NotificationManager.error(err.message, 'Transaction failed', 7000);
       } else {
         NotificationManager.info('Transaction operating.', 'Transaction Info', 5000);
         this.setState({

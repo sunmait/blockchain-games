@@ -26,9 +26,9 @@ class CurrentGame extends React.Component {
   revealWinner = () => {
     const {revealHiddenNumber} = this.props.contractInstance;
     revealHiddenNumber(this.props.currentGame.id, this.state.hostNumber, this.state.hostSecret,
-      (err, answer) => {
+      (err) => {
         if (err) {
-          NotificationManager.error(err, 'Transaction failed', 7000);
+          NotificationManager.error(err.message, 'Transaction failed', 7000);
         } else {
           NotificationManager.info('Transaction operating.', 'Transaction Info', 5000);
         }

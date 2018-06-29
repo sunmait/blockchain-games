@@ -26,7 +26,7 @@ class MyGamesItem extends React.Component {
     const {withdrawal} = this.props.contractInstance;
     withdrawal(this.props.item.id, (err) => {
         if (err) {
-          NotificationManager.error(err, 'Transaction failed', 7000);
+          NotificationManager.error(err.message, 'Transaction failed', 7000);
         } else {
           NotificationManager.info('Transaction operating.', 'Transaction Info', 5000);
         }
