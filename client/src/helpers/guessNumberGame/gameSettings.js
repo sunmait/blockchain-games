@@ -1,8 +1,12 @@
-const gameSettings = (context) => {
-  context.props.getHostedGames();
-  context.props.getUserGames();
+import store from '../../redux/store';
+import { getHostedGames, getUserGames, handleGameHostedEvent, handleGameJoinedEvent, handleGameEndedEvent }
+  from '../../redux/modules/guess-number-game-page/guessNumberGamePageActions';
 
-  const gameHostedEvent = context.props.contractInstance.GameHosted();
+const gameSettings = () => {
+  store.dispatch(getHostedGames());
+  store.dispatch(getUserGames());
+
+  const gameHostedEvent = store.getState().guessNumberGame.contractInstance.GameHosted();
 
   gameHostedEvent.watch((error, result) => {
     if (result) {
@@ -11,12 +15,11 @@ const gameSettings = (context) => {
         price: Number(result.args.betAmount),
         player1: result.args.player1,
       };
-      context.props.handleGameHostedEvent(hostedGame);
+      store.dispatch(handleGameHostedEvent(hostedGame));
     }
   });
 
-  // TODO: game status at MyGames tab do not changes untill page is refreshed, like it was at gameOfMadness before
-  const GameJoinedEvent = context.props.contractInstance.GameJoined();
+  const GameJoinedEvent = store.getState().guessNumberGame.contractInstance.GameJoined();
 
   GameJoinedEvent.watch((error, result) => {
     if (result) {
@@ -26,11 +29,11 @@ const gameSettings = (context) => {
         player1: result.args.player1,
         player2: result.args.player2,
       };
-      context.props.handleGameJoinedEvent(joinedGame);
+      store.dispatch(handleGameJoinedEvent(joinedGame));
     }
   });
 
-  const GameEndedEvent = context.props.contractInstance.GameEnded();
+  const GameEndedEvent = store.getState().guessNumberGame.contractInstance.GameEnded();
 
   GameEndedEvent.watch((error, result) => {
     if (result) {
@@ -38,7 +41,7 @@ const gameSettings = (context) => {
         id: Number(result.args.gameId),
         gameResult: Number(result.args.result)
       };
-      context.props.handleGameEndedEvent(endedGame);
+      store.dispatch(handleGameEndedEvent(endedGame));
     }
   });
 };

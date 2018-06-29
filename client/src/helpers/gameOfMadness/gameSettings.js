@@ -1,10 +1,13 @@
 import gameResults from './gameResults';
+import store from '../../redux/store';
+import { getHostedGames, getUserGames, handleGameHostedEvent, handleGameJoinedEvent, handleBetRaisedEvent, handleGameEndedEvent }
+  from '../../redux/modules/game-of-madness-page/gameOfMadnessPageActions';
 
-const gameSettings = (context) => {
-  context.props.getHostedGames();
-  context.props.getUserGames();
+const gameSettings = () => {
+  store.dispatch(getHostedGames());
+  store.dispatch(getUserGames());
 
-  const gameHostedEvent = context.props.contractInstance.GameHosted();
+  const gameHostedEvent = store.getState().gameOfMadness.contractInstance.GameHosted();
 
   gameHostedEvent.watch((error, result) => {
     if (result) {
@@ -13,11 +16,11 @@ const gameSettings = (context) => {
         player1: result.args.player1,
         player1TotalBet: Number(result.args.betAmount),
       };
-      context.props.handleGameHostedEvent(hostedGame);
+      store.dispatch(handleGameHostedEvent(hostedGame));
     }
   });
 
-  const GameJoinedEvent = context.props.contractInstance.GameJoined();
+  const GameJoinedEvent = store.getState().gameOfMadness.contractInstance.GameJoined();
 
   GameJoinedEvent.watch((error, result) => {
     if (result) {
@@ -31,11 +34,11 @@ const gameSettings = (context) => {
         playerWhoBetLast: result.args.playerWhoBetLast,
         betsHistory: result.args.betsHistory.map(item => Number(item)),
       };
-      context.props.handleGameJoinedEvent(joinedGame);
+      store.dispatch(handleGameJoinedEvent(joinedGame));
     }
   });
 
-  const BetRaisedEvent = context.props.contractInstance.BetRaised();
+  const BetRaisedEvent = store.getState().gameOfMadness.contractInstance.BetRaised();
 
   BetRaisedEvent.watch((error, result) => {
     if (result) {
@@ -47,11 +50,11 @@ const gameSettings = (context) => {
         playerWhoBetLast: result.args.playerWhoBetLast,
         betsHistory: result.args.betsHistory.map(item => Number(item)),
       };
-      context.props.handleBetRaisedEvent(betRaisedParams);
+      store.dispatch(handleBetRaisedEvent(betRaisedParams));
     }
   });
 
-  const GameEndedEvent = context.props.contractInstance.GameEnded();
+  const GameEndedEvent = store.getState().gameOfMadness.contractInstance.GameEnded();
 
   GameEndedEvent.watch((error, result) => {
     if (result) {
@@ -59,7 +62,7 @@ const gameSettings = (context) => {
         id: Number(result.args.gameId),
         gameResult: gameResults[Number(result.args.result)],
       };
-      context.props.handleGameEndedEvent(endedGame);
+      store.dispatch(handleGameEndedEvent(endedGame));
     }
   });
 };

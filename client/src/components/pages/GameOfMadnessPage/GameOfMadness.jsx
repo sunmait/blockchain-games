@@ -5,8 +5,6 @@ import Header from '../../containers/Header/Header';
 import contractInitialization from '../../../helpers/gameOfMadness/contractInitialization';
 import gameSettings from '../../../helpers/gameOfMadness/gameSettings';
 import './GameOfMadness.css';
-import getEthPrice from "../../../helpers/getEthPrice";
-import web3Initialization from "../../../helpers/web3Initialization";
 import HostGameContainer from './HostGame/HostGameContainer';
 import MyGamesContainer from './MyGames/MyGamesContainer';
 import CurrentGameContainer from './CurrentGame/CurrentGameContainer';
@@ -15,32 +13,19 @@ import HostedGamesContainer from './HostedGames/HostedGamesContainer';
 class GameOfMadness extends React.Component {
 
   componentDidMount() {
-    window.addEventListener('load', this.onLoad.bind(this), false);
     if (this.props.currentAccount) {
-      contractInitialization(this);
+      contractInitialization();
     }
-  }
-
-  componentWillUnmount() {
-    window.removeEventListener('load', this.onLoad.bind(this), false);
   }
 
   componentDidUpdate(prevProps) {
     if (this.props.currentAccount && prevProps.currentAccount !== this.props.currentAccount) {
-      contractInitialization(this);
+      contractInitialization();
     }
     if (this.props.contractInstance && prevProps.contractInstance !== this.props.contractInstance) {
-      gameSettings(this);
+      gameSettings();
     }
   }
-
-  onLoad = () => {
-    web3Initialization(this);
-    getEthPrice()
-      .then(response => {
-        this.props.setEthPrice(response);
-      });
-  };
 
   render() {
     return (

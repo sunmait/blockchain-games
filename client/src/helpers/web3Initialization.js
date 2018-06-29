@@ -1,6 +1,8 @@
 import Web3 from 'web3';
+import store from '../redux/store';
+import {setCurrentMetamaskAccount} from '../redux/modules/main-page/mainPageActions';
 
-const web3Initialization = (context) => {
+const web3Initialization = () => {
   if (typeof web3 !== 'undefined') {
     window.web3 = new Web3(window.web3.currentProvider);
 
@@ -12,7 +14,7 @@ const web3Initialization = (context) => {
         }
         else {
           window.web3.eth.defaultAccount = window.web3.eth.accounts[0];
-          context.props.setCurrentMetamaskAccount(window.web3.eth.accounts[0]);
+          store.dispatch(setCurrentMetamaskAccount(window.web3.eth.accounts[0]));
         }
       });
     } else {
