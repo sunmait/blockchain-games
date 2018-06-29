@@ -7,6 +7,9 @@ const defaultState = {
   hostedGamesList: [],
   userGamesList: [],
   currentGame: null,
+  isHostedGamesLoaded: false,
+  isUserGamesLoaded: false,
+  isCurrentGameLoaded: true,
 };
 
 export default function (state = defaultState, {type, payload}) {
@@ -16,6 +19,9 @@ export default function (state = defaultState, {type, payload}) {
 
     case CONSTANTS.GAME_OF_MADNESS_HANDLE_ACTIVE_TAB_CHANGE:
       return handleActiveTabChange(state, payload);
+
+    case CONSTANTS.GAME_OF_MADNESS_TRIGGER_CURRENT_GAME_TAB_SPINNER:
+      return triggerCurrentGameTabSpinner(state);
 
     case CONSTANTS.GAME_OF_MADNESS_HANDLE_CURRENT_GAME_CHANGE:
       return handleCurrentGameChange(state, payload);
@@ -63,10 +69,18 @@ function handleActiveTabChange(state, tabId) {
   };
 }
 
+function triggerCurrentGameTabSpinner(state) {
+  return {
+    ...state,
+    isCurrentGameLoaded: false,
+  };
+}
+
 function handleCurrentGameChange(state, game) {
   return {
     ...state,
     currentGame: game,
+    isCurrentGameLoaded: true,
   };
 }
 
@@ -74,6 +88,7 @@ function getHostedGames(state, hostedGamesList) {
   return {
     ...state,
     hostedGamesList,
+    isHostedGamesLoaded: true,
   };
 }
 
@@ -81,6 +96,7 @@ function getUserGames(state, userGamesList) {
   return {
     ...state,
     userGamesList,
+    isUserGamesLoaded: true,
   };
 }
 

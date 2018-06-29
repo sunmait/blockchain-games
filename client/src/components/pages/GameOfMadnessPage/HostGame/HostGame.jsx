@@ -65,13 +65,8 @@ class HostGame extends React.Component {
                 type="text"
                 value={this.state.betAmount}
                 onChange={(event) => this.handleBetAmountChange(event.target.value)}
-              /> ETH
+              /> ETH {this.props.ethPrice ? risk : null}
             </Col>
-          </Row>
-          <Row>
-            <div className="madness-game-host-game-risk-container">
-            {this.props.ethPrice ? risk : null}
-            </div>
           </Row>
           <Row>
             <Col md={12} className="madness-game-interaction-button-container">

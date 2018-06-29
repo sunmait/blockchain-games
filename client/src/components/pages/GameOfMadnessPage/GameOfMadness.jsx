@@ -9,6 +9,7 @@ import HostGameContainer from './HostGame/HostGameContainer';
 import MyGamesContainer from './MyGames/MyGamesContainer';
 import CurrentGameContainer from './CurrentGame/CurrentGameContainer';
 import HostedGamesContainer from './HostedGames/HostedGamesContainer';
+import Spinner from '../../common/Spinner/Spinner';
 
 class GameOfMadness extends React.Component {
 
@@ -27,6 +28,14 @@ class GameOfMadness extends React.Component {
     }
   }
 
+  renderGameTabContent = () => {
+    return (
+      <React.Fragment>
+        {this.props.currentGame ? <CurrentGameContainer /> : <HostGameContainer />}
+      </React.Fragment>
+    );
+  };
+
   render() {
     return (
       <React.Fragment>
@@ -43,13 +52,13 @@ class GameOfMadness extends React.Component {
           onSelect={(key) => this.props.handleActiveTabChange(key)}
         >
           <Tab eventKey={1} title="Open Games">
-            <HostedGamesContainer />
+            {this.props.isHostedGamesLoaded ? <HostedGamesContainer /> : <Spinner/>}
           </Tab>
           <Tab eventKey={2} title="My Games">
-            <MyGamesContainer />
+            {this.props.isUserGamesLoaded ? <MyGamesContainer /> : <Spinner/>}
           </Tab>
           <Tab eventKey={3} title="Game">
-            {this.props.currentGame ? <CurrentGameContainer /> : <HostGameContainer />}
+            {this.props.isCurrentGameLoaded ? this.renderGameTabContent() : <Spinner/>}
           </Tab>
         </Tabs>
       </React.Fragment>

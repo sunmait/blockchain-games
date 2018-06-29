@@ -12,10 +12,15 @@ export const handleActiveTabChange = (tabId) => ({
   payload: tabId,
 });
 
-export const handleCurrentGameChange = (game) => ({
-  type: CONSTANTS.GAME_OF_MADNESS_HANDLE_CURRENT_GAME_CHANGE,
-  payload: game,
-});
+export const handleCurrentGameChange = (game) => dispatch => {
+  dispatch({
+    type: CONSTANTS.GAME_OF_MADNESS_TRIGGER_CURRENT_GAME_TAB_SPINNER,
+  });
+  dispatch({
+    type: CONSTANTS.GAME_OF_MADNESS_HANDLE_CURRENT_GAME_CHANGE,
+    payload: game,
+  })
+};
 
 export const getHostedGames = () => async (dispatch, getState) => {
   const contractInstance = getState().gameOfMadness.contractInstance;
