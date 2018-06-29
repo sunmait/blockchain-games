@@ -13,12 +13,12 @@ class Header extends React.Component {
       <Navbar collapseOnSelect>
         <Navbar.Header>
           <Navbar.Brand>
-            <LinkContainer exact to="/">
+            <LinkContainer exact to="/number-game">
               <Button bsStyle="link">
                 Guess Number Game
               </Button>
             </LinkContainer> /
-            <LinkContainer exact to="/madness">
+            <LinkContainer exact to="/madness-game">
               <Button bsStyle="link">
                 Game Of Madness
               </Button>
