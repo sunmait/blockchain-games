@@ -64,12 +64,12 @@ class CurrentGame extends React.Component {
           userResult = 'You won';
         }
       }
-      const risk = `(${(this.props.ethPrice * window.web3.fromWei(this.props.currentGame.price)).toFixed(2)}USD)`;
+      const risk = `(${(this.props.ethPrice * this.props.localWeb3.fromWei(this.props.currentGame.price)).toFixed(2)}USD)`;
       return (
         <Row className="finished-game-container">
           Game ended with result: {result}.
           <br />
-          {userResult}: {window.web3.fromWei(this.props.currentGame.price)} ETH {this.props.ethPrice ? risk : null}
+          {userResult}: {this.props.localWeb3.fromWei(this.props.currentGame.price)} ETH {this.props.ethPrice ? risk : null}
         </Row>
       );
     } else if (this.props.currentGame.status === 'Joined') {

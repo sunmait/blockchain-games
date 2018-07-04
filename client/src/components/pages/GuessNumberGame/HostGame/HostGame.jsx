@@ -39,10 +39,10 @@ class HostGame extends React.Component {
     }
     const {hostGame} = this.props.contractInstance;
     const secretWord = generateString(16);
-    const hiddenNumber = window.web3.sha3(window.web3.toHex(this.state.selectedNumber) + secretWord);
-    hostGame.sendTransaction(hiddenNumber, window.web3.toWei(this.state.gamePrice),
+    const hiddenNumber = this.props.localWeb3.sha3(this.props.localWeb3.toHex(this.state.selectedNumber) + secretWord);
+    hostGame.sendTransaction(hiddenNumber, this.props.localWeb3.toWei(this.state.gamePrice),
       {
-        value: window.web3.toWei(this.state.gamePrice),
+        value: this.props.localWeb3.toWei(this.state.gamePrice),
       },
       (err) => {
       if (err) {

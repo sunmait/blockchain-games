@@ -4,7 +4,7 @@ import store from '../../redux/store';
 import { setContractInstance } from '../../redux/modules/game-of-madness-page/gameOfMadnessPageActions';
 
 const contractInitialization = () => {
-  const contractInstance = window.web3.eth.contract(contractABI.abi).at(contractsAddresses.gameOfMadness);
+  const contractInstance = store.getState().main.localWeb3.eth.contract(contractABI.abi).at(contractsAddresses.gameOfMadness);
   store.dispatch(setContractInstance(contractInstance));
 };
 

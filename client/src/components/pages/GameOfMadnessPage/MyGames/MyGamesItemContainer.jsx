@@ -8,6 +8,7 @@ const mapStateToProps = (state) => ({
   currentAccount: state.main.currentAccount,
   contractInstance: state.gameOfMadness.contractInstance,
   ethPrice: state.main.ethPrice,
+  localWeb3: state.main.localWeb3,
 });
 
 const mapDispatchToProps = (dispatch) => bindActionCreators({

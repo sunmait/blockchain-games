@@ -21,7 +21,7 @@ class HostGame extends React.Component {
       return;
     }
     const {hostGame} = this.props.contractInstance;
-    const transactionData = { value: window.web3.toWei(this.state.betAmount) };
+    const transactionData = { value: this.props.localWeb3.toWei(this.state.betAmount) };
     hostGame.sendTransaction(transactionData, (err) => {
       if (err) {
         NotificationManager.error(err.message, 'Transaction failed', 7000);

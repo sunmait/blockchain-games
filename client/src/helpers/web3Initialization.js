@@ -1,20 +1,21 @@
 import Web3 from 'web3';
 import store from '../redux/store';
-import {setCurrentMetamaskAccount} from '../redux/modules/main-page/mainPageActions';
+import { setWeb3Provider, setCurrentMetamaskAccount } from '../redux/modules/main-page/mainPageActions';
 import { NotificationManager } from 'react-notifications';
 
 const web3Initialization = () => {
   if (typeof web3 !== 'undefined') {
-    window.web3 = new Web3(window.web3.currentProvider);
+    const localWeb3 = new Web3(window.web3.currentProvider);
 
-    if (window.web3.currentProvider.isMetaMask) {
-      window.web3.eth.getAccounts((error, accounts) => {
+    if (localWeb3.currentProvider.isMetaMask) {
+      localWeb3.eth.getAccounts((error, accounts) => {
         if (accounts.length === 0) {
           NotificationManager.warning('There are no active accounts in MetaMask.', 'Metamask warning', 10000);
         }
         else {
-          window.web3.eth.defaultAccount = window.web3.eth.accounts[0];
-          store.dispatch(setCurrentMetamaskAccount(window.web3.eth.accounts[0]));
+          localWeb3.eth.defaultAccount = localWeb3.eth.accounts[0];
+          store.dispatch(setWeb3Provider(localWeb3));
+          store.dispatch(setCurrentMetamaskAccount(localWeb3.eth.accounts[0]));
         }
       });
     } else {

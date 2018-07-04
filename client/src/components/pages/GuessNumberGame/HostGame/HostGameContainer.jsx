@@ -5,6 +5,7 @@ import * as guessNumberGamePageActions from '../../../../redux/modules/guess-num
 
 const mapStateToProps = (state) => ({
   contractInstance: state.guessNumberGame.contractInstance,
+  localWeb3: state.main.localWeb3,
   ethPrice: state.main.ethPrice,
 });
 

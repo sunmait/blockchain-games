@@ -37,14 +37,21 @@ class GameOfMadness extends React.Component {
   };
 
   render() {
+    if (!this.props.localWeb3 || !this.props.currentAccount) {
+      return (
+        <div>
+          Metamask is loading.
+        </div>
+      );
+    }
     return (
       <React.Fragment>
         <Header
-          currentAccount={this.props.currentAccount}
           onHostGameClick={() => {
             this.props.handleCurrentGameChange(null);
             this.props.handleActiveTabChange(3);
           }}
+          gravatarAddress={this.props.localWeb3.sha3(this.props.currentAccount)}
         />
         <Tabs
           id="game-of-madness-page-tabs-container"

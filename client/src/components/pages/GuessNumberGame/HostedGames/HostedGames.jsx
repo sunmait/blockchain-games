@@ -26,14 +26,14 @@ class HostedGames extends Component {
       );
     }
     return this.props.hostedGamesList.slice().reverse().map((item, index) => {
-      const risk = `(${(this.props.ethPrice * window.web3.fromWei(item.price)).toFixed(2)}USD)`;
+      const risk = `(${(this.props.ethPrice * this.props.localWeb3.fromWei(item.price)).toFixed(2)}USD)`;
       return (
         <Row key={index} className="game-item-container">
           <Col mdOffset={3} md={6}>
             <Row>
               <Col md={2}>
                 <img
-                  src={getGravatarUrl(item.player1)}
+                  src={getGravatarUrl(this.props.localWeb3.sha3(item.player1).slice(2))}
                   alt="no img"
                 />
               </Col>
@@ -42,7 +42,7 @@ class HostedGames extends Component {
                   Game #{item.id}
                 </Row>
                 <Row className="game-item-payload">
-                  Bet amount: {window.web3.fromWei(item.price)} ETH {this.props.ethPrice ? risk : null}
+                  Bet amount: {this.props.localWeb3.fromWei(item.price)} ETH {this.props.ethPrice ? risk : null}
                 </Row>
                 <Row className="game-item-interaction-button-container">
                   <Button

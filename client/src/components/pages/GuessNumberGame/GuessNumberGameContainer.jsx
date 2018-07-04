@@ -6,6 +6,7 @@ import * as guessNumberGamePageActions from '../../../redux/modules/guess-number
 const mapStateToProps = (state) => ({
   contractInstance: state.guessNumberGame.contractInstance,
   currentGame: state.guessNumberGame.currentGame,
+  localWeb3: state.main.localWeb3,
   currentAccount: state.main.currentAccount,
   activeTabId: state.guessNumberGame.activeTabId,
   isHostedGamesLoaded: state.guessNumberGame.isHostedGamesLoaded,

@@ -4,6 +4,7 @@ import GameOfMadness from './GameOfMadness';
 import * as gameOfMadnessPageActions from '../../../redux/modules/game-of-madness-page/gameOfMadnessPageActions';
 
 const mapStateToProps = (state) => ({
+  localWeb3: state.main.localWeb3,
   currentAccount: state.main.currentAccount,
   contractInstance: state.gameOfMadness.contractInstance,
   activeTabId: state.gameOfMadness.activeTabId,

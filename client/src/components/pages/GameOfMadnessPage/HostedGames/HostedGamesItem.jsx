@@ -12,17 +12,17 @@ class HostedGamesItem extends React.Component {
     super(props);
 
     this.state = {
-      betAmount: window.web3.fromWei(this.props.item.player1TotalBet),
+      betAmount: this.props.localWeb3.fromWei(this.props.item.player1TotalBet),
     }
   }
 
   joinGame = () => {
     const minRaiseValue = 0.000001;
-    if (this.state.betAmount < Number(window.web3.fromWei(this.props.item.player1TotalBet)) + minRaiseValue) {
+    if (this.state.betAmount < Number(this.props.localWeb3.fromWei(this.props.item.player1TotalBet)) + minRaiseValue) {
       return;
     }
     const {joinGame} = this.props.contractInstance;
-    const transactionData = { value: window.web3.toWei(this.state.betAmount) };
+    const transactionData = { value: this.props.localWeb3.toWei(this.state.betAmount) };
     joinGame.sendTransaction(this.props.item.id, transactionData, (err) => {
         if (err) {
           NotificationManager.error(err.message, 'Transaction failed', 7000);
@@ -41,7 +41,7 @@ class HostedGamesItem extends React.Component {
   };
 
   render() {
-    const hostRisk = `(${(this.props.ethPrice * window.web3.fromWei(this.props.item.player1TotalBet)).toFixed(2)}USD)`;
+    const hostRisk = `(${(this.props.ethPrice * this.props.localWeb3.fromWei(this.props.item.player1TotalBet)).toFixed(2)}USD)`;
     const joinedRisk = `(${(this.props.ethPrice * this.state.betAmount).toFixed(2)}USD)`;
     return (
       <Row className="madness-game-item-container">
@@ -53,7 +53,7 @@ class HostedGamesItem extends React.Component {
               </Row>
               <Row>
                 <img
-                  src={getGravatarUrl(this.props.item.player1)}
+                  src={getGravatarUrl(this.props.localWeb3.sha3(this.props.item.player1).slice(2))}
                   alt="no img"
                 />
               </Row>
@@ -63,7 +63,7 @@ class HostedGamesItem extends React.Component {
                 <div className="madness-game-bet-title">
                   Initial bet:
                 </div>
-                {window.web3.fromWei(this.props.item.player1TotalBet)} ETH {this.props.ethPrice ? hostRisk : null}
+                {this.props.localWeb3.fromWei(this.props.item.player1TotalBet)} ETH {this.props.ethPrice ? hostRisk : null}
               </Row>
               <Row>
                 <div className="madness-game-bet-title">

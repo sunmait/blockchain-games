@@ -92,7 +92,7 @@ class JoinGame extends React.Component {
   };
 
   render() {
-    const risk = `(${(this.props.ethPrice * window.web3.fromWei(this.props.currentGame.price)).toFixed(2)}USD)`;
+    const risk = `(${(this.props.ethPrice * this.props.localWeb3.fromWei(this.props.currentGame.price)).toFixed(2)}USD)`;
     return (
       <Row>
         <Col mdOffset={3} md={6}>
@@ -104,7 +104,7 @@ class JoinGame extends React.Component {
           <Row className="join-game-data-container">
             <Col md={2}>
               <img
-                src={getGravatarUrl(this.props.currentGame.player1)}
+                src={getGravatarUrl(this.props.localWeb3.sha3(this.props.currentGame.player1).slice(2))}
                 alt="no img"
               />
             </Col>
@@ -116,7 +116,7 @@ class JoinGame extends React.Component {
                 {this.renderHostLastBets()}
               </Row>
               <Row className="join-game-payload">
-                Game price: {window.web3.fromWei(this.props.currentGame.price)} ETH {this.props.ethPrice ? risk : null}
+                Game price: {this.props.localWeb3.fromWei(this.props.currentGame.price)} ETH {this.props.ethPrice ? risk : null}
               </Row>
               <Row className="even-odd-selector-container">
                 <div className="even-odd-selector-title">

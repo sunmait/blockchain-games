@@ -7,6 +7,7 @@ const mapStateToProps = (state) => ({
   contractInstance: state.guessNumberGame.contractInstance,
   hostedGamesList: state.guessNumberGame.hostedGamesList,
   ethPrice: state.main.ethPrice,
+  localWeb3: state.main.localWeb3,
 });
 
 const mapDispatchToProps = (dispatch) => bindActionCreators({

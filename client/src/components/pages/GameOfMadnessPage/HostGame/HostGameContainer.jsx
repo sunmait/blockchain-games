@@ -5,6 +5,7 @@ import { bindActionCreators } from 'redux';
 
 const mapStateToProps = (state) => ({
   contractInstance: state.gameOfMadness.contractInstance,
+  localWeb3: state.main.localWeb3,
   ethPrice: state.main.ethPrice,
 });
 

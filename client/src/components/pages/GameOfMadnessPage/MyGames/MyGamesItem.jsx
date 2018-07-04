@@ -88,14 +88,14 @@ class MyGamesItem extends React.Component {
   };
 
   renderJoinedTotalBet = () => {
-    const joinedRisk = `(${(this.props.ethPrice * window.web3.fromWei(this.props.item.player2TotalBet)).toFixed(2)}USD)`;
+    const joinedRisk = `(${(this.props.ethPrice * this.props.localWeb3.fromWei(this.props.item.player2TotalBet)).toFixed(2)}USD)`;
     if (this.props.item.player2TotalBet) {
       return (
         <React.Fragment>
           <div className="madness-game-bet-title">
             Joined total bet:
           </div>
-          {window.web3.fromWei(this.props.item.player2TotalBet)} ETH {this.props.ethPrice ? joinedRisk : null}
+          {this.props.localWeb3.fromWei(this.props.item.player2TotalBet)} ETH {this.props.ethPrice ? joinedRisk : null}
         </React.Fragment>
       );
     }
@@ -142,7 +142,7 @@ class MyGamesItem extends React.Component {
   };
 
   render() {
-    const hostRisk = `(${(this.props.ethPrice * window.web3.fromWei(this.props.item.player1TotalBet)).toFixed(2)}USD)`;
+    const hostRisk = `(${(this.props.ethPrice * this.props.localWeb3.fromWei(this.props.item.player1TotalBet)).toFixed(2)}USD)`;
     return (
       <Row className="madness-game-item-container madness-game-link-container" onClick={this.goToGame}>
         <Col mdOffset={3} md={6}>
@@ -153,7 +153,7 @@ class MyGamesItem extends React.Component {
               </Row>
               <Row>
                 <img
-                  src={getGravatarUrl(this.props.item.player1)}
+                  src={getGravatarUrl(this.props.localWeb3.sha3(this.props.item.player1).slice(2))}
                   alt="no img"
                 />
               </Row>
@@ -166,7 +166,7 @@ class MyGamesItem extends React.Component {
                 <div className="madness-game-bet-title">
                   Host total bet:
                 </div>
-                {window.web3.fromWei(this.props.item.player1TotalBet)} ETH {this.props.ethPrice ? hostRisk : null}
+                {this.props.localWeb3.fromWei(this.props.item.player1TotalBet)} ETH {this.props.ethPrice ? hostRisk : null}
               </Row>
               <Row>
                 {this.renderJoinedTotalBet()}

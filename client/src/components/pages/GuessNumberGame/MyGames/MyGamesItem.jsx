@@ -130,7 +130,7 @@ class MyGamesItem extends React.Component {
   };
 
   render() {
-    const risk = `(${(this.props.ethPrice * window.web3.fromWei(this.props.item.price)).toFixed(2)}USD)`;
+    const risk = `(${(this.props.ethPrice * this.props.localWeb3.fromWei(this.props.item.price)).toFixed(2)}USD)`;
     return (
       <Row className="game-item-container">
         <Col mdOffset={3} md={6}>
@@ -142,7 +142,7 @@ class MyGamesItem extends React.Component {
                 </Row>
                 <Row>
                   <img
-                    src={getGravatarUrl(this.props.item.player1)}
+                    src={getGravatarUrl(this.props.localWeb3.sha3(this.props.item.player1).slice(2))}
                     alt="no img"
                   />
                 </Row>
@@ -157,7 +157,7 @@ class MyGamesItem extends React.Component {
               <Row>
                 <div className="game-item-payload-title">
                   Game price:
-                </div> {window.web3.fromWei(this.props.item.price)} ETH {this.props.ethPrice ? risk : null}
+                </div> {this.props.localWeb3.fromWei(this.props.item.price)} ETH {this.props.ethPrice ? risk : null}
               </Row>
               <Row>
                 {this.renderInteractionContainer()}

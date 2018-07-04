@@ -7,6 +7,13 @@ import numberGameImg from '../../../assets/images/number-game.png';
 
 class MainPage extends React.Component {
   render() {
+    if (!this.props.localWeb3 || !this.props.currentAccount) {
+      return (
+        <div>
+          Metamask is loading.
+        </div>
+      );
+    }
     return (
       <div className="main-page-container">
         <Col mdOffset={1} md={5} className="main-page-item-container">

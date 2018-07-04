@@ -14,7 +14,7 @@ class CurrentGame extends React.Component {
     super(props);
 
     this.state = {
-      betAmount: Math.abs(window.web3.fromWei(props.currentGame.player1TotalBet - props.currentGame.player2TotalBet)),
+      betAmount: Math.abs(this.props.localWeb3.fromWei(props.currentGame.player1TotalBet - props.currentGame.player2TotalBet)),
       isFinishGameButtonEnabled: false,
       isCountdownFinished: false,
     }
@@ -29,11 +29,11 @@ class CurrentGame extends React.Component {
   }
 
   renderHostRisk = () => {
-    return `(${(this.props.ethPrice * window.web3.fromWei(this.props.currentGame.player1TotalBet)).toFixed(2)}USD)`;
+    return `(${(this.props.ethPrice * this.props.localWeb3.fromWei(this.props.currentGame.player1TotalBet)).toFixed(2)}USD)`;
   };
 
   renderJoinedRisk = () => {
-    return `(${(this.props.ethPrice * window.web3.fromWei(this.props.currentGame.player2TotalBet)).toFixed(2)}USD)`;
+    return `(${(this.props.ethPrice * this.props.localWeb3.fromWei(this.props.currentGame.player2TotalBet)).toFixed(2)}USD)`;
   };
 
   renderHostedGame = () => {
@@ -56,7 +56,7 @@ class CurrentGame extends React.Component {
               <Row>
                 <div className="madness-game-bet-title">
                   Host total bet:
-                </div>{window.web3.fromWei(this.props.currentGame.player1TotalBet)} ETH
+                </div>{this.props.localWeb3.fromWei(this.props.currentGame.player1TotalBet)} ETH
                 {this.props.ethPrice ? this.renderHostRisk() : null}
               </Row>
               <Row>
@@ -133,14 +133,14 @@ class CurrentGame extends React.Component {
               <Row>
                 <div className="madness-game-bet-title">
                   Host total bet:
-                </div>{window.web3.fromWei(this.props.currentGame.player1TotalBet)} ETH
+                </div>{this.props.localWeb3.fromWei(this.props.currentGame.player1TotalBet)} ETH
                 {this.props.ethPrice ? this.renderHostRisk() : null}
               </Row>
               <Row>
                 <div className="madness-game-bet-title">
                   Joined total bet:
                 </div>
-                {window.web3.fromWei(this.props.currentGame.player2TotalBet)} ETH
+                {this.props.localWeb3.fromWei(this.props.currentGame.player2TotalBet)} ETH
                 {this.props.ethPrice ? this.renderJoinedRisk() : null}
               </Row>
               <Row>
@@ -172,7 +172,7 @@ class CurrentGame extends React.Component {
               if (index % 2 === 0) {
                 return (
                   <tr key={index}>
-                    <td className="table-filled-field">{window.web3.fromWei(Number(bet))}</td>
+                    <td className="table-filled-field">{this.props.localWeb3.fromWei(Number(bet))}</td>
                     <td />
                   </tr>
                 );
@@ -180,7 +180,7 @@ class CurrentGame extends React.Component {
                 return (
                   <tr key={index}>
                     <td />
-                    <td className="table-filled-field">{window.web3.fromWei(Number(bet))}</td>
+                    <td className="table-filled-field">{this.props.localWeb3.fromWei(Number(bet))}</td>
                   </tr>
                 );
               }
@@ -260,7 +260,7 @@ class CurrentGame extends React.Component {
 
   // TODO: switch to person who raised and waiting finish game button enabling
   handleRaiseButtonClick = () => {
-    const betAmount = Number(window.web3.toWei(this.state.betAmount));
+    const betAmount = Number(this.props.localWeb3.toWei(this.state.betAmount));
     const player1TotalBet = Number(this.props.currentGame.player1TotalBet);
     const player2TotalBet = Number(this.props.currentGame.player2TotalBet);
     const minRaiseValue = 0.000001;
@@ -270,7 +270,7 @@ class CurrentGame extends React.Component {
     }
 
     const {raise} = this.props.contractInstance;
-    const transactionData = { value: window.web3.toWei(this.state.betAmount) };
+    const transactionData = { value: this.props.localWeb3.toWei(this.state.betAmount) };
     raise.sendTransaction(this.props.currentGame.id, transactionData, (err) => {
       if (err) {
         NotificationManager.error(err.message, 'Transaction failed', 7000);
@@ -291,7 +291,7 @@ class CurrentGame extends React.Component {
               </Row>
               <Row>
                 <img
-                  src={getGravatarUrl(this.props.currentGame.player1)}
+                  src={getGravatarUrl(this.props.localWeb3.sha3(this.props.currentGame.player1).slice(2))}
                   alt="no img"
                 />
               </Row>
@@ -300,14 +300,14 @@ class CurrentGame extends React.Component {
               <Row>
                 <div className="madness-game-bet-title">
                   Host total bet:
-                </div>{window.web3.fromWei(this.props.currentGame.player1TotalBet)} ETH
+                </div>{this.props.localWeb3.fromWei(this.props.currentGame.player1TotalBet)} ETH
                 {this.props.ethPrice ? this.renderHostRisk() : null}
               </Row>
               <Row>
                 <div className="madness-game-bet-title">
                   Joined total bet:
                 </div>
-                {window.web3.fromWei(this.props.currentGame.player2TotalBet)} ETH
+                {this.props.localWeb3.fromWei(this.props.currentGame.player2TotalBet)} ETH
                 {this.props.ethPrice ? this.renderJoinedRisk() : null}
               </Row>
               <Row>
@@ -340,12 +340,12 @@ class CurrentGame extends React.Component {
                     {
                       this.props.currentGame.player1 === this.props.currentAccount ?
                         <p>
-                          Your total bet was {window.web3.fromWei(this.props.currentGame.player1TotalBet)} ETH<br />
-                          Your opponent's total bet was {window.web3.fromWei(this.props.currentGame.player2TotalBet)} ETH
+                          Your total bet was {this.props.localWeb3.fromWei(this.props.currentGame.player1TotalBet)} ETH<br />
+                          Your opponent's total bet was {this.props.localWeb3.fromWei(this.props.currentGame.player2TotalBet)} ETH
                         </p> :
                         <p>
-                          Your total bet was {window.web3.fromWei(this.props.currentGame.player2TotalBet)} ETH<br />
-                          Your opponent's total bet was {window.web3.fromWei(this.props.currentGame.player1TotalBet)} ETH
+                          Your total bet was {this.props.localWeb3.fromWei(this.props.currentGame.player2TotalBet)} ETH<br />
+                          Your opponent's total bet was {this.props.localWeb3.fromWei(this.props.currentGame.player1TotalBet)} ETH
                         </p>
                     }
                   </div>

@@ -29,7 +29,7 @@ class Header extends React.Component {
           <Nav>
             <NavItem className="user-avatar-container">
               <img
-                src={getGravatarUrl(this.props.currentAccount)}
+                src={getGravatarUrl(this.props.gravatarAddress)}
                 alt="no img"
               />
             </NavItem>
