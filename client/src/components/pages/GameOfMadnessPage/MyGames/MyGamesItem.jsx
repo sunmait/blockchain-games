@@ -12,7 +12,16 @@ class MyGamesItem extends React.Component {
     super(props);
 
     this.state = {
+      isCountdownFinished: false,
       isFinishGameButton: false,
+    }
+  }
+
+  componentDidUpdate(prevProps) {
+    if (this.props.item.playerWhoBetLast !== prevProps.item.playerWhoBetLast) {
+      this.setState({
+        isCountdownFinished: false,
+      });
     }
   }
 
@@ -50,7 +59,6 @@ class MyGamesItem extends React.Component {
         <Col md={12} className="madness-game-interaction-button-container">
           <Button
             onClick={this.goToGame}
-            disabled={!this.state.isFinishGameButtonEnabled}
           >
             Raise
           </Button>
@@ -98,16 +106,31 @@ class MyGamesItem extends React.Component {
     if (this.props.item.status === 'Joined') {
       const title = this.props.item.playerWhoBetLast === this.props.currentAccount ?
         "Your opponent's turn! " : 'Your turn!';
+      if (this.state.isCountdownFinished) {
+        return (
+          <React.Fragment>
+            <div className="madness-game-my-games-countdown-title-container">
+              {title}
+            </div>
+            (Countdown finished)
+          </React.Fragment>
+        )
+      }
       return (
         <React.Fragment>
           <div className="madness-game-my-games-countdown-title-container">
           {title}
           </div>
-          <Countdown
+          (<Countdown
             start={this.props.item.lastRaiseTime || 0}
-            duration={3}
-            countdownEnded={this.enableFinishGameButton}
-          />
+            duration={60*60*24}
+            countdownEnded={() => {
+              this.enableFinishGameButton();
+              this.setState({
+                isCountdownFinished: true,
+              });
+            }}
+          />)
         </React.Fragment>
       );
     }

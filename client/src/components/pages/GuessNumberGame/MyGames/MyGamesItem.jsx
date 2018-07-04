@@ -12,18 +12,27 @@ class MyGamesItem extends React.Component {
     super(props);
 
     this.state = {
+      isCountdownFinished: false,
       isFinishExpiredGameButton: false,
     };
   }
 
   renderCountodw = () => {
     if (this.props.item.status === 'Joined') {
+      if (this.state.isCountdownFinished) {
+        return (
+          <React.Fragment>
+            (Countdown finished)
+          </React.Fragment>
+        )
+      }
       if (this.props.currentAccount === this.props.item.player1) {
         return (
           <React.Fragment>
             (<Countdown
-              start={this.props.item.gameJoinTime}
+              start={this.props.item.gameJoinTime || 0}
               duration={60*60*24*7}
+              countdownEnded={this.handleCountdownEnding}
             />)
           </React.Fragment>
         );
@@ -32,14 +41,23 @@ class MyGamesItem extends React.Component {
         return (
           <React.Fragment>
             (<Countdown
-              start={this.props.item.gameJoinTime}
+              start={this.props.item.gameJoinTime || 0}
               duration={60*60*24*7}
-              countdownEnded={this.enableFinishExpiredGameButton}
+              countdownEnded={() => {
+                this.enableFinishExpiredGameButton();
+                this.handleCountdownEnding();
+              }}
             />)
           </React.Fragment>
         );
       }
     }
+  };
+
+  handleCountdownEnding = () => {
+    this.setState({
+      isCountdownFinished: true,
+    });
   };
 
   renderInteractionContainer = () => {

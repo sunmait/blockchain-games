@@ -28,6 +28,7 @@ const gameSettings = () => {
         price: Number(result.args.betAmount),
         player1: result.args.player1,
         player2: result.args.player2,
+        gameJoinTime: Number(result.args.gameJoinTime),
       };
       store.dispatch(handleGameJoinedEvent(joinedGame));
     }

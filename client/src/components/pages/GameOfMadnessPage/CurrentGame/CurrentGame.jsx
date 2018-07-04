@@ -16,6 +16,15 @@ class CurrentGame extends React.Component {
     this.state = {
       betAmount: Math.abs(window.web3.fromWei(props.currentGame.player1TotalBet - props.currentGame.player2TotalBet)),
       isFinishGameButtonEnabled: false,
+      isCountdownFinished: false,
+    }
+  }
+
+  componentDidUpdate(prevProps) {
+    if (this.props.item.playerWhoBetLast !== prevProps.item.playerWhoBetLast) {
+      this.setState({
+        isCountdownFinished: false,
+      });
     }
   }
 
@@ -66,6 +75,16 @@ class CurrentGame extends React.Component {
     if (this.props.currentGame.status === 'Joined') {
       const title = this.props.currentGame.playerWhoBetLast === this.props.currentAccount ?
         "Your opponent's turn! " : 'Your turn!';
+      if (this.state.isCountdownFinished) {
+        return (
+          <React.Fragment>
+            <div className="madness-game-my-games-countdown-title-container">
+              {title}
+            </div>
+            (Countdown finished)
+          </React.Fragment>
+        )
+      }
       return (
         <React.Fragment>
           <div className="madness-game-my-games-countdown-title-container">
@@ -73,8 +92,13 @@ class CurrentGame extends React.Component {
           </div>
           <Countdown
             start={this.props.currentGame.lastRaiseTime || 0}
-            duration={3}
-            countdownEnded={this.enableFinishGameButton}
+            duration={60*60*24}
+            countdownEnded={() => {
+              this.enableFinishGameButton();
+              this.setState({
+                isCountdownFinished: true,
+              });
+            }}
           />
         </React.Fragment>
       );
@@ -232,12 +256,16 @@ class CurrentGame extends React.Component {
 
   // TODO: switch to person who raised and waiting finish game button enabling
   handleRaiseButtonClick = () => {
-    if (Number(window.web3.toWei(this.state.betAmount)) +
-      Number(this.props.currentGame.player2TotalBet) <= Number(this.props.currentGame.player1TotalBet) ||
-      Number(window.web3.toWei(this.state.betAmount)) +
-      Number(this.props.currentGame.player1TotalBet) <= Number(this.props.currentGame.player2TotalBet)) return;
-    const {raise} = this.props.contractInstance;
+    const betAmount = Number(window.web3.toWei(this.state.betAmount));
+    const player1TotalBet = Number(this.props.currentGame.player1TotalBet);
+    const player2TotalBet = Number(this.props.currentGame.player2TotalBet);
+    const minRaiseValue = 0.000001;
+    if (betAmount + player2TotalBet < player1TotalBet + minRaiseValue ||
+        betAmount + player1TotalBet < player2TotalBet + minRaiseValue) {
+      return;
+    }
 
+    const {raise} = this.props.contractInstance;
     const transactionData = { value: window.web3.toWei(this.state.betAmount) };
     raise.sendTransaction(this.props.currentGame.id, transactionData, (err) => {
       if (err) {
@@ -277,11 +305,6 @@ class CurrentGame extends React.Component {
                 </div>
                 {window.web3.fromWei(this.props.currentGame.player2TotalBet)} ETH
                 {this.props.ethPrice ? this.renderJoinedRisk() : null}
-              </Row>
-              <Row>
-                <div className="madness-game-bet-title">
-                  Waiting for an opponent
-                </div>
               </Row>
               <Row>
                 <Col md={12} className="madness-game-result-container">

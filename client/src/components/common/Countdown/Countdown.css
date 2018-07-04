@@ -1,3 +1,5 @@
 .countdown-container {
   display: inline;
+  font-style: italic;
+  font-size: 12px;
 }

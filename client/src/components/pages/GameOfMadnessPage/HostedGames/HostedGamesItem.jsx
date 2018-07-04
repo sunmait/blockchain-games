@@ -17,7 +17,8 @@ class HostedGamesItem extends React.Component {
   }
 
   joinGame = () => {
-    if (this.state.betAmount <= window.web3.fromWei(this.props.item.player1TotalBet)) {
+    const minRaiseValue = 0.000001;
+    if (this.state.betAmount < Number(window.web3.fromWei(this.props.item.player1TotalBet)) + minRaiseValue) {
       return;
     }
     const {joinGame} = this.props.contractInstance;

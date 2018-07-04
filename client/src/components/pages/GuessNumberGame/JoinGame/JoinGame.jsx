@@ -84,9 +84,9 @@ class JoinGame extends React.Component {
     }
     return this.props.currentGame.hostLastBets.map((item, index) => {
       return (
-        <Col md={1} key={index} className="last-bets-item-container">
+        <div key={index} className="last-bets-item">
           {item}
-        </Col>
+        </div>
       );
     });
   };
@@ -110,7 +110,10 @@ class JoinGame extends React.Component {
             </Col>
             <Col md={10}>
               <Row>
-                Bets history: {this.renderHostLastBets()}
+                <div className="bets-history-title">
+                  Bets history:
+                </div>
+                {this.renderHostLastBets()}
               </Row>
               <Row className="join-game-payload">
                 Game price: {window.web3.fromWei(this.props.currentGame.price)} ETH {this.props.ethPrice ? risk : null}
