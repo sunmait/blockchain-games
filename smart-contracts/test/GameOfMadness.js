@@ -229,7 +229,7 @@ contract('GameOfMadness tests', async accounts => {
 
       const joinedGame = await instance.games.call(gameId);
       const lastRaiseTime = joinedGame[7].toNumber();
-      await increaseTime(lastRaiseTime + 3); // TODO: change turn duration time in prod
+      await increaseTime(lastRaiseTime + 60*60*24);
 
       const withdrawalTransactionParams = {
         from: player2,
@@ -348,7 +348,7 @@ contract('GameOfMadness tests', async accounts => {
 
       const joinedGame = await instance.games.call(gameId);
       const lastRaiseTime = joinedGame[7].toNumber();
-      await increaseTime(lastRaiseTime + 3); // TODO: change turn duration time in prod
+      await increaseTime(lastRaiseTime + 60*60*24);
 
       const player2BalanceBefore = web3.eth.getBalance(player2).toNumber();
       const estimatedGas = await instance.withdrawal.estimateGas(gameId, {
