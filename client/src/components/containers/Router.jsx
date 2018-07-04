@@ -5,6 +5,7 @@ import GuessNumberGameContainer from '../pages/GuessNumberGame/GuessNumberGameCo
 import GameOfMadnessContainer from '../pages/GameOfMadnessPage/GameOfMadnessContainer';
 import web3Initialization from '../../helpers/web3Initialization';
 import getEthPrice from '../../helpers/getEthPrice';
+import { NotificationContainer } from 'react-notifications';
 
 class AppComponent extends React.Component {
   componentDidMount() {
@@ -23,15 +24,19 @@ class AppComponent extends React.Component {
       });
   };
 
+
   render() {
     return (
-      <Router>
-        <Switch>
-          <Route exact path="/" component={MainPageContainer} />
-          <Route exact path="/number-game" component={GuessNumberGameContainer} />
-          <Route exact path="/madness-game" component={GameOfMadnessContainer} />
-        </Switch>
-      </Router>
+      <React.Fragment>
+        <Router>
+          <Switch>
+            <Route exact path="/" component={MainPageContainer} />
+            <Route exact path="/number-game" component={GuessNumberGameContainer} />
+            <Route exact path="/madness-game" component={GameOfMadnessContainer} />
+          </Switch>
+        </Router>
+        <NotificationContainer />
+      </React.Fragment>
     );
   };
 }

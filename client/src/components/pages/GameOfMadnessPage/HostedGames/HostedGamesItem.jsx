@@ -5,7 +5,7 @@ import Button from 'react-bootstrap/lib/Button';
 import FormControl from 'react-bootstrap/lib/FormControl';
 import './HostedGamesItem.css';
 import getGravatarUrl from '../../../../helpers/getGravatarUrl';
-import { NotificationContainer, NotificationManager } from 'react-notifications';
+import { NotificationManager } from 'react-notifications';
 
 class HostedGamesItem extends React.Component {
   constructor(props) {
@@ -91,7 +91,6 @@ class HostedGamesItem extends React.Component {
             </Col>
           </Row>
         </Col>
-        <NotificationContainer />
       </Row>
     );
   }

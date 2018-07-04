@@ -7,7 +7,7 @@ import Modal from 'react-bootstrap/lib/Modal';
 import FormControl from 'react-bootstrap/lib/FormControl';
 import generateString from '../../../../helpers/stringGenerator';
 import './HostGame.css';
-import { NotificationContainer, NotificationManager } from 'react-notifications';
+import { NotificationManager } from 'react-notifications';
 
 class HostGame extends React.Component {
   constructor(props) {
@@ -170,7 +170,6 @@ class HostGame extends React.Component {
         </Col>
 
         {this.message()}
-        <NotificationContainer />
       </Row>
     );
   }

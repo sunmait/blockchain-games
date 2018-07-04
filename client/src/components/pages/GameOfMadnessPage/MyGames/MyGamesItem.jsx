@@ -5,7 +5,7 @@ import Button from 'react-bootstrap/lib/Button';
 import Countdown from '../../../common/Countdown/Countdown';
 import './MyGamesItem.css';
 import getGravatarUrl from '../../../../helpers/getGravatarUrl';
-import { NotificationContainer, NotificationManager } from 'react-notifications';
+import { NotificationManager } from 'react-notifications';
 
 class MyGamesItem extends React.Component {
   constructor(props) {
@@ -177,7 +177,6 @@ class MyGamesItem extends React.Component {
             </Col>
           </Row>
         </Col>
-        <NotificationContainer />
       </Row>
     );
   }

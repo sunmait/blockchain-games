@@ -7,7 +7,7 @@ import Countdown from '../../../common/Countdown/Countdown';
 import './CurrentGame.css';
 import getGravatarUrl from '../../../../helpers/getGravatarUrl';
 import isFloat from '../../../../helpers/isFloat';
-import { NotificationContainer, NotificationManager } from 'react-notifications';
+import { NotificationManager } from 'react-notifications';
 
 class CurrentGame extends React.Component {
   constructor(props) {
@@ -370,7 +370,6 @@ class CurrentGame extends React.Component {
         {
           this.props.currentGame.status === 'Ended' ? this.renderFinishedGame() : null
         }
-        <NotificationContainer />
       </React.Fragment>
     )
 

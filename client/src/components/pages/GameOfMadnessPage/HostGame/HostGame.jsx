@@ -5,7 +5,7 @@ import Button from 'react-bootstrap/lib/Button';
 import FormControl from 'react-bootstrap/lib/FormControl';
 import isFloat from '../../../../helpers/isFloat';
 import './HostGame.css';
-import { NotificationContainer, NotificationManager } from 'react-notifications';
+import { NotificationManager } from 'react-notifications';
 
 class HostGame extends React.Component {
   constructor(props) {
@@ -75,7 +75,6 @@ class HostGame extends React.Component {
             </Col>
           </Row>
         </Col>
-        <NotificationContainer />
       </Row>
     );
   }

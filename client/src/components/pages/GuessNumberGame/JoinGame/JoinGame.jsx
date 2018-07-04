@@ -6,7 +6,7 @@ import DropdownButton from 'react-bootstrap/lib/DropdownButton';
 import MenuItem from 'react-bootstrap/lib/MenuItem';
 import './JoinGame.css';
 import getGravatarUrl from '../../../../helpers/getGravatarUrl';
-import { NotificationContainer, NotificationManager } from 'react-notifications';
+import { NotificationManager } from 'react-notifications';
 
 class JoinGame extends React.Component {
   constructor(props) {
@@ -137,7 +137,6 @@ class JoinGame extends React.Component {
             </Col>
           </Row>
         </Col>
-        <NotificationContainer />
       </Row>
     );
   }

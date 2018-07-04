@@ -5,7 +5,7 @@ import Button from 'react-bootstrap/lib/Button';
 import FormControl from 'react-bootstrap/lib/FormControl';
 import JoinGameContainer from '../JoinGame/JoinGameContainer';
 import './CurrentGame.css';
-import { NotificationContainer, NotificationManager } from 'react-notifications';
+import { NotificationManager } from 'react-notifications';
 
 class CurrentGame extends React.Component {
   constructor(props) {
@@ -121,7 +121,6 @@ class CurrentGame extends React.Component {
     return (
       <Row>
         {this.renderGame()}
-        <NotificationContainer />
       </Row>
     );
   }
