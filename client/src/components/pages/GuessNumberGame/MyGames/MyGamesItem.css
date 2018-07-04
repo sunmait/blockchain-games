@@ -8,3 +8,9 @@
   height: 100px;
   justify-content: center;
 }
+
+.number-game-countdown-container {
+  display: inline;
+  font-style: italic;
+  font-size: 12px;
+}

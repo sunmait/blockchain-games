@@ -17,29 +17,29 @@ class MyGamesItem extends React.Component {
     };
   }
 
-  renderCountodw = () => {
+  renderCountdown = () => {
     if (this.props.item.status === 'Joined') {
       if (this.state.isCountdownFinished) {
         return (
-          <React.Fragment>
+          <div className="number-game-countdown-container">
             (Countdown finished)
-          </React.Fragment>
+          </div>
         )
       }
       if (this.props.currentAccount === this.props.item.player1) {
         return (
-          <React.Fragment>
+          <div className="number-game-countdown-container">
             (<Countdown
               start={this.props.item.gameJoinTime || 0}
               duration={60*60*24*7}
               countdownEnded={this.handleCountdownEnding}
             />)
-          </React.Fragment>
+          </div>
         );
       }
       if (this.props.currentAccount === this.props.item.player2) {
         return (
-          <React.Fragment>
+          <div className="number-game-countdown-container">
             (<Countdown
               start={this.props.item.gameJoinTime || 0}
               duration={60*60*24*7}
@@ -48,7 +48,7 @@ class MyGamesItem extends React.Component {
                 this.handleCountdownEnding();
               }}
             />)
-          </React.Fragment>
+          </div>
         );
       }
     }
@@ -150,7 +150,7 @@ class MyGamesItem extends React.Component {
             </Col>
             <Col md={9} className="number-game-item-payload-container">
               <Row>
-                Status: {this.props.item.status} {this.renderCountodw()}
+                Status: {this.props.item.status} {this.renderCountdown()}
               </Row>
               <Row>
                 Game price: {window.web3.fromWei(this.props.item.price)} ETH {this.props.ethPrice ? risk : null}

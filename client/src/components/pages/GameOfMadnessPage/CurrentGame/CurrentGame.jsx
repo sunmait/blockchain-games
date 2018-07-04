@@ -81,7 +81,9 @@ class CurrentGame extends React.Component {
             <div className="madness-game-my-games-countdown-title-container">
               {title}
             </div>
-            (Countdown finished)
+            <div className="madness-game-countdown-container">
+              (Countdown finished)
+            </div>
           </React.Fragment>
         )
       }
@@ -90,16 +92,18 @@ class CurrentGame extends React.Component {
           <div className="madness-game-my-games-countdown-title-container">
             {title}
           </div>
-          <Countdown
-            start={this.props.currentGame.lastRaiseTime || 0}
-            duration={60*60*24}
-            countdownEnded={() => {
-              this.enableFinishGameButton();
-              this.setState({
-                isCountdownFinished: true,
-              });
-            }}
-          />
+          <div className="madness-game-countdown-container">
+            (<Countdown
+              start={this.props.currentGame.lastRaiseTime || 0}
+              duration={60*60*24}
+              countdownEnded={() => {
+                this.enableFinishGameButton();
+                this.setState({
+                  isCountdownFinished: true,
+                });
+              }}
+            />)
+          </div>
         </React.Fragment>
       );
     }
