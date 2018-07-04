@@ -56,7 +56,7 @@ class GuessNumberGame extends Component {
             this.props.handleCurrentGameChange(null);
             this.props.handleActiveTabChange(3);
           }}
-          gravatarAddress={this.props.localWeb3.sha3(this.props.currentAccount)}
+          gravatarAddress={this.props.localWeb3.sha3(this.props.currentAccount).slice(2)}
         />
         <Tabs
           id="main-page-tabs-container"

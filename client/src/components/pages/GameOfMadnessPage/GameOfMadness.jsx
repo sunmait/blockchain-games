@@ -51,7 +51,7 @@ class GameOfMadness extends React.Component {
             this.props.handleCurrentGameChange(null);
             this.props.handleActiveTabChange(3);
           }}
-          gravatarAddress={this.props.localWeb3.sha3(this.props.currentAccount)}
+          gravatarAddress={this.props.localWeb3.sha3(this.props.currentAccount).slice(2)}
         />
         <Tabs
           id="game-of-madness-page-tabs-container"
