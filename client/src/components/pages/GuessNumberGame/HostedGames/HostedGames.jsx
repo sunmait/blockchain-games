@@ -25,7 +25,7 @@ class HostedGames extends Component {
         </div>
       );
     }
-    return this.props.hostedGamesList.map((item, index) => {
+    return this.props.hostedGamesList.slice().reverse().map((item, index) => {
       const risk = `(${(this.props.ethPrice * window.web3.fromWei(item.price)).toFixed(2)}USD)`;
       return (
         <Row key={index} className="game-item-container">

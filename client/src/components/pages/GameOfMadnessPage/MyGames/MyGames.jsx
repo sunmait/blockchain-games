@@ -12,7 +12,7 @@ class MyGames extends React.Component {
         </Row>
       );
     }
-    return this.props.userGamesList.map((item, index) => {
+    return this.props.userGamesList.slice().reverse().map((item, index) => {
       return (
         <MyGamesItemContainer
           item={item}

@@ -59,3 +59,8 @@ div[role=tabpanel] {
 .title-centralized {
   text-align: center;
 }
+
+.game-item-payload-title {
+  display: inline;
+  font-weight: 600;
+}

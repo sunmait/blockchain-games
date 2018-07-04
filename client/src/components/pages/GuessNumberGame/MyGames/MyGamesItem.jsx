@@ -150,10 +150,14 @@ class MyGamesItem extends React.Component {
             </Col>
             <Col md={9} className="number-game-item-payload-container">
               <Row>
-                Status: {this.props.item.status} {this.renderCountdown()}
+                <div className="game-item-payload-title">
+                  Status:
+                </div> {this.props.item.status} {this.renderCountdown()}
               </Row>
               <Row>
-                Game price: {window.web3.fromWei(this.props.item.price)} ETH {this.props.ethPrice ? risk : null}
+                <div className="game-item-payload-title">
+                  Game price:
+                </div> {window.web3.fromWei(this.props.item.price)} ETH {this.props.ethPrice ? risk : null}
               </Row>
               <Row>
                 {this.renderInteractionContainer()}

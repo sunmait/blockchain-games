@@ -23,7 +23,7 @@ class HostedGames extends React.Component {
         </div>
       );
     }
-    return this.props.hostedGamesList.map((item, index) => {
+    return this.props.hostedGamesList.slice().reverse().map((item, index) => {
       return (
         <HostedGamesItemContainer
           item={item}
