@@ -50,8 +50,8 @@ export default function (state = defaultState, {type, payload}) {
     case CONSTANTS.GUESS_NUMBER_GAME_HANDLE_ADD_TO_USER_GAMES:
       return handleAddToUserGames(state, payload);
 
-    case CONSTANTS.GUESS_NUMBER_GAME_HANDLE_CHANGE_USER_GAME_STATUS:
-      return handleChangeUserGameStatus(state, payload);
+    case CONSTANTS.GUESS_NUMBER_GAME_HANDLE_CHANGE_USER_GAME_AFTER_JOIN_EVENT:
+      return handleChangeUserGameAfterJoinEvent(state, payload);
 
     default:
       return state;
@@ -150,13 +150,14 @@ function handleAddToUserGames(state, payload) {
   };
 }
 
-function handleChangeUserGameStatus(state, payload) {
+function handleChangeUserGameAfterJoinEvent(state, payload) {
   const userGamesList = state.userGamesList.slice();
   const gameIndex = userGamesList.findIndex(game => game.id === payload.id);
   let userListCurrentGame = null;
   if (gameIndex !== -1) {
     userListCurrentGame = {...userGamesList[gameIndex]};
     userListCurrentGame.status = gameStatuses[2];
+    userListCurrentGame.gameJoinTime = payload.gameJoinTime;
     userGamesList[gameIndex] = userListCurrentGame;
   }
   return {

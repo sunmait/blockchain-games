@@ -113,15 +113,16 @@ export const handleGameJoinedEvent = (game) => (dispatch, getState) => {
         id: game.id,
         price: game.price,
         status: gameStatuses[2],
-        gameJoinTime: Number(game.gameJoinTime),
+        gameJoinTime: game.gameJoinTime,
       },
     });
   }
   if(game.player1 === currentAccount) {
     dispatch({
-      type: CONSTANTS.GUESS_NUMBER_GAME_HANDLE_CHANGE_USER_GAME_STATUS,
+      type: CONSTANTS.GUESS_NUMBER_GAME_HANDLE_CHANGE_USER_GAME_AFTER_JOIN_EVENT,
       payload: {
         id: game.id,
+        gameJoinTime: game.gameJoinTime,
       },
     });
   }
