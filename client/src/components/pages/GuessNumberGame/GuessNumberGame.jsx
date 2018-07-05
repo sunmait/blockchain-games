@@ -7,29 +7,11 @@ import HostGameContainer from './HostGame/HostGameContainer';
 import CurrentGameContainer from './CurrentGame/CurrentGameContainer';
 import MyGamesContainer from './MyGames/MyGamesContainer';
 import './GuessNumberGame.css';
-import contractInitialization from '../../../helpers/guessNumberGame/contractInitialization';
-import gameSettings from '../../../helpers/guessNumberGame/gameSettings';
 import Spinner from '../../common/Spinner/Spinner';
 import Header from '../../containers/Header/Header';
 import HostedGamesContainer from './HostedGames/HostedGamesContainer';
 
 class GuessNumberGame extends Component {
-
-  componentDidMount() {
-    if (this.props.currentAccount) {
-      contractInitialization();
-    }
-  }
-
-  componentDidUpdate(prevProps) {
-    if (this.props.currentAccount && prevProps.currentAccount !== this.props.currentAccount) {
-      contractInitialization();
-    }
-    if (this.props.contractInstance && prevProps.contractInstance !== this.props.contractInstance) {
-      gameSettings();
-    }
-  }
-
   renderGameTabContent = () => {
     if (Number.isInteger(this.props.currentGame.id)) {
       return (
@@ -42,7 +24,7 @@ class GuessNumberGame extends Component {
   };
 
   render() {
-    if (!this.props.localWeb3 || !this.props.currentAccount) {
+    if (!this.props.localWeb3 || !this.props.currentAccount || !this.props.contractInstance) {
       return (
         <div>
           Metamask is loading.

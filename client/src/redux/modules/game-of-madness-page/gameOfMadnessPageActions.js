@@ -1,11 +1,81 @@
 import CONSTANTS from './gameOfMadnessPageActionConstants';
 import gameStatuses from '../../../helpers/gameOfMadness/gameStatuses';
-import gameResults from "../../../helpers/guessNumberGame/gameResults";
+import gameResults from '../../../helpers/guessNumberGame/gameResults';
 
-export const setContractInstance = (contractInstance) => ({
-  type: CONSTANTS.GAME_OF_MADNESS_SET_CONTRACT_INSTANCE,
-  payload: contractInstance,
-});
+export const setContractInstance = (contractInstance) => dispatch => {
+  dispatch({
+    type: CONSTANTS.GAME_OF_MADNESS_SET_CONTRACT_INSTANCE,
+    payload: contractInstance,
+  });
+
+  dispatch(setGameSettings(contractInstance));
+};
+
+function setGameSettings(contractInstance) {
+  return function (dispatch) {
+    dispatch(getHostedGames());
+    dispatch(getUserGames());
+
+    const gameHostedEvent = contractInstance.GameHosted();
+
+    gameHostedEvent.watch((error, result) => {
+      if (result) {
+        const hostedGame = {
+          id: Number(result.args.gameId),
+          player1: result.args.player1,
+          player1TotalBet: Number(result.args.betAmount),
+        };
+        dispatch(handleGameHostedEvent(hostedGame));
+      }
+    });
+
+    const GameJoinedEvent = contractInstance.GameJoined();
+
+    GameJoinedEvent.watch((error, result) => {
+      if (result) {
+        const joinedGame = {
+          id: Number(result.args.gameId),
+          player1: result.args.player1,
+          player2: result.args.player2,
+          player1TotalBet: Number(result.args.player1TotalBet),
+          player2TotalBet: Number(result.args.player2TotalBet),
+          lastRaiseTime: Number(result.args.lastRaiseTime),
+          playerWhoBetLast: result.args.playerWhoBetLast,
+          betsHistory: result.args.betsHistory.map(item => Number(item)),
+        };
+        dispatch(handleGameJoinedEvent(joinedGame));
+      }
+    });
+
+    const BetRaisedEvent = contractInstance.BetRaised();
+
+    BetRaisedEvent.watch((error, result) => {
+      if (result) {
+        const betRaisedParams = {
+          id: Number(result.args.gameId),
+          player1TotalBet: Number(result.args.player1TotalBet),
+          player2TotalBet: Number(result.args.player2TotalBet),
+          lastRaiseTime: Number(result.args.lastRaiseTime),
+          playerWhoBetLast: result.args.playerWhoBetLast,
+          betsHistory: result.args.betsHistory.map(item => Number(item)),
+        };
+        dispatch(handleBetRaisedEvent(betRaisedParams));
+      }
+    });
+
+    const GameEndedEvent = contractInstance.GameEnded();
+
+    GameEndedEvent.watch((error, result) => {
+      if (result) {
+        const endedGame = {
+          id: Number(result.args.gameId),
+          gameResult: gameResults[Number(result.args.result)],
+        };
+        dispatch(handleGameEndedEvent(endedGame));
+      }
+    });
+  }
+}
 
 export const handleActiveTabChange = (tabId) => ({
   type: CONSTANTS.GAME_OF_MADNESS_HANDLE_ACTIVE_TAB_CHANGE,

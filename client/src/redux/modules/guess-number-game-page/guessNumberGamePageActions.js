@@ -2,10 +2,61 @@ import CONSTANTS from './guessNumberGamePageActionConstants';
 import gameStatuses from '../../../helpers/guessNumberGame/gameStatuses';
 import gameResults from '../../../helpers/guessNumberGame/gameResults';
 
-export const setContractInstance = (contractInstance) => ({
-  type: CONSTANTS.GUESS_NUMBER_GAME_SET_CONTRACT_INSTANCE,
-  payload: contractInstance,
-});
+export const setContractInstance = (contractInstance) => dispatch => {
+  dispatch({
+    type: CONSTANTS.GUESS_NUMBER_GAME_SET_CONTRACT_INSTANCE,
+    payload: contractInstance,
+  });
+
+  dispatch(setGameSettings(contractInstance));
+};
+
+function setGameSettings(contractInstance){
+  return function (dispatch) {
+    dispatch(getHostedGames());
+    dispatch(getUserGames());
+
+    const gameHostedEvent = contractInstance.GameHosted();
+
+    gameHostedEvent.watch((error, result) => {
+      if (result) {
+        const hostedGame = {
+          id: Number(result.args.gameId),
+          price: Number(result.args.betAmount),
+          player1: result.args.player1,
+        };
+        dispatch(handleGameHostedEvent(hostedGame));
+      }
+    });
+
+    const GameJoinedEvent = contractInstance.GameJoined();
+
+    GameJoinedEvent.watch((error, result) => {
+      if (result) {
+        const joinedGame = {
+          id: Number(result.args.gameId),
+          price: Number(result.args.betAmount),
+          player1: result.args.player1,
+          player2: result.args.player2,
+          gameJoinTime: Number(result.args.gameJoinTime),
+        };
+        dispatch(handleGameJoinedEvent(joinedGame));
+      }
+    });
+
+    const GameEndedEvent = contractInstance.GameEnded();
+
+    GameEndedEvent.watch((error, result) => {
+      if (result) {
+        const endedGame = {
+          id: Number(result.args.gameId),
+          gameResult: Number(result.args.result)
+        };
+        dispatch(handleGameEndedEvent(endedGame));
+      }
+    });
+  }
+}
 
 export const handleCurrentGameChange = (gameId) => async (dispatch, getState) => {
   dispatch({

@@ -2,8 +2,6 @@ import React  from 'react';
 import Tabs from 'react-bootstrap/lib/Tabs';
 import Tab from 'react-bootstrap/lib/Tab';
 import Header from '../../containers/Header/Header';
-import contractInitialization from '../../../helpers/gameOfMadness/contractInitialization';
-import gameSettings from '../../../helpers/gameOfMadness/gameSettings';
 import './GameOfMadness.css';
 import HostGameContainer from './HostGame/HostGameContainer';
 import MyGamesContainer from './MyGames/MyGamesContainer';
@@ -12,21 +10,6 @@ import HostedGamesContainer from './HostedGames/HostedGamesContainer';
 import Spinner from '../../common/Spinner/Spinner';
 
 class GameOfMadness extends React.Component {
-
-  componentDidMount() {
-    if (this.props.currentAccount) {
-      contractInitialization();
-    }
-  }
-
-  componentDidUpdate(prevProps) {
-    if (this.props.currentAccount && prevProps.currentAccount !== this.props.currentAccount) {
-      contractInitialization();
-    }
-    if (this.props.contractInstance && prevProps.contractInstance !== this.props.contractInstance) {
-      gameSettings();
-    }
-  }
 
   renderGameTabContent = () => {
     return (
@@ -37,7 +20,7 @@ class GameOfMadness extends React.Component {
   };
 
   render() {
-    if (!this.props.localWeb3 || !this.props.currentAccount) {
+    if (!this.props.localWeb3 || !this.props.currentAccount || !this.props.contractInstance) {
       return (
         <div>
           Metamask is loading.

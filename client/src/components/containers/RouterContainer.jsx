@@ -5,7 +5,6 @@ import * as mainPageActions from "../../redux/modules/main-page/mainPageActions"
 
 const mapDispatchToProps = (dispatch) => bindActionCreators({
   setEthPrice: mainPageActions.setEthPrice,
-  setCurrentMetamaskAccount: mainPageActions.setCurrentMetamaskAccount,
 }, dispatch);
 
 export default connect(null, mapDispatchToProps)(Router);

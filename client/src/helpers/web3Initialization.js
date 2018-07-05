@@ -1,6 +1,6 @@
 import Web3 from 'web3';
 import store from '../redux/store';
-import { setWeb3Provider, setCurrentMetamaskAccount } from '../redux/modules/main-page/mainPageActions';
+import { setWeb3Provider } from '../redux/modules/main-page/mainPageActions';
 import { NotificationManager } from 'react-notifications';
 
 const web3Initialization = () => {
@@ -15,7 +15,6 @@ const web3Initialization = () => {
         else {
           localWeb3.eth.defaultAccount = localWeb3.eth.accounts[0];
           store.dispatch(setWeb3Provider(localWeb3));
-          store.dispatch(setCurrentMetamaskAccount(localWeb3.eth.accounts[0]));
         }
       });
     } else {
