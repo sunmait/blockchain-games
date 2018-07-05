@@ -26,7 +26,7 @@ class Countdown extends React.Component {
     this.timer = setInterval(this.tick, 1000);
   }
 
-  componentWillMount() {
+  componentWillUnmount() {
     clearInterval(this.timer);
   }
 
