@@ -1,0 +1,52 @@
+.last-bets-container {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  height: 100px;
+  font-size: 18px;
+  margin: 5px 0;
+}
+
+.last-bets-item-container {
+  display: inline;
+  margin-right: 5px;
+  text-align: center;
+}
+
+.last-bets-item {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  margin-right: 5px;
+  text-align: center;
+  border: 1px solid lightslategray;
+  border-radius: 2px;
+}
+
+.join-game-title {
+  font-size: 22px;
+  color: lightslategray;
+  padding: 0;
+  border-bottom: 1px solid lightslategray;
+}
+
+.join-game-data-container {
+  margin-top: 30px;
+}
+
+.join-game-payload {
+  font-size: 18px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.even-odd-selector-title {
+  display: inline;
+  margin-right: 10px;
+}
+
+.bets-history-title {
+  display: inline;
+  margin-right: 10px;
+  font-weight: 600;
+}

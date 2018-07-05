@@ -1,47 +1,35 @@
-import React, { Component } from 'react';
-import smthg from '../../../assets/images/smthg.png';
+import React from 'react';
+import Col from 'react-bootstrap/lib/Col';
 import './MainPage.css';
-import { contractAddress } from '../../../appSettings';
-import contractABI from '../../../smart-contracts-abis/GuessNumberGame';
+import {LinkContainer} from 'react-router-bootstrap';
+import madnessGameImg from '../../../assets/images/madness-game.jpg';
+import numberGameImg from '../../../assets/images/number-game.png';
 
-class MainPage extends Component {
-  constructor(props) {
-    super(props);
-
-    const contract = window.web3.eth.contract(contractABI.abi);
-
-    this.state = {
-      contractInstance: contract.at(contractAddress),
-    }
-  }
-
-  hostGame = () => {
-    const {hostGame} = this.state.contractInstance;
-    hostGame (1, (err, answer) => {
-      if (err) {
-        console.log('error', err);
-      } else {
-        console.log('Game mb even hosted', answer);
-      };
-    });
-  }
-
+class MainPage extends React.Component {
   render() {
-    return (
-      <div className="main-page">
-        <header className="main-page-header">
-          <h1 className="main-page-title">One day here is gonna be smthg.</h1>
-        </header>
-        <div className="main-page-body">
-          <img className="main-page-body-picture" src={smthg} alt="smthg" />
-        </div>
+    if (!this.props.localWeb3 || !this.props.currentAccount) {
+      return (
         <div>
-          <button
-            onClick={this.hostGame}
-          >
-            Host game
-          </button>
+          Metamask is loading.
         </div>
+      );
+    }
+    return (
+      <div className="main-page-container">
+        <Col mdOffset={1} md={5} className="main-page-item-container">
+          <LinkContainer exact to="/number-game">
+            <Col className="main-page-item">
+              <img className="img-item" src={numberGameImg} alt="no-img" />
+            </Col>
+          </LinkContainer>
+        </Col>
+        <Col md={5} className="main-page-item-container">
+          <LinkContainer exact to="/madness-game">
+            <Col className="main-page-item">
+              <img className="img-item" src={madnessGameImg} alt="no-img" />
+            </Col>
+          </LinkContainer>
+        </Col>
       </div>
     );
   }

@@ -1,7 +1,13 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-import App from './components/pages/MainPage/MainPage';
-import registerServiceWorker from './registerServiceWorker';
+import { render } from 'react-dom';
+import { Provider } from 'react-redux';
+import store from './redux/store';
+import App from './components/containers/RouterContainer';
+import 'react-notifications/lib/notifications.css';
 
-ReactDOM.render(<App />, document.getElementById('root'));
-registerServiceWorker();
+render(
+  <Provider store={store}>
+    <App />
+  </Provider>,
+  document.getElementById('root')
+);

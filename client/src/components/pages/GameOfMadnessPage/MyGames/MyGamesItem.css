@@ -1,0 +1,15 @@
+.madness-game-link-container:hover {
+  cursor: pointer;
+}
+
+.madness-game-my-games-countdown-title-container {
+  display: inline;
+  color: #800000;
+  font-weight: 600;
+}
+
+.madness-game-countdown-container {
+  display: inline;
+  font-style: italic;
+  font-size: 12px;
+}

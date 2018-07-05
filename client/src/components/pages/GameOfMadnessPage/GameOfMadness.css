@@ -1,0 +1,53 @@
+#game-of-madness-page-tabs-container {
+  width: 80%;
+  margin: auto;
+}
+
+div[role=tabpanel] {
+  margin-top: 25px;
+}
+
+.madness-game-item-title {
+    font-size: 12px;
+}
+
+.madness-game-item-data-container {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  height: 100px;
+  font-size: 18px;
+}
+
+.madness-game-item-container {
+  border-bottom: 1px solid lightslategray;
+  padding: 10px 0;
+}
+
+.madness-game-interaction-button-container {
+  display: flex;
+  align-items: center;
+  padding: 0;
+  margin-top: 10px;
+}
+
+.madness-game-interaction-button-container>button {
+  width: 100%;
+  background: #800000;
+  color: white;
+}
+
+.madness-game-bet-title {
+  display: inline;
+  padding-right: 10px;
+  font-weight: 600;
+}
+
+.madness-game-title-container {
+  font-size: 11px;
+  text-align: center;
+}
+
+.text-centralized {
+  text-align: center;
+}

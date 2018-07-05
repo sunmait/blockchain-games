@@ -1,0 +1,66 @@
+#main-page-tabs-container {
+  width: 80%;
+  margin: auto;
+}
+
+div[role=tabpanel] {
+  margin-top: 25px;
+}
+
+.number-game-list-item-container {
+  height: 100px;
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid lightslategray;
+}
+
+.number-game-item-title-container {
+  text-align: center;
+  margin-bottom: 15px;
+}
+
+.number-game-item-title {
+  font-size: 12px;
+}
+
+.number-game-item-data-container {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  height: 100px;
+  font-size: 18px;
+}
+
+.game-item-interaction-button-container {
+  display: flex;
+  align-items: center;
+  padding: 0;
+  margin-top: 10px;
+}
+
+.game-item-interaction-button-container>button {
+  width: 100%;
+  background: #800000;
+  color: white;
+}
+
+.game-item-container {
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid lightslategray;
+  padding-bottom: 10px;
+  padding-top: 5px;
+}
+
+.game-item-title {
+  font-size: 11px;
+}
+
+.title-centralized {
+  text-align: center;
+}
+
+.game-item-payload-title {
+  display: inline;
+  font-weight: 600;
+}

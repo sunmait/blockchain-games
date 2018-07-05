@@ -1,0 +1,49 @@
+.game-bets-history-table, .game-bets-history-table tr, .game-bets-history-table td {
+  padding: 2px;
+}
+
+.game-bets-history-table td {
+  width: 250px;
+  text-align: center;
+}
+
+.table-filled-field {
+  background: blue;
+  color: white;
+}
+
+.finished-game-message-container {
+  display: inline-block;
+  width: 100%;
+}
+
+.madness-game-result-container {
+  margin-top: 10px;
+  text-align: center;
+  border: 2px solid lightslategray;
+  box-shadow: 0 0 10px 3px lightgrey;
+}
+
+.madness-game-raise-input {
+  display: inline-block;
+  width: 150px;
+}
+
+.madness-game-my-games-countdown-title-container {
+  display: inline;
+  color: #800000;
+  font-weight: 600;
+}
+
+.vertical-centralized {
+  display: flex;
+  height: 100px;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.madness-game-countdown-container {
+  display: inline;
+  font-style: italic;
+  font-size: 12px;
+}

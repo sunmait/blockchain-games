@@ -1,0 +1,16 @@
+.countdown-container {
+  text-align: center;
+}
+
+.number-game-item-payload-container {
+  display: flex;
+  flex-direction: column;
+  height: 100px;
+  justify-content: center;
+}
+
+.number-game-countdown-container {
+  display: inline;
+  font-style: italic;
+  font-size: 12px;
+}
