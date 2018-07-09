@@ -128,7 +128,7 @@ class HostGame extends React.Component {
             </Col>
           </Row>
           <Row className="input-data-container">
-            <Col md={5}>
+            <Col md={4}>
               <div className="number-picker-title">
                 Your number
               </div>
@@ -137,7 +137,7 @@ class HostGame extends React.Component {
                 handleValueChanged={(value) => this.handleValueChanged(value)}
               />
             </Col>
-            <Col md={7}>
+            <Col md={8}>
               <Row>
                 <div className="bet-title">
                   Bet amount:

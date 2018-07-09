@@ -1,6 +1,5 @@
 import React  from 'react';
 import Button from 'react-bootstrap/lib/Button';
-import Col from 'react-bootstrap/lib/Col';
 import HostedGamesItemContainer from './HostedGamesItemContainer';
 
 class HostedGames extends React.Component {
@@ -8,7 +7,7 @@ class HostedGames extends React.Component {
   renderGamesList = () => {
     if (this.props.hostedGamesList.length === 0) {
       return (
-        <div>
+        <div className="text-centralized">
           There are no currently open games
           <br />
           <Button
@@ -35,9 +34,9 @@ class HostedGames extends React.Component {
 
   render() {
     return (
-      <Col md={12}>
+      <React.Fragment>
         {this.renderGamesList()}
-      </Col>
+      </React.Fragment>
     );
   }
 }

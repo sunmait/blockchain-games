@@ -1,6 +1,7 @@
 import React  from 'react';
 import Tabs from 'react-bootstrap/lib/Tabs';
 import Tab from 'react-bootstrap/lib/Tab';
+import Col from 'react-bootstrap/lib/Col';
 import Header from '../../containers/Header/Header';
 import './GameOfMadness.css';
 import HostGameContainer from './HostGame/HostGameContainer';
@@ -42,13 +43,19 @@ class GameOfMadness extends React.Component {
           onSelect={(key) => this.props.handleActiveTabChange(key)}
         >
           <Tab eventKey={1} title="Open Games">
-            {this.props.isHostedGamesLoaded ? <HostedGamesContainer /> : <Spinner/>}
+            <Col mdOffset={1} md={10}>
+              {this.props.isHostedGamesLoaded ? <HostedGamesContainer /> : <Spinner/>}
+            </Col>
           </Tab>
           <Tab eventKey={2} title="My Games">
-            {this.props.isUserGamesLoaded ? <MyGamesContainer /> : <Spinner/>}
+            <Col mdOffset={1} md={10}>
+              {this.props.isUserGamesLoaded ? <MyGamesContainer /> : <Spinner/>}
+            </Col>
           </Tab>
           <Tab eventKey={3} title="Game">
-            {this.props.isCurrentGameLoaded ? this.renderGameTabContent() : <Spinner/>}
+            <Col mdOffset={1} md={10}>
+              {this.props.isCurrentGameLoaded ? this.renderGameTabContent() : <Spinner/>}
+            </Col>
           </Tab>
         </Tabs>
       </React.Fragment>

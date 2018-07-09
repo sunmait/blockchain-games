@@ -4,6 +4,7 @@ import './MainPage.css';
 import {LinkContainer} from 'react-router-bootstrap';
 import madnessGameImg from '../../../assets/images/madness-game.jpg';
 import numberGameImg from '../../../assets/images/number-game.png';
+import '../../../assets/main.css';
 
 class MainPage extends React.Component {
   render() {

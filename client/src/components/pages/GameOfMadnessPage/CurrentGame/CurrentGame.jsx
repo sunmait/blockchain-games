@@ -13,15 +13,17 @@ class CurrentGame extends React.Component {
   constructor(props) {
     super(props);
 
+    const minRaiseValue = Number(this.props.localWeb3.toWei(0.000001));
+
     this.state = {
-      betAmount: Math.abs(this.props.localWeb3.fromWei(props.currentGame.player1TotalBet - props.currentGame.player2TotalBet)),
+      betAmount: this.props.localWeb3.fromWei(Math.abs(props.currentGame.player1TotalBet - props.currentGame.player2TotalBet) + minRaiseValue),
       isFinishGameButtonEnabled: false,
       isCountdownFinished: false,
     }
   }
 
   componentDidUpdate(prevProps) {
-    if (this.props.item.playerWhoBetLast !== prevProps.item.playerWhoBetLast) {
+    if (this.props.item && this.props.item.playerWhoBetLast !== prevProps.item.playerWhoBetLast) {
       this.setState({
         isCountdownFinished: false,
       });
@@ -42,12 +44,12 @@ class CurrentGame extends React.Component {
         <Col mdOffset={3} md={6}>
           <Row>
             <Col md={3} className="text-centralized">
-              <Row>
+              <Row className="game-item-title">
                 Game #{this.props.currentGame.id} {this.props.currentGame.status}
               </Row>
               <Row>
                 <img
-                  src={getGravatarUrl(this.props.currentGame.player1)}
+                  src={getGravatarUrl(this.props.localWeb3.sha3(this.props.currentGame.player1).slice(2))}
                   alt="no img"
                 />
               </Row>
@@ -78,10 +80,10 @@ class CurrentGame extends React.Component {
       if (this.state.isCountdownFinished) {
         return (
           <React.Fragment>
-            <div className="madness-game-my-games-countdown-title-container">
+            <div className="countdown-title-container">
               {title}
             </div>
-            <div className="madness-game-countdown-container">
+            <div className="countdown-container">
               (Countdown finished)
             </div>
           </React.Fragment>
@@ -89,10 +91,10 @@ class CurrentGame extends React.Component {
       }
       return (
         <React.Fragment>
-          <div className="madness-game-my-games-countdown-title-container">
+          <div className="countdown-title-container">
             {title}
           </div>
-          <div className="madness-game-countdown-container">
+          <div className="countdown-container">
             (<Countdown
               start={this.props.currentGame.lastRaiseTime || 0}
               duration={60*60*24}
@@ -116,12 +118,12 @@ class CurrentGame extends React.Component {
         <Col mdOffset={3} md={6}>
           <Row>
             <Col md={3} className="text-centralized">
-              <Row>
+              <Row className="game-item-title">
                 Game #{this.props.currentGame.id} {this.props.currentGame.status}
               </Row>
               <Row>
                 <img
-                  src={getGravatarUrl(this.props.currentGame.player1)}
+                  src={getGravatarUrl(this.props.localWeb3.sha3(this.props.currentGame.player1).slice(2))}
                   alt="no img"
                 />
               </Row>
@@ -150,7 +152,14 @@ class CurrentGame extends React.Component {
             </Col>
           </Row>
           <Row>
-            Game bets history: {this.renderBetsHistory()}
+            <Col mdOffset={3} md={9}>
+              <div className="madness-game-bets-history-title">
+                Game bets history:
+              </div>
+              <Row>
+                {this.renderBetsHistory()}
+              </Row>
+            </Col>
           </Row>
         </Col>
       </Row>
@@ -209,7 +218,7 @@ class CurrentGame extends React.Component {
 
   renderFinishGameContainer = () => {
     return (
-      <Col md={12} className="madness-game-interaction-button-container">
+      <Col md={12} className="game-item-interaction-button-container">
         <Button
           onClick={this.handleFinishGameButtonClick}
           disabled={!this.state.isFinishGameButtonEnabled}
@@ -231,12 +240,10 @@ class CurrentGame extends React.Component {
     });
   };
 
-  // TODO: handle situation when your opponent did bet before you finished the game
-  // TODO: in other places events will handle it, but it not changes component's state
   renderRaiseContainer = () => {
     return (
-      <Row>
-        <Col md={12}>
+      <React.Fragment>
+        <Col md={12} className="madness-current-game-rise-input-title">
           <div className="madness-game-bet-title">
             Raise:
           </div>
@@ -247,25 +254,23 @@ class CurrentGame extends React.Component {
             onChange={(event) => this.handleRaiseValueChange(event.target.value)}
           />
         </Col>
-        <Col md={12} className="madness-game-interaction-button-container">
+        <Col md={12} className="game-item-interaction-button-container">
           <Button
             onClick={this.handleRaiseButtonClick}
           >
             Raise
           </Button>
         </Col>
-      </Row>
+      </React.Fragment>
     );
   };
 
-  // TODO: switch to person who raised and waiting finish game button enabling
   handleRaiseButtonClick = () => {
     const betAmount = Number(this.props.localWeb3.toWei(this.state.betAmount));
     const player1TotalBet = Number(this.props.currentGame.player1TotalBet);
     const player2TotalBet = Number(this.props.currentGame.player2TotalBet);
-    const minRaiseValue = 0.000001;
-    if (betAmount + player2TotalBet < player1TotalBet + minRaiseValue ||
-        betAmount + player1TotalBet < player2TotalBet + minRaiseValue) {
+    if (betAmount + player2TotalBet < player1TotalBet + this.minRaiseValue ||
+        betAmount + player1TotalBet < player2TotalBet + this.minRaiseValue) {
       return;
     }
 
@@ -285,18 +290,16 @@ class CurrentGame extends React.Component {
       <Row>
         <Col mdOffset={3} md={6}>
           <Row>
-            <Col md={3} className="text-centralized">
-              <Row>
+            <Col md={2} className="game-list-img">
+              <img
+                src={getGravatarUrl(this.props.localWeb3.sha3(this.props.currentGame.player1).slice(2))}
+                alt="no img"
+              />
+            </Col>
+            <Col md={10}>
+              <Row className="game-item-title">
                 Game #{this.props.currentGame.id} {this.props.currentGame.status}
               </Row>
-              <Row>
-                <img
-                  src={getGravatarUrl(this.props.localWeb3.sha3(this.props.currentGame.player1).slice(2))}
-                  alt="no img"
-                />
-              </Row>
-            </Col>
-            <Col md={9}>
               <Row>
                 <div className="madness-game-bet-title">
                   Host total bet:
@@ -360,7 +363,7 @@ class CurrentGame extends React.Component {
 
   render() {
     return (
-      <React.Fragment>
+      <div className="madness-current-game-container">
         {
           this.props.currentGame.status === 'Hosted' ? this.renderHostedGame() : null
         }
@@ -370,7 +373,7 @@ class CurrentGame extends React.Component {
         {
           this.props.currentGame.status === 'Ended' ? this.renderFinishedGame() : null
         }
-      </React.Fragment>
+      </div>
     )
 
   }

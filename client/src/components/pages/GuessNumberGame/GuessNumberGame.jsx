@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
-import Row from 'react-bootstrap/lib/Row';
-import Col from 'react-bootstrap/lib/Col';
 import Tabs from 'react-bootstrap/lib/Tabs';
 import Tab from 'react-bootstrap/lib/Tab';
+import Col from 'react-bootstrap/lib/Col';
 import HostGameContainer from './HostGame/HostGameContainer';
 import CurrentGameContainer from './CurrentGame/CurrentGameContainer';
 import MyGamesContainer from './MyGames/MyGamesContainer';
@@ -41,22 +40,24 @@ class GuessNumberGame extends Component {
           gravatarAddress={this.props.localWeb3.sha3(this.props.currentAccount).slice(2)}
         />
         <Tabs
-          id="main-page-tabs-container"
+          id="guess-number-game-tabs-container"
           activeKey={this.props.activeTabId}
           onSelect={(key) => this.props.handleActiveTabChange(key)}
         >
           <Tab eventKey={1} title="Open Games">
-            <Row className="games-list-container">
-              <Col md={12}>
-                {this.props.isHostedGamesLoaded ? <HostedGamesContainer /> : <Spinner/>}
-              </Col>
-            </Row>
+            <Col mdOffset={1} md={10}>
+              {this.props.isHostedGamesLoaded ? <HostedGamesContainer /> : <Spinner/>}
+            </Col>
           </Tab>
           <Tab eventKey={2} title="My Games">
-            {this.props.isUserGamesLoaded ? <MyGamesContainer /> : <Spinner/>}
+            <Col mdOffset={1} md={10}>
+              {this.props.isUserGamesLoaded ? <MyGamesContainer /> : <Spinner/>}
+            </Col>
           </Tab>
           <Tab eventKey={3} title="Game">
-            {this.props.isCurrentGameLoaded ? this.renderGameTabContent() : <Spinner/>}
+            <Col mdOffset={1} md={10}>
+              {this.props.isCurrentGameLoaded ? this.renderGameTabContent() : <Spinner/>}
+            </Col>
           </Tab>
         </Tabs>
       </React.Fragment>

@@ -55,17 +55,22 @@ class HostGame extends React.Component {
             <Col md={2} className="madness-game-host-game-bet-title">
               Bet amount:
             </Col>
-            <Col md={6}>
+            <Col md={10}>
               <FormControl
                 className="madness-game-host-game-bet-input"
                 type="text"
                 value={this.state.betAmount}
                 onChange={(event) => this.handleBetAmountChange(event.target.value)}
-              /> ETH {this.props.ethPrice ? risk : null}
+              /> ETH
             </Col>
           </Row>
           <Row>
-            <Col md={12} className="madness-game-interaction-button-container">
+            <Col mdOffset={2} className="madness-game-host-risk-container">
+              {this.props.ethPrice ? risk : null}
+            </Col>
+          </Row>
+          <Row>
+            <Col md={12} className="game-item-interaction-button-container">
               <Button
                 onClick={this.hostGame}
                 bsStyle="primary"

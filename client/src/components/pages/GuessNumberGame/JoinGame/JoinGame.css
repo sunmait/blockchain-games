@@ -28,16 +28,11 @@
   color: lightslategray;
   padding: 0;
   border-bottom: 1px solid lightslategray;
+  margin-top: 10px;
 }
 
 .join-game-data-container {
   margin-top: 30px;
-}
-
-.join-game-payload {
-  font-size: 18px;
-  margin-top: 10px;
-  margin-bottom: 10px;
 }
 
 .even-odd-selector-title {

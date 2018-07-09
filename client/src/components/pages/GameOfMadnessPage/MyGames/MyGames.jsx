@@ -1,13 +1,12 @@
 import React from 'react';
 import Row from 'react-bootstrap/lib/Row';
-import Col from 'react-bootstrap/lib/Col';
 import MyGamesItemContainer from './MyGamesItemContainer';
 
 class MyGames extends React.Component {
   renderGamesList = () => {
     if (this.props.userGamesList.length === 0) {
       return (
-        <Row>
+        <Row className="text-centralized">
           There are no games
         </Row>
       );
@@ -24,11 +23,9 @@ class MyGames extends React.Component {
 
   render() {
     return (
-      <Row>
-        <Col md={12}>
-          {this.renderGamesList()}
-        </Col>
-      </Row>
+      <React.Fragment>
+        {this.renderGamesList()}
+      </React.Fragment>
     );
   }
 }

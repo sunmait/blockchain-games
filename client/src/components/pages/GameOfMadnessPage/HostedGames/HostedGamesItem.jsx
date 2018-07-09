@@ -44,21 +44,19 @@ class HostedGamesItem extends React.Component {
     const hostRisk = `(${(this.props.ethPrice * this.props.localWeb3.fromWei(this.props.item.player1TotalBet)).toFixed(2)}USD)`;
     const joinedRisk = `(${(this.props.ethPrice * this.state.betAmount).toFixed(2)}USD)`;
     return (
-      <Row className="madness-game-item-container">
+      <Row className="game-list-item-container">
         <Col mdOffset={3} md={6}>
           <Row>
-            <Col md={3} className="madness-game-title-container">
-              <Row>
+            <Col md={2} className="game-list-img">
+              <img
+                src={getGravatarUrl(this.props.localWeb3.sha3(this.props.item.player1).slice(2))}
+                alt="no img"
+              />
+            </Col>
+            <Col md={10}>
+              <Row className="game-item-title">
                 Game #{this.props.item.id}
               </Row>
-              <Row>
-                <img
-                  src={getGravatarUrl(this.props.localWeb3.sha3(this.props.item.player1).slice(2))}
-                  alt="no img"
-                />
-              </Row>
-            </Col>
-            <Col md={9}>
               <Row>
                 <div className="madness-game-bet-title">
                   Initial bet:
@@ -76,19 +74,17 @@ class HostedGamesItem extends React.Component {
                   onChange={(event) => this.handleFieldChange('betAmount', event.target.value)}
                 /> ETH
               </Row>
-              <Row>
-                <div className="madness-game-join-risk-container">
-                  {this.props.ethPrice ? joinedRisk : null}
-                </div>
-              </Row>
-              <Row className="madness-game-interaction-button-container">
-                <Button
-                  onClick={this.joinGame}
-                >
-                  Join game
-                </Button>
+              <Row className="madness-game-join-risk-container">
+                {this.props.ethPrice ? joinedRisk : null}
               </Row>
             </Col>
+          </Row>
+          <Row className="game-item-interaction-button-container">
+            <Button
+              onClick={this.joinGame}
+            >
+              Join game
+            </Button>
           </Row>
         </Col>
       </Row>

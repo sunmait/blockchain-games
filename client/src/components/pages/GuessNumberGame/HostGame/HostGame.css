@@ -9,6 +9,7 @@
   color: lightslategray;
   padding: 0;
   border-bottom: 1px solid lightslategray;
+  margin-top: 10px;
 }
 
 .number-picker-title {
@@ -27,4 +28,8 @@
 
 .risk-container {
   margin-left: 90px;
+}
+
+.numbers-host-game-container {
+  margin-top: 10px;
 }

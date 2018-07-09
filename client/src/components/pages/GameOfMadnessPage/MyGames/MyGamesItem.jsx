@@ -56,7 +56,7 @@ class MyGamesItem extends React.Component {
   renderRaiseButton = () => {
     return (
       <React.Fragment>
-        <Col md={12} className="madness-game-interaction-button-container">
+        <Col md={12} className="game-item-interaction-button-container">
           <Button
             onClick={this.goToGame}
           >
@@ -70,7 +70,7 @@ class MyGamesItem extends React.Component {
   renderFinishGameButton = () => {
       return (
         <React.Fragment>
-          <Col md={12} className="madness-game-interaction-button-container">
+          <Col md={12} className="game-item-interaction-button-container">
             <Button
               onClick={this.finishGame}
               disabled={!this.state.isFinishGameButtonEnabled}
@@ -109,10 +109,10 @@ class MyGamesItem extends React.Component {
       if (this.state.isCountdownFinished) {
         return (
           <React.Fragment>
-            <div className="madness-game-my-games-countdown-title-container">
+            <div className="countdown-title-container">
               {title}
             </div>
-            <div className="madness-game-countdown-container">
+            <div className="countdown-container">
               (Countdown finished)
             </div>
           </React.Fragment>
@@ -120,10 +120,10 @@ class MyGamesItem extends React.Component {
       }
       return (
         <React.Fragment>
-          <div className="madness-game-my-games-countdown-title-container">
+          <div className="countdown-title-container">
           {title}
           </div>
-          <div className="madness-game-countdown-container">
+          <div className="countdown-container">
             (<Countdown
               start={this.props.item.lastRaiseTime || 0}
               duration={60*60*24}
@@ -144,21 +144,19 @@ class MyGamesItem extends React.Component {
   render() {
     const hostRisk = `(${(this.props.ethPrice * this.props.localWeb3.fromWei(this.props.item.player1TotalBet)).toFixed(2)}USD)`;
     return (
-      <Row className="madness-game-item-container madness-game-link-container" onClick={this.goToGame}>
+      <Row className="game-list-item-container madness-game-link-container" onClick={this.goToGame}>
         <Col mdOffset={3} md={6}>
           <Row>
-            <Col md={3} className="madness-game-title-container">
-              <Row>
+            <Col md={2} className="game-list-img">
+              <img
+                src={getGravatarUrl(this.props.localWeb3.sha3(this.props.item.player1).slice(2))}
+                alt="no img"
+              />
+            </Col>
+            <Col md={10}>
+              <Row className="game-item-title">
                 Game #{this.props.item.id} {this.props.item.status}
               </Row>
-              <Row>
-                <img
-                  src={getGravatarUrl(this.props.localWeb3.sha3(this.props.item.player1).slice(2))}
-                  alt="no img"
-                />
-              </Row>
-            </Col>
-            <Col md={9}>
               <Row>
                 {this.renderCountDown()}
               </Row>
@@ -171,10 +169,10 @@ class MyGamesItem extends React.Component {
               <Row>
                 {this.renderJoinedTotalBet()}
               </Row>
-              <Row>
-                {this.renderInteractionContainer()}
-              </Row>
             </Col>
+          </Row>
+          <Row>
+            {this.renderInteractionContainer()}
           </Row>
         </Col>
       </Row>

@@ -1,13 +1,8 @@
-.madness-game-item-expanded-row {
-  width: 100%;
-  height: 75px;
-}
-
 .madness-game-join-bet-input {
   display: inline-block;
   width: 150px;
 }
 
 .madness-game-join-risk-container {
-  margin-left: 75px;
+  margin-left: 60px;
 }

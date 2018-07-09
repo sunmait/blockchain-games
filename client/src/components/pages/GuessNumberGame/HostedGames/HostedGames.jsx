@@ -10,7 +10,7 @@ class HostedGames extends Component {
   renderGamesList = () => {
     if (this.props.hostedGamesList.length === 0) {
       return (
-        <div>
+        <Row className="text-centralized">
           There are no currently open games
           <br />
           <Button
@@ -22,16 +22,16 @@ class HostedGames extends Component {
           >
             Host game
           </Button>
-        </div>
+        </Row>
       );
     }
     return this.props.hostedGamesList.slice().reverse().map((item, index) => {
       const risk = `(${(this.props.ethPrice * this.props.localWeb3.fromWei(item.price)).toFixed(2)}USD)`;
       return (
-        <Row key={index} className="game-item-container">
+        <Row key={index} className="game-list-item-container">
           <Col mdOffset={3} md={6}>
             <Row>
-              <Col md={2}>
+              <Col md={2} className="game-list-img">
                 <img
                   src={getGravatarUrl(this.props.localWeb3.sha3(item.player1).slice(2))}
                   alt="no img"

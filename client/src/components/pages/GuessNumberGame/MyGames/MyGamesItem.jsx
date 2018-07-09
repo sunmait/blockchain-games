@@ -21,14 +21,14 @@ class MyGamesItem extends React.Component {
     if (this.props.item.status === 'Joined') {
       if (this.state.isCountdownFinished) {
         return (
-          <div className="number-game-countdown-container">
+          <div className="countdown-container">
             (Countdown finished)
           </div>
         )
       }
       if (this.props.currentAccount === this.props.item.player1) {
         return (
-          <div className="number-game-countdown-container">
+          <div className="countdown-container">
             (<Countdown
               start={this.props.item.gameJoinTime || 0}
               duration={60*60*24*7}
@@ -39,7 +39,7 @@ class MyGamesItem extends React.Component {
       }
       if (this.props.currentAccount === this.props.item.player2) {
         return (
-          <div className="number-game-countdown-container">
+          <div className="countdown-container">
             (<Countdown
               start={this.props.item.gameJoinTime || 0}
               duration={60*60*24*7}
@@ -132,23 +132,21 @@ class MyGamesItem extends React.Component {
   render() {
     const risk = `(${(this.props.ethPrice * this.props.localWeb3.fromWei(this.props.item.price)).toFixed(2)}USD)`;
     return (
-      <Row className="game-item-container">
+      <Row className="game-list-item-container">
         <Col mdOffset={3} md={6}>
           <Row>
-            <Col md={3}>
-              <Col md={12} className="game-item-title title-centralized">
-                <Row>
-                  Game #{this.props.item.id}
-                </Row>
-                <Row>
-                  <img
-                    src={getGravatarUrl(this.props.localWeb3.sha3(this.props.item.player1).slice(2))}
-                    alt="no img"
-                  />
-                </Row>
-              </Col>
+            <Col md={2} className="game-list-img">
+              <img
+                src={getGravatarUrl(this.props.localWeb3.sha3(this.props.item.player1).slice(2))}
+                alt="no img"
+              />
             </Col>
-            <Col md={9} className="number-game-item-payload-container">
+            <Col md={10} className="game-item-payload-container">
+              <Row>
+                <Col className="game-item-title">
+                  Game #{this.props.item.id}
+                </Col>
+              </Row>
               <Row>
                 <div className="game-item-payload-title">
                   Status:

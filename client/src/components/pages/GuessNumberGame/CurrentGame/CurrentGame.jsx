@@ -41,7 +41,48 @@ class CurrentGame extends React.Component {
     });
   };
 
-  renderGame = () => {
+  renderRevealGame = () => {
+    return (
+      <React.Fragment>
+        <Row>
+          <Col mdOffset={3} md={6}>
+            <Row className="text-centralized">
+              Input your number and secret to finish this game.
+            </Row>
+            <Row>
+              Your number:
+              <FormControl
+                type="text"
+                value={this.state.hostNumber}
+                onChange={(event) => this.handleFieldChange('hostNumber', event.target.value)}
+              />
+            </Row>
+            <Row>
+              Your secret:
+              <FormControl
+                type="text"
+                value={this.state.hostSecret}
+                onChange={(event) => this.handleFieldChange('hostSecret', event.target.value)}
+              />
+            </Row>
+          </Col>
+        </Row>
+        <Row>
+          <Col mdOffset={3} md={6} className="game-item-interaction-button-container">
+            <Button
+              onClick={() => {
+                this.revealWinner();
+              }}
+            >
+              Reveal winner
+            </Button>
+          </Col>
+        </Row>
+      </React.Fragment>
+    );
+  };
+
+  render() {
     if (this.props.currentGame.status === 'Hosted') {
       return (
         <JoinGameContainer />
@@ -73,55 +114,13 @@ class CurrentGame extends React.Component {
         </Row>
       );
     } else if (this.props.currentGame.status === 'Joined') {
-      return (
-        <Row>
-          <Col md={8}>
-            Input your number and secret to finish this game.
-            <Row>
-              <Col md={6}>
-                Your number:
-                <FormControl
-                  type="text"
-                  value={this.state.hostNumber}
-                  onChange={(event) => this.handleFieldChange('hostNumber', event.target.value)}
-                />
-              </Col>
-            </Row>
-            <Row>
-              <Col md={6}>
-                Your secret:
-                <FormControl
-                  type="text"
-                  value={this.state.hostSecret}
-                  onChange={(event) => this.handleFieldChange('hostSecret', event.target.value)}
-                />
-              </Col>
-            </Row>
-          </Col>
-          <Col md={4} className="game-item-interaction-button-container">
-            <Button
-              onClick={() => {
-                this.revealWinner();
-              }}
-            >
-              Reveal winner
-            </Button>
-          </Col>
-        </Row>
-      )
+      return this.renderRevealGame();
+
     }
     return (
       <p>
         Current Game.
       </p>
-    );
-  };
-
-  render() {
-    return (
-      <Row>
-        {this.renderGame()}
-      </Row>
     );
   }
 }

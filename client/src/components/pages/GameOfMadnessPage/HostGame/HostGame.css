@@ -3,6 +3,7 @@
   color: lightslategray;
   padding: 0;
   border-bottom: 1px solid lightslategray;
+  margin-top: 10px;
 }
 
 .madness-game-host-game-input-data-container {
@@ -15,6 +16,7 @@
   flex-direction: column;
   justify-content: center;
   padding-right: 0;
+  padding-left: 0;
 }
 
 .madness-game-host-game-bet-input {
@@ -22,4 +24,8 @@
   width: 150px;
   height: 35px;
   margin: 0 10px;
+}
+
+.madness-game-host-risk-container {
+  padding-left: 30px;
 }

@@ -102,7 +102,7 @@ class JoinGame extends React.Component {
             </Col>
           </Row>
           <Row className="join-game-data-container">
-            <Col md={2}>
+            <Col md={2} className="game-list-img">
               <img
                 src={getGravatarUrl(this.props.localWeb3.sha3(this.props.currentGame.player1).slice(2))}
                 alt="no img"
@@ -115,8 +115,10 @@ class JoinGame extends React.Component {
                 </div>
                 {this.renderHostLastBets()}
               </Row>
-              <Row className="join-game-payload">
-                Game price: {this.props.localWeb3.fromWei(this.props.currentGame.price)} ETH {this.props.ethPrice ? risk : null}
+              <Row>
+                <div className="game-item-payload-title">
+                  Game price:
+                </div> {this.props.localWeb3.fromWei(this.props.currentGame.price)} ETH {this.props.ethPrice ? risk : null}
               </Row>
               <Row className="even-odd-selector-container">
                 <div className="even-odd-selector-title">

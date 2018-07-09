@@ -11,28 +11,27 @@ class Header extends React.Component {
   render() {
     return (
       <Navbar collapseOnSelect>
-        <Navbar.Header>
-          <Navbar.Brand>
-            <LinkContainer exact to="/number-game">
-              <Button bsStyle="link">
-                Guess Number Game
-              </Button>
-            </LinkContainer> /
-            <LinkContainer exact to="/madness-game">
-              <Button bsStyle="link">
-                Game Of Madness
-              </Button>
-            </LinkContainer>
-          </Navbar.Brand>
-        </Navbar.Header>
+        <Navbar.Brand>
+          <LinkContainer exact to="/number-game">
+            <Button bsStyle="link">
+              Guess Number Game
+            </Button>
+          </LinkContainer>/
+          <LinkContainer exact to="/madness-game">
+            <Button bsStyle="link">
+              Game Of Madness
+            </Button>
+          </LinkContainer>
+        </Navbar.Brand>
+        <Navbar.Toggle />
+        <div className="user-avatar-container">
+          <img
+            src={getGravatarUrl(this.props.gravatarAddress)}
+            alt="no img"
+          />
+        </div>
         <Navbar.Collapse>
-          <Nav>
-            <NavItem className="user-avatar-container">
-              <img
-                src={getGravatarUrl(this.props.gravatarAddress)}
-                alt="no img"
-              />
-            </NavItem>
+          <Nav pullRight>
             <NavItem>
               <Button
                 bsStyle="link"
